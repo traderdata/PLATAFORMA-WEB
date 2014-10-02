@@ -859,23 +859,9 @@ namespace Traderdata.Client.TerminalWEB
             if (CarregandoPrimeiraVez)
             {
                 //associando ao form pai
-                //mainPage = ((MainPage)((BusyIndicator)((Grid)((Grid)((C1TabControl)((C1TabItem)((Canvas)((PageCollection)((Grid)((Border)((Canvas)((Grid)((C1TabControl)((C1TabItem)this.Parent).Parent).Parent).Parent).Parent).Parent)
-                //    .Parent).Parent).Parent).Parent).Parent).Parent).Parent).Parent);
-
-                if (((PageCollection)((Grid)((Canvas)((C1TabControl)((C1TabItem)this.Parent).Parent).Parent).Parent).Parent).Parent.GetType().ToString().Contains("C1TabItem"))
-                {
-                    mainPage = ((MainPage)((BusyIndicator)((Grid)((Grid)((C1TabControl)((C1TabItem)((PageCollection)((Grid)((Canvas)((C1TabControl)((C1TabItem)this.Parent).Parent).Parent).Parent).Parent).Parent)
-                        .Parent).Parent).Parent).Parent).Parent);
-                }
-                if (((PageCollection)((Grid)((Canvas)((C1TabControl)((C1TabItem)this.Parent).Parent).Parent).Parent).Parent).Parent.GetType().ToString().Contains("Canvas"))
-                {
-                    mainPage = ((ChartOnlyMainPage)((BusyIndicator)((Grid)((Grid)((Canvas)((PageCollection)((Grid)((Canvas)((C1TabControl)((C1TabItem)this.Parent).Parent).Parent).Parent).Parent).Parent)
+                mainPage = ((ChartOnlyMainPage)((BusyIndicator)((Grid)((Grid)((Canvas)((PageCollection)((Grid)((Canvas)((C1TabControl)((C1TabItem)this.Parent).Parent).Parent).Parent).Parent).Parent)
                         .Parent).Parent).Parent).Parent);
-                }
-
-                //mainPage = ((MainPage)((BusyIndicator)((Grid)((Grid)((Canvas)((C1Window)((PageCollection)((Grid)((Canvas)((C1TabControl)((C1TabItem)this.Parent).Parent).Parent).Parent).Parent).Parent)
-                //    .Parent).Parent).Parent).Parent).Parent);
-
+                
                 //setando o busy para on
                 busyIndicator.IsBusy = true;
                 lockStartRT = true;

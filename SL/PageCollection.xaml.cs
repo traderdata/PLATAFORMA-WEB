@@ -14,10 +14,7 @@ using Traderdata.Client.TerminalWEB.DTO;
 using C1.Silverlight;
 using System.Windows.Media.Imaging;
 using Traderdata.Client.TerminalWEB.Util;
-//using Traderdata.Client.TerminalWEB.Dialogs.Book;
-using Traderdata.Client.TerminalWEB.Dialogs.Trades;
-//using Traderdata.Client.TerminalWEB.Dialogs.Scanner;
-using Traderdata.Client.TerminalWEB.Dialogs.Operacao;
+
 
 
 namespace Traderdata.Client.TerminalWEB
@@ -67,10 +64,6 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         public Periodicidade Periodicidade = Periodicidade.Nenhum;
 
-        /// <summary>
-        /// Variavel de acesso ao form PAI
-        /// </summary>
-        private MainPage mainPage;
 
         #endregion
 
@@ -156,126 +149,6 @@ namespace Traderdata.Client.TerminalWEB
         #region Metodos
 
         /// <summary>
-        /// Metodo que vai abrir o book como filho do gráfico
-        /// </summary>
-        public void AbrirBook()
-        {
-            //motando o header
-            StackPanel stackHeader = new StackPanel();
-            stackHeader.Orientation = Orientation.Horizontal;
-            stackHeader.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-
-            TextBlock txtBlock = new TextBlock();
-            txtBlock.Text = "Book | C: 22.22 | V: 23.22  ";
-            
-            stackHeader.Children.Add(txtBlock);
-
-            Slider rangeSlider = new Slider();
-            rangeSlider.Width = 50;
-            rangeSlider.Minimum = 0.1;
-            rangeSlider.Maximum = 1;
-            rangeSlider.Value = 0.7;
-            rangeSlider.ValueChanged += rangeSliderBook_ValueChanged;
-            stackHeader.Children.Add(rangeSlider);
-
-            
-            //MiniBook formBook = new MiniBook(this.Ativo);
-            //C1.Silverlight.C1Window bookWindow = new C1Window();
-            //stackHeader.Tag = bookWindow;
-            //bookWindow.Content = formBook;            
-            //bookWindow.ShowMaximizeButton = false;
-            //bookWindow.Header = stackHeader;
-            //bookWindow.Width = 320;
-            //bookWindow.IsResizable = false;
-            //bookWindow.Opacity = 0.7;
-            //bookWindow.Height = 200;
-            //bookWindow.CenterOnScreen();
-            //bookWindow.Canvas = canvas;
-            //bookWindow.Show();
-            
-        }
-
-        /// <summary>
-        /// Metodo que vai abrir o trade como filho do gráfico
-        /// </summary>
-        public void AbrirTrades()
-        {
-            //motando o header
-            StackPanel stackHeader = new StackPanel();
-            stackHeader.Orientation = Orientation.Horizontal;
-            stackHeader.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-
-            TextBlock txtBlock = new TextBlock();
-            txtBlock.Text = "Trades" ;
-
-            stackHeader.Children.Add(txtBlock);
-
-            Slider rangeSlider = new Slider();
-            rangeSlider.Width = 50;
-            rangeSlider.Minimum = 0.1;
-            rangeSlider.Maximum = 1;
-            rangeSlider.Value = 0.7;
-            rangeSlider.ValueChanged += rangeSlider_ValueChanged;
-            stackHeader.Children.Add(rangeSlider);
-
-
-            TimesTrades formTrades = new TimesTrades(this.Ativo);
-            C1.Silverlight.C1Window tradeWindow = new C1Window();
-            stackHeader.Tag = tradeWindow;
-            tradeWindow.Content = formTrades;
-            tradeWindow.ShowMaximizeButton = false;
-            tradeWindow.Header = stackHeader;
-            tradeWindow.Width = 380;
-            tradeWindow.IsResizable = true;
-            tradeWindow.Opacity = 0.7;
-            tradeWindow.Height = 400;
-            tradeWindow.CenterOnScreen();
-            tradeWindow.Canvas = canvas;
-            tradeWindow.Show();
-
-        }
-
-        /// <summary>
-        /// Metodo que vai abrir a tela de scanner por ativo dentro do grafico
-        /// </summary>
-        public void AbrirScannerIntraday()
-        {
-            //motando o header
-            StackPanel stackHeader = new StackPanel();
-            stackHeader.Orientation = Orientation.Horizontal;
-            stackHeader.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-
-            TextBlock txtBlock = new TextBlock();
-            txtBlock.Text = "Rastreador Intraday";
-
-            stackHeader.Children.Add(txtBlock);
-
-            Slider rangeSlider = new Slider();
-            rangeSlider.Width = 50;
-            rangeSlider.Minimum = 0.1;
-            rangeSlider.Maximum = 1;
-            rangeSlider.Value = 0.7;
-            rangeSlider.ValueChanged += rangeSlider_ValueChanged;
-            stackHeader.Children.Add(rangeSlider);
-
-
-            //VisualizaScannerIntradayPorAtivo formScanner = new VisualizaScannerIntradayPorAtivo(this.Ativo);
-            //C1.Silverlight.C1Window scannerWindow = new C1Window();
-            //stackHeader.Tag = scannerWindow;
-            //scannerWindow.Content = formScanner;
-            //scannerWindow.ShowMaximizeButton = false;
-            //scannerWindow.Header = stackHeader;
-            //scannerWindow.Width = 380;
-            //scannerWindow.IsResizable = true;
-            //scannerWindow.Opacity = 0.7;
-            //scannerWindow.Height = 400;
-            //scannerWindow.CenterOnScreen();
-            //scannerWindow.Canvas = canvas;
-            //scannerWindow.Show();
-
-        }
-
-        /// <summary>
         /// Metodo que faz a troca do ativo
         /// </summary>
         /// <param name="ativo"></param>
@@ -331,16 +204,6 @@ namespace Traderdata.Client.TerminalWEB
 
             //alterando o header
         //    ((C1Window)this.Parent).Header = stackHeader;
-        }
-
-        void btnRastreador_Click(object sender, RoutedEventArgs e)
-        {
-            AbrirScannerIntraday();
-        }
-
-        void btnTrades_Click(object sender, RoutedEventArgs e)
-        {
-            AbrirTrades();
         }
 
         /// <summary>

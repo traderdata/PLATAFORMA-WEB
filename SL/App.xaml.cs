@@ -276,34 +276,34 @@ namespace Traderdata.Client.TerminalWEB
         [ScriptableMember]
         public string Shutdown()
         {
-            string result = null;
-            var page = (MainPage)Application.Current.RootVisual;
-            //page.SalvarWorkspaceFromOutside();
+            //string result = null;
+            //var page = (MainPage)Application.Current.RootVisual;
+            ////page.SalvarWorkspaceFromOutside();
 
             
-                //var messageBoxResult = MessageBox.Show(
-                //    "Save changes you have made?", "Save changes?", MessageBoxButton.OKCancel);
-                //if (messageBoxResult == MessageBoxResult.OK)
-                {
-                    //var waitingWindow = new WaitingWindow();
-                    //waitingWindow.Show();
+            //    //var messageBoxResult = MessageBox.Show(
+            //    //    "Save changes you have made?", "Save changes?", MessageBoxButton.OKCancel);
+            //    //if (messageBoxResult == MessageBoxResult.OK)
+            //    {
+            //        //var waitingWindow = new WaitingWindow();
+            //        //waitingWindow.Show();
 
-                    //waitingWindow.NoticeText = "Saving work on server. Please wait...";
-                    //page.SetNotice("Saving work on server. Please wait...");
+            //        //waitingWindow.NoticeText = "Saving work on server. Please wait...";
+            //        //page.SetNotice("Saving work on server. Please wait...");
 
-                    TerminalWebSVC.TerminalWebClient terminalClient = new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
-                    terminalClient.SaveWorkspaceCompleted += ((sender, e) =>
-						{
-							//waitingWindow.NoticeText = "It is now safe to close this window.";
-							//waitingWindow.Close();
-						});
-                    TerminalWebSVC.WorkspaceDTO workspace = new TerminalWebSVC.WorkspaceDTO();
-                    workspace.Nome = "DEFAULT";
-                    workspace.UsuarioId = StaticData.User.Id;
-                    workspace.Graficos = page.GetGraficos();
-                    terminalClient.SaveWorkspaceAsync(workspace);
-                    result = "Salvando Workspace...";
-                }
+            //        TerminalWebSVC.TerminalWebClient terminalClient = new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
+            //        terminalClient.SaveWorkspaceCompleted += ((sender, e) =>
+            //            {
+            //                //waitingWindow.NoticeText = "It is now safe to close this window.";
+            //                //waitingWindow.Close();
+            //            });
+            //        TerminalWebSVC.WorkspaceDTO workspace = new TerminalWebSVC.WorkspaceDTO();
+            //        workspace.Nome = "DEFAULT";
+            //        workspace.UsuarioId = StaticData.User.Id;
+            //        workspace.Graficos = page.GetGraficos();
+            //        terminalClient.SaveWorkspaceAsync(workspace);
+            //        result = "Salvando Workspace...";
+            //    }
                     
 
             //        var client = new ShutdownServiceClient();
@@ -323,7 +323,8 @@ namespace Traderdata.Client.TerminalWEB
             //    }
             //}
 
-            return result;
+            //return result;
+            return null;
         }
 
     }

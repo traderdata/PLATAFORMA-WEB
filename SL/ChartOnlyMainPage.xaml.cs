@@ -15,7 +15,6 @@ using ModulusFE;
 using ModulusFE.SL;
 using System.Windows.Media.Imaging;
 using Traderdata.Client.TerminalWEB.Dialogs;
-using Traderdata.Client.TerminalWEB.Dialogs.Portfolio;
 using Traderdata.Client.TerminalWEB.DAO;
 using Traderdata.Client.TerminalWEB.DTO;
 using System.Windows.Threading;
@@ -24,10 +23,8 @@ using System.Threading;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Core;
-//using Traderdata.Client.TerminalWEB.Dialogs.Scanner;
 using Traderdata.Client.TerminalWEB.Util;
-using Traderdata.Client.TerminalWEB.Dialogs.Backtest;
-//using Traderdata.Client.TerminalWEB.Dialogs.Book;
+
 
 
 namespace Traderdata.Client.TerminalWEB
@@ -623,11 +620,11 @@ namespace Traderdata.Client.TerminalWEB
                     StaticData.tipoAcao = StaticData.TipoAcao.Seta;
                     StaticData.tipoFerramenta = StaticData.TipoFerramenta.Nenhum;
                     DesmarcaToolbarLateral();
-                    ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).DesabilitaCross();
+                    //((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).DesabilitaCross();
                     tbarSeta.IsChecked = true;
                     break;
                 case Key.Delete:
-                    ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).DeleteObjetosSelecionados();
+                    //((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).DeleteObjetosSelecionados();
                     break;
                 
                 
@@ -777,21 +774,6 @@ namespace Traderdata.Client.TerminalWEB
 
         #region Toolbar Superior & Menu Superior
 
-        #region Trades
-
-        /// <summary>
-        /// Evento executado ao se solicitar para abrir Trades
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuTimesTrades_Click_1(object sender, SourcedEventArgs e)
-        {
-            ((PageCollection)((C1TabItem)formSelecionado).Content).AbrirTrades();
-        }
-
-
-        #endregion
-
         #region Salvar Grafico
 
         /// <summary>
@@ -873,21 +855,6 @@ namespace Traderdata.Client.TerminalWEB
                 }
             };
             buscaAtivo.Show();
-        }
-
-        #endregion
-
-        #region Portfolio
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar a lista de portfolios
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_RetornaPortfoliosCompleted(object sender, TerminalWebSVC.RetornaPortfoliosCompletedEventArgs e)
-        {
-            portfolioListProcessed = true;
-            StaticData.Portfolios = e.Result;
         }
 
         #endregion
@@ -2419,21 +2386,19 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void configurationGeralOpen(object sender, EventArgs e)
         {
-            C1TabItem tabItem = (C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem;
-
             //RECUPERANDO as configurações de cor do grafico selecionado
-            TerminalWebSVC.LayoutDTO layoutTemp = new TerminalWebSVC.LayoutDTO();
-            layoutTemp = ((Grafico)tabItem.Content).GetLayoutDTOFromStockchart();
+            //TerminalWebSVC.LayoutDTO layoutTemp = new TerminalWebSVC.LayoutDTO();
+            //layoutTemp = ((Grafico)tabItem.Content).GetLayoutDTOFromStockchart();
 
-            configurationGeral.chkGridHorizontal.IsChecked = layoutTemp.GradeHorizontal;
-            configurationGeral.chkGridVertical.IsChecked = layoutTemp.GradeVertical;
-            configurationGeral.cmbTipoVolume.SelectedItem = 0;
-            if (Convert.ToInt32(layoutTemp.PosicaoEscala) == 1)
-                configurationGeral.rdbDireita.IsChecked = true;
-            else
-                configurationGeral.rdbEsquerda.IsChecked = true;
-            configurationGeral.txtPrecisao.SetValue(Convert.ToDouble(layoutTemp.PrecisaoEscala));
-            configurationGeral.txtEspessuraVolume.SetValue(Convert.ToDouble(layoutTemp.VolumeStrokeThickness));
+            //configurationGeral.chkGridHorizontal.IsChecked = layoutTemp.GradeHorizontal;
+            //configurationGeral.chkGridVertical.IsChecked = layoutTemp.GradeVertical;
+            //configurationGeral.cmbTipoVolume.SelectedItem = 0;
+            //if (Convert.ToInt32(layoutTemp.PosicaoEscala) == 1)
+            //    configurationGeral.rdbDireita.IsChecked = true;
+            //else
+            //    configurationGeral.rdbEsquerda.IsChecked = true;
+            //configurationGeral.txtPrecisao.SetValue(Convert.ToDouble(layoutTemp.PrecisaoEscala));
+            //configurationGeral.txtEspessuraVolume.SetValue(Convert.ToDouble(layoutTemp.VolumeStrokeThickness));
 
 
         }
@@ -2570,13 +2535,6 @@ namespace Traderdata.Client.TerminalWEB
         {
             Status status = new Status();
             status.Show();
-        }
-
-          
-
-        private void mnuBookOfertas_Click_1(object sender, SourcedEventArgs e)
-        {
-            ((PageCollection)((C1TabItem)formSelecionado).Content).AbrirBook();
         }
 
         /// <summary>

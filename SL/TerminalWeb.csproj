@@ -119,9 +119,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ContainerDireita.xaml.cs">
-      <DependentUpon>ContainerDireita.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ChartOnlyMainPage.xaml.cs">
       <DependentUpon>ChartOnlyMainPage.xaml</DependentUpon>
     </Compile>
@@ -131,12 +128,6 @@
     <Compile Include="DAO\TemplateDAO.cs" />
     <Compile Include="Dialogs\AbrirGrafico.xaml.cs">
       <DependentUpon>AbrirGrafico.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Backtest\CriaEditaBacktest.xaml.cs">
-      <DependentUpon>CriaEditaBacktest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Backtest\VisualizaResultadoBacktest.xaml.cs">
-      <DependentUpon>VisualizaResultadoBacktest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\BuscaAtivoDialog.xaml.cs">
       <DependentUpon>BuscaAtivoDialog.xaml</DependentUpon>
@@ -158,36 +149,6 @@
     </Compile>
     <Compile Include="Dialogs\LojaVirtual.xaml.cs">
       <DependentUpon>LojaVirtual.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Operacao\Compra.xaml.cs">
-      <DependentUpon>Compra.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Operacao\Boletas.xaml.cs">
-      <DependentUpon>Boletas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Operacao\ExecutionReport.xaml.cs">
-      <DependentUpon>ExecutionReport.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Operacao\Venda.xaml.cs">
-      <DependentUpon>Venda.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Operacao\Custodia.xaml.cs">
-      <DependentUpon>Custodia.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Portfolio\StockTickerSymbol.xaml.cs">
-      <DependentUpon>StockTickerSymbol.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Portfolio\StockTickerYellow.xaml.cs">
-      <DependentUpon>StockTickerYellow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Portfolio\EventBase.cs" />
-    <Compile Include="Dialogs\Portfolio\PortfolioCellFactory.cs" />
-    <Compile Include="Dialogs\Portfolio\PortfolioDTO.cs" />
-    <Compile Include="Dialogs\Portfolio\PortfolioGrid.xaml.cs">
-      <DependentUpon>PortfolioGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Portfolio\StockTicker.xaml.cs">
-      <DependentUpon>StockTicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\Configuration.xaml.cs">
       <DependentUpon>Configuration.xaml</DependentUpon>
@@ -228,9 +189,6 @@
     <Compile Include="Dialogs\StrokeThicknessPicker.xaml.cs">
       <DependentUpon>StrokeThicknessPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Trades\TimesTrades.xaml.cs">
-      <DependentUpon>TimesTrades.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\Videos.xaml.cs">
       <DependentUpon>Videos.xaml</DependentUpon>
     </Compile>
@@ -249,17 +207,11 @@
     <Compile Include="HistoricoCotacao.xaml.cs">
       <DependentUpon>HistoricoCotacao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Grafico.xaml.cs">
       <DependentUpon>Grafico.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageCollection.xaml.cs">
       <DependentUpon>PageCollection.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageCollectionContainer.xaml.cs">
-      <DependentUpon>PageCollectionContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SavePage.xaml.cs">
@@ -282,23 +234,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="ContainerDireita.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ChartOnlyMainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\AbrirGrafico.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Backtest\CriaEditaBacktest.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Backtest\VisualizaResultadoBacktest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -327,42 +267,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\LojaVirtual.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Operacao\Compra.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Operacao\Boletas.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Operacao\ExecutionReport.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\Operacao\Venda.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Operacao\Custodia.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Portfolio\StockTickerSymbol.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Portfolio\StockTickerYellow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Portfolio\PortfolioGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\Portfolio\StockTicker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -418,10 +322,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\Trades\TimesTrades.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Dialogs\Videos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -430,21 +330,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Grafico.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PageCollection.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageCollectionContainer.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SavePage.xaml">
       <SubType>Designer</SubType>
@@ -682,11 +574,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dialogs\Book\" />
-    <Folder Include="Dialogs\Scanner\" />
-    <Folder Include="Dialogs\Social\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
