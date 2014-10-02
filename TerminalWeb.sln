@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStartup", "WEB\WebStartup\WebStartup.csproj", "{EB9DA3F9-3AAA-42FE-AC0D-8DA49984A98C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalWeb", "SL\TerminalWeb.csproj", "{ED828A45-76B9-4652-8CC8-41BE44208F42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB9DA3F9-3AAA-42FE-AC0D-8DA49984A98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB9DA3F9-3AAA-42FE-AC0D-8DA49984A98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB9DA3F9-3AAA-42FE-AC0D-8DA49984A98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB9DA3F9-3AAA-42FE-AC0D-8DA49984A98C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED828A45-76B9-4652-8CC8-41BE44208F42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED828A45-76B9-4652-8CC8-41BE44208F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED828A45-76B9-4652-8CC8-41BE44208F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED828A45-76B9-4652-8CC8-41BE44208F42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

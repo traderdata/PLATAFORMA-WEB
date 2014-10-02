@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Traderdata.Client.TerminalWEB.Dialogs.Configuration"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:localdialog="clr-namespace:Traderdata.Client.TerminalWEB.Dialogs"
+    xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+    
+    <Grid x:Name="LayoutRoot" Background="White" Loaded="LayoutRoot_Loaded_1">
+        <ScrollViewer Height="250" VerticalAlignment="Top">
+            <StackPanel Orientation="Vertical" Margin="10,10,10,10">
+                <TextBlock Text="Escala" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Posição" Margin="10,5,0,0" Width="150"/>
+                    <RadioButton Content="Esquerda  " GroupName="posicao" Name="rdbEsquerda"/>
+                    <RadioButton Content="Direita" GroupName="posicao" Name="rdbDireita"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Precisão" Margin="10,5,0,0" Width="150"/>
+                    <localdialog:NumericUpDownUC Name="txtPrecisao"/>
+                </StackPanel>
+                
+                <TextBlock Text="Grid" FontWeight="Bold" Margin="0,5,0,0"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Grid X" Margin="10,5,0,0" Width="150"/>
+                    <CheckBox VerticalAlignment="Center" Name="chkGridHorizontal"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Grid Y" Margin="10,5,0,0" Width="150"/>
+                    <CheckBox VerticalAlignment="Center" Name="chkGridVertical"/>
+                </StackPanel>
+                
+                <TextBlock Text="Volume" FontWeight="Bold" Margin="0,5,0,0"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Tipo de Volume" Margin="10,5,0,0" Width="150"/>
+                    <ComboBox Name="cmbTipoVolume" SelectedIndex="0">
+                        <ComboBoxItem>Financeiro</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Espessura" Margin="10,5,0,0" Width="150"/>
+                    <localdialog:NumericUpDownUC Name="txtEspessuraVolume"/>
+                </StackPanel>
+                
+            </StackPanel>
+        </ScrollViewer>
+        <Button Name="btnOk" Content="Ok" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,10" Click="btnOk_Click_1"/>
+    </Grid>
+</UserControl>

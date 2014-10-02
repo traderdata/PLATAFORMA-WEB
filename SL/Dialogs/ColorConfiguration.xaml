@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Traderdata.Client.TerminalWEB.Dialogs.ColorConfiguration"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+    
+    <Grid x:Name="LayoutRoot" Background="White" Loaded="LayoutRoot_Loaded_1">
+        <ScrollViewer Height="250" VerticalAlignment="Top">
+            <StackPanel Orientation="Vertical" Margin="10,10,10,10">
+                <TextBlock Text="Geral" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cor de Fundo" Margin="10,5,0,0" Width="200"/>
+                    <c1:C1ColorPicker Name="corFundo" ToolTipService.ToolTip="Cor dos objetos"  Height="26" Width="33" Mode="Basic" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cor Grid" Margin="10,5,0,0" Width="200"/>
+                    <c1:C1ColorPicker Name="corGrid" ToolTipService.ToolTip="Cor dos objetos"  Height="26" Width="33" Mode="Basic" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cor Escala" Margin="10,5,0,0" Width="200"/>
+                    <c1:C1ColorPicker Name="corEscala" ToolTipService.ToolTip="Cor dos objetos"  Height="26" Width="33" Mode="Basic" />
+                </StackPanel>
+                <TextBlock Text="Candles" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cor Candle de Alta" Margin="10,5,0,0" Width="200"/>
+                    <c1:C1ColorPicker Name="corCandleAlta" ToolTipService.ToolTip="Cor dos objetos"  Height="26" Width="33" Mode="Basic" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cor da Borda do Candle de Alta" Margin="10,5,0,0" Width="200"/>
+                    <c1:C1ColorPicker Name="corBordaCandleAlta" ToolTipService.ToolTip="Cor dos objetos"  Height="26" Width="33" Mode="Basic" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cor Candle de Baixa" Margin="10,5,0,0" Width="200"/>
+                    <c1:C1ColorPicker Name="corCandleBaixa" ToolTipService.ToolTip="Cor dos objetos"  Height="26" Width="33" Mode="Basic" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cor da Borda do Candle de Baixa" Margin="10,5,0,0" Width="200"/>
+                    <c1:C1ColorPicker Name="corBordaCandleBaixa" ToolTipService.ToolTip="Cor dos objetos"  Height="26" Width="33" Mode="Basic" />
+                </StackPanel>
+                <TextBlock Text="Volume" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cor Volume" Margin="10,5,0,0" Width="200"/>
+                    <c1:C1ColorPicker Name="corVolume" ToolTipService.ToolTip="Cor dos objetos"  Height="26" Width="33" Mode="Basic" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Usar cores diferentes (alta e baixa)" Margin="10,5,0,0" Width="200"/>
+                    <CheckBox Name="chkUsarCoresDiferentesVolume" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
+                
+                
+                
+            </StackPanel>
+        </ScrollViewer>
+        <Button Name="btnOk" Content="Ok" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="0,0,10,10" Click="btnOk_Click_1"/>
+    </Grid>
+</UserControl>

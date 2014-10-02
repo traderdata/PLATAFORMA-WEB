@@ -1,0 +1,18 @@
+﻿<UserControl xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml"  x:Class="Traderdata.Client.TerminalWEB.ContainerDireita"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+    
+    <Grid x:Name="LayoutRoot" Background="White">
+        <c1:C1TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="tabControl" TabItemClose="None" TabItemShape="Sloped" TabStripPlacement="Bottom">
+            <c1:C1TabItem Header="Portfolio" Name="tabPortfolio" Visibility="Visible"/>
+            <c1:C1TabItem Header="Chat" Name="tabChat" Visibility="Visible"/>
+            <c1:C1TabItem Header="Rastreador EOD" Name="tabRastreadorDiario" Visibility="Visible"/>
+            <c1:C1TabItem Header="Rastreador RT" Name="tabRastreadorIntraday" Visibility="Visible"/>
+            <c1:C1TabItem Header="Vídeo-Aula" Name="tabVideoAula" Visibility="Visible"/>
+        </c1:C1TabControl>
+    </Grid>
+</UserControl>

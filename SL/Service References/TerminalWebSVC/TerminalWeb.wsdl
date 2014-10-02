@@ -1,0 +1,1408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TerminalWeb" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8787/terminal-web?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8787/terminal-web?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8787/terminal-web?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" />
+      <xsd:import schemaLocation="http://localhost:8787/terminal-web?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ITerminalWeb_RetornaTodasAnalises_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaTodasAnalises" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaTodasAnalises_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaTodasAnalisesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaUltimaAnalise_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaUltimaAnalise" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaUltimaAnalise_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaUltimaAnaliseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBVSPRT_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBVSPRT" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBVSPRT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBVSPRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBMFRT_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBMFRT" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBMFRT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBMFRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBVSPDELAY_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBVSPDELAY" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBVSPDELAY_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBVSPDELAYResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBMFDELAY_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBMFDELAY" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBMFDELAY_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBMFDELAYResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBVSPEOD_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBVSPEOD" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBVSPEOD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBVSPEODResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBMFEOD_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBMFEOD" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPrecoBMFEOD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPrecoBMFEODResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPRT_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPRT" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPRT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPDELAY_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPDELAY" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPDELAY_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPDELAYResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPEOD_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPEOD" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPEOD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPEODResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBMFRT_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBMFRT" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBMFRT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBMFRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBMFDELAY_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBMFDELAY" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBMFDELAY_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBMFDELAYResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBMFEOD_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBMFEOD" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBMFEOD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBMFEODResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFRT_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPRTBMFRT" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFRT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPRTBMFRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFDELAY_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPRTBMFDELAY" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFDELAY_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPRTBMFDELAYResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFEOD_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPRTBMFEOD" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFEOD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPRTBMFEODResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFRT_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPDELAYBMFRT" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFRT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPDELAYBMFRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFRT_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPEODBMFRT" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFRT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPEODBMFRTResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFDELAY_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPDELAYBMFDELAY" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFDELAY_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPDELAYBMFDELAYResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFEOD_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPDELAYBMFEOD" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFEOD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPDELAYBMFEODResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFDELAY_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPEODBMFDELAY" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFDELAY_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPEODBMFDELAYResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFEOD_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPEODBMFEOD" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFEOD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaLinkPagamentoBVSPEODBMFEODResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetTemplatePorId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTemplatePorId" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetTemplatePorId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTemplatePorIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetTemplatesPorUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTemplatesPorUserId" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetTemplatesPorUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTemplatesPorUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetWorkspaceDefaultPorDistribuidor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorkspaceDefaultPorDistribuidor" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetWorkspaceDefaultPorDistribuidor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorkspaceDefaultPorDistribuidorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetWorkspaceDefault_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorkspaceDefault" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetWorkspaceDefault_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorkspaceDefaultResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveWorkspace_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveWorkspace" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveWorkspace_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveWorkspaceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveGrafico_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveGrafico" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveGrafico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveGraficoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaGraficoPorAtivoPeriodicidade_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaGraficoPorAtivoPeriodicidade" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaGraficoPorAtivoPeriodicidade_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaGraficoPorAtivoPeriodicidadeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_UploadFileS3_InputMessage">
+    <wsdl:part name="parameters" element="tns:UploadFileS3" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_UploadFileS3_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UploadFileS3Response" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetScannerById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetScannerById" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetScannerById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetScannerByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetScanners_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetScanners" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetScanners_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetScannersResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCondicoes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCondicoes" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCondicoes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCondicoesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveScanner_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveScanner" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveScanner_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveScannerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_DeleteScanner_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteScanner" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_DeleteScanner_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteScannerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetParcelaByCondicao_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetParcelaByCondicao" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetParcelaByCondicao_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetParcelaByCondicaoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetResultadoScanner_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetResultadoScanner" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetResultadoScanner_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetResultadoScannerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_ReProcessaScanner_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReProcessaScanner" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_ReProcessaScanner_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReProcessaScannerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_IncluirBackTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:IncluirBackTest" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_IncluirBackTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IncluirBackTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_AtualizaBackTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:AtualizaBackTest" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_AtualizaBackTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AtualizaBackTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_ExcluiBackTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExcluiBackTest" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_ExcluiBackTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExcluiBackTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaBackTests_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaBackTests" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaBackTests_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaBackTestsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_IncluirTemplateBacktest_InputMessage">
+    <wsdl:part name="parameters" element="tns:IncluirTemplateBacktest" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_IncluirTemplateBacktest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IncluirTemplateBacktestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_AtualizaTemplateBacktest_InputMessage">
+    <wsdl:part name="parameters" element="tns:AtualizaTemplateBacktest" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_AtualizaTemplateBacktest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AtualizaTemplateBacktestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_ExcluiTemplateBacktest_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExcluiTemplateBacktest" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_ExcluiTemplateBacktest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExcluiTemplateBacktestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaTemplatesBacktest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaTemplatesBacktest" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaTemplatesBacktest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaTemplatesBacktestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaSumarioResultadoBacktest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaSumarioResultadoBacktest" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaSumarioResultadoBacktest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaSumarioResultadoBacktestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_InsereMensagem_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsereMensagem" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_InsereMensagem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsereMensagemResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPortfolios_InputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPortfolios" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_RetornaPortfolios_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RetornaPortfoliosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_Ping_InputMessage">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_Ping_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_LoginUserDistribuidorIntegrado_InputMessage">
+    <wsdl:part name="parameters" element="tns:LoginUserDistribuidorIntegrado" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_LoginUserDistribuidorIntegrado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginUserDistribuidorIntegradoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_InserirUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:InserirUsuario" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_InserirUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InserirUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_LoginUserFacebook_InputMessage">
+    <wsdl:part name="parameters" element="tns:LoginUserFacebook" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_LoginUserFacebook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginUserFacebookResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_EditarUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditarUsuario" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_EditarUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditarUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetSegmentos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSegmentos" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetSegmentos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSegmentosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosPorSegmento_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosPorSegmento" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosPorSegmento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosPorSegmentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetIndices_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIndices" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetIndices_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIndicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosPorIndice_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosPorIndice" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosPorIndice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosPorIndiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBMFTodos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBMFTodos" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBMFTodos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBMFTodosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBMFMini_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBMFMini" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBMFMini_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBMFMiniResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBMFCheio_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBMFCheio" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBMFCheio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBMFCheioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBovespaTodos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBovespaTodos" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBovespaTodos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBovespaTodosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBovespaVista_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBovespaVista" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBovespaVista_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBovespaVistaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBovespaOpcao_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBovespaOpcao" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBovespaOpcao_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBovespaOpcaoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBovespaTermo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBovespaTermo" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetAtivosBovespaTermo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAtivosBovespaTermoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCotacaoDiario_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCotacaoDiario" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCotacaoDiario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCotacaoDiarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCotacaoIntraday_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCotacaoIntraday" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCotacaoIntraday_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCotacaoIntradayResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCotacaoIntradayDelayed_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCotacaoIntradayDelayed" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCotacaoIntradayDelayed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCotacaoIntradayDelayedResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCotacaoIntradayDoDia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCotacaoIntradayDoDia" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetCotacaoIntradayDoDia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCotacaoIntradayDoDiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SalvaTemplate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SalvaTemplate" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SalvaTemplate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SalvaTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_ExcluiTemplate_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExcluiTemplate" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_ExcluiTemplate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExcluiTemplateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ITerminalWeb">
+    <wsdl:operation name="RetornaTodasAnalises">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaTodasAnalises" message="tns:ITerminalWeb_RetornaTodasAnalises_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaTodasAnalisesResponse" message="tns:ITerminalWeb_RetornaTodasAnalises_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaUltimaAnalise">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaUltimaAnalise" message="tns:ITerminalWeb_RetornaUltimaAnalise_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaUltimaAnaliseResponse" message="tns:ITerminalWeb_RetornaUltimaAnalise_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBVSPRT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPRT" message="tns:ITerminalWeb_RetornaPrecoBVSPRT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPRTResponse" message="tns:ITerminalWeb_RetornaPrecoBVSPRT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBMFRT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFRT" message="tns:ITerminalWeb_RetornaPrecoBMFRT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFRTResponse" message="tns:ITerminalWeb_RetornaPrecoBMFRT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBVSPDELAY">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPDELAY" message="tns:ITerminalWeb_RetornaPrecoBVSPDELAY_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPDELAYResponse" message="tns:ITerminalWeb_RetornaPrecoBVSPDELAY_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBMFDELAY">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFDELAY" message="tns:ITerminalWeb_RetornaPrecoBMFDELAY_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFDELAYResponse" message="tns:ITerminalWeb_RetornaPrecoBMFDELAY_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBVSPEOD">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPEOD" message="tns:ITerminalWeb_RetornaPrecoBVSPEOD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPEODResponse" message="tns:ITerminalWeb_RetornaPrecoBVSPEOD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBMFEOD">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFEOD" message="tns:ITerminalWeb_RetornaPrecoBMFEOD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFEODResponse" message="tns:ITerminalWeb_RetornaPrecoBMFEOD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPRT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRT" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPRT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPRT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPDELAY">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAY" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPDELAY_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPDELAY_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPEOD">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEOD" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPEOD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPEOD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBMFRT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFRT" message="tns:ITerminalWeb_RetornaLinkPagamentoBMFRT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFRTResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBMFRT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBMFDELAY">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFDELAY" message="tns:ITerminalWeb_RetornaLinkPagamentoBMFDELAY_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFDELAYResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBMFDELAY_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBMFEOD">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFEOD" message="tns:ITerminalWeb_RetornaLinkPagamentoBMFEOD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFEODResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBMFEOD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPRTBMFRT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFRT" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFRT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFRTResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFRT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPRTBMFDELAY">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFDELAY" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFDELAY_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFDELAYResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFDELAY_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPRTBMFEOD">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFEOD" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFEOD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFEODResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPRTBMFEOD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPDELAYBMFRT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFRT" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFRT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFRTResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFRT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPEODBMFRT">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFRT" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFRT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFRTResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFRT_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPDELAYBMFDELAY">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFDELAY" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFDELAY_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFDELAYResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFDELAY_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPDELAYBMFEOD">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFEOD" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFEOD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFEODResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPDELAYBMFEOD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPEODBMFDELAY">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFDELAY" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFDELAY_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFDELAYResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFDELAY_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPEODBMFEOD">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFEOD" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFEOD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFEODResponse" message="tns:ITerminalWeb_RetornaLinkPagamentoBVSPEODBMFEOD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTemplatePorId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetTemplatePorId" message="tns:ITerminalWeb_GetTemplatePorId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetTemplatePorIdResponse" message="tns:ITerminalWeb_GetTemplatePorId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTemplatesPorUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetTemplatesPorUserId" message="tns:ITerminalWeb_GetTemplatesPorUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetTemplatesPorUserIdResponse" message="tns:ITerminalWeb_GetTemplatesPorUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkspaceDefaultPorDistribuidor">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetWorkspaceDefaultPorDistribuidor" message="tns:ITerminalWeb_GetWorkspaceDefaultPorDistribuidor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetWorkspaceDefaultPorDistribuidorResponse" message="tns:ITerminalWeb_GetWorkspaceDefaultPorDistribuidor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkspaceDefault">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetWorkspaceDefault" message="tns:ITerminalWeb_GetWorkspaceDefault_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetWorkspaceDefaultResponse" message="tns:ITerminalWeb_GetWorkspaceDefault_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveWorkspace">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/SaveWorkspace" message="tns:ITerminalWeb_SaveWorkspace_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/SaveWorkspaceResponse" message="tns:ITerminalWeb_SaveWorkspace_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveGrafico">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/SaveGrafico" message="tns:ITerminalWeb_SaveGrafico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/SaveGraficoResponse" message="tns:ITerminalWeb_SaveGrafico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaGraficoPorAtivoPeriodicidade">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaGraficoPorAtivoPeriodicidade" message="tns:ITerminalWeb_RetornaGraficoPorAtivoPeriodicidade_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaGraficoPorAtivoPeriodicidadeResponse" message="tns:ITerminalWeb_RetornaGraficoPorAtivoPeriodicidade_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileS3">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/UploadFileS3" message="tns:ITerminalWeb_UploadFileS3_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/UploadFileS3Response" message="tns:ITerminalWeb_UploadFileS3_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetScannerById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetScannerById" message="tns:ITerminalWeb_GetScannerById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetScannerByIdResponse" message="tns:ITerminalWeb_GetScannerById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetScanners">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetScanners" message="tns:ITerminalWeb_GetScanners_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetScannersResponse" message="tns:ITerminalWeb_GetScanners_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCondicoes">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetCondicoes" message="tns:ITerminalWeb_GetCondicoes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetCondicoesResponse" message="tns:ITerminalWeb_GetCondicoes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveScanner">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/SaveScanner" message="tns:ITerminalWeb_SaveScanner_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/SaveScannerResponse" message="tns:ITerminalWeb_SaveScanner_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteScanner">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/DeleteScanner" message="tns:ITerminalWeb_DeleteScanner_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/DeleteScannerResponse" message="tns:ITerminalWeb_DeleteScanner_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetParcelaByCondicao">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetParcelaByCondicao" message="tns:ITerminalWeb_GetParcelaByCondicao_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetParcelaByCondicaoResponse" message="tns:ITerminalWeb_GetParcelaByCondicao_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetResultadoScanner">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetResultadoScanner" message="tns:ITerminalWeb_GetResultadoScanner_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetResultadoScannerResponse" message="tns:ITerminalWeb_GetResultadoScanner_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReProcessaScanner">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/ReProcessaScanner" message="tns:ITerminalWeb_ReProcessaScanner_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/ReProcessaScannerResponse" message="tns:ITerminalWeb_ReProcessaScanner_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IncluirBackTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/IncluirBackTest" message="tns:ITerminalWeb_IncluirBackTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/IncluirBackTestResponse" message="tns:ITerminalWeb_IncluirBackTest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AtualizaBackTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/AtualizaBackTest" message="tns:ITerminalWeb_AtualizaBackTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/AtualizaBackTestResponse" message="tns:ITerminalWeb_AtualizaBackTest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcluiBackTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/ExcluiBackTest" message="tns:ITerminalWeb_ExcluiBackTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/ExcluiBackTestResponse" message="tns:ITerminalWeb_ExcluiBackTest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBackTests">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaBackTests" message="tns:ITerminalWeb_RetornaBackTests_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaBackTestsResponse" message="tns:ITerminalWeb_RetornaBackTests_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IncluirTemplateBacktest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/IncluirTemplateBacktest" message="tns:ITerminalWeb_IncluirTemplateBacktest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/IncluirTemplateBacktestResponse" message="tns:ITerminalWeb_IncluirTemplateBacktest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AtualizaTemplateBacktest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/AtualizaTemplateBacktest" message="tns:ITerminalWeb_AtualizaTemplateBacktest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/AtualizaTemplateBacktestResponse" message="tns:ITerminalWeb_AtualizaTemplateBacktest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcluiTemplateBacktest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/ExcluiTemplateBacktest" message="tns:ITerminalWeb_ExcluiTemplateBacktest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/ExcluiTemplateBacktestResponse" message="tns:ITerminalWeb_ExcluiTemplateBacktest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaTemplatesBacktest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaTemplatesBacktest" message="tns:ITerminalWeb_RetornaTemplatesBacktest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaTemplatesBacktestResponse" message="tns:ITerminalWeb_RetornaTemplatesBacktest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaSumarioResultadoBacktest">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaSumarioResultadoBacktest" message="tns:ITerminalWeb_RetornaSumarioResultadoBacktest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaSumarioResultadoBacktestResponse" message="tns:ITerminalWeb_RetornaSumarioResultadoBacktest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsereMensagem">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/InsereMensagem" message="tns:ITerminalWeb_InsereMensagem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/InsereMensagemResponse" message="tns:ITerminalWeb_InsereMensagem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPortfolios">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPortfolios" message="tns:ITerminalWeb_RetornaPortfolios_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/RetornaPortfoliosResponse" message="tns:ITerminalWeb_RetornaPortfolios_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/Ping" message="tns:ITerminalWeb_Ping_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/PingResponse" message="tns:ITerminalWeb_Ping_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/Login" message="tns:ITerminalWeb_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/LoginResponse" message="tns:ITerminalWeb_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginUserDistribuidorIntegrado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/LoginUserDistribuidorIntegrado" message="tns:ITerminalWeb_LoginUserDistribuidorIntegrado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/LoginUserDistribuidorIntegradoResponse" message="tns:ITerminalWeb_LoginUserDistribuidorIntegrado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InserirUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/InserirUsuario" message="tns:ITerminalWeb_InserirUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/InserirUsuarioResponse" message="tns:ITerminalWeb_InserirUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginUserFacebook">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/LoginUserFacebook" message="tns:ITerminalWeb_LoginUserFacebook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/LoginUserFacebookResponse" message="tns:ITerminalWeb_LoginUserFacebook_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditarUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/EditarUsuario" message="tns:ITerminalWeb_EditarUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/EditarUsuarioResponse" message="tns:ITerminalWeb_EditarUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSegmentos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetSegmentos" message="tns:ITerminalWeb_GetSegmentos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetSegmentosResponse" message="tns:ITerminalWeb_GetSegmentos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosPorSegmento">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosPorSegmento" message="tns:ITerminalWeb_GetAtivosPorSegmento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosPorSegmentoResponse" message="tns:ITerminalWeb_GetAtivosPorSegmento_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIndices">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetIndices" message="tns:ITerminalWeb_GetIndices_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetIndicesResponse" message="tns:ITerminalWeb_GetIndices_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosPorIndice">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosPorIndice" message="tns:ITerminalWeb_GetAtivosPorIndice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosPorIndiceResponse" message="tns:ITerminalWeb_GetAtivosPorIndice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBMFTodos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBMFTodos" message="tns:ITerminalWeb_GetAtivosBMFTodos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBMFTodosResponse" message="tns:ITerminalWeb_GetAtivosBMFTodos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBMFMini">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBMFMini" message="tns:ITerminalWeb_GetAtivosBMFMini_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBMFMiniResponse" message="tns:ITerminalWeb_GetAtivosBMFMini_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBMFCheio">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBMFCheio" message="tns:ITerminalWeb_GetAtivosBMFCheio_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBMFCheioResponse" message="tns:ITerminalWeb_GetAtivosBMFCheio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBovespaTodos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBovespaTodos" message="tns:ITerminalWeb_GetAtivosBovespaTodos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBovespaTodosResponse" message="tns:ITerminalWeb_GetAtivosBovespaTodos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBovespaVista">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBovespaVista" message="tns:ITerminalWeb_GetAtivosBovespaVista_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBovespaVistaResponse" message="tns:ITerminalWeb_GetAtivosBovespaVista_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBovespaOpcao">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBovespaOpcao" message="tns:ITerminalWeb_GetAtivosBovespaOpcao_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBovespaOpcaoResponse" message="tns:ITerminalWeb_GetAtivosBovespaOpcao_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBovespaTermo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBovespaTermo" message="tns:ITerminalWeb_GetAtivosBovespaTermo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetAtivosBovespaTermoResponse" message="tns:ITerminalWeb_GetAtivosBovespaTermo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCotacaoDiario">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetCotacaoDiario" message="tns:ITerminalWeb_GetCotacaoDiario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetCotacaoDiarioResponse" message="tns:ITerminalWeb_GetCotacaoDiario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCotacaoIntraday">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetCotacaoIntraday" message="tns:ITerminalWeb_GetCotacaoIntraday_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetCotacaoIntradayResponse" message="tns:ITerminalWeb_GetCotacaoIntraday_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCotacaoIntradayDelayed">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetCotacaoIntradayDelayed" message="tns:ITerminalWeb_GetCotacaoIntradayDelayed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetCotacaoIntradayDelayedResponse" message="tns:ITerminalWeb_GetCotacaoIntradayDelayed_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCotacaoIntradayDoDia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetCotacaoIntradayDoDia" message="tns:ITerminalWeb_GetCotacaoIntradayDoDia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetCotacaoIntradayDoDiaResponse" message="tns:ITerminalWeb_GetCotacaoIntradayDoDia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SalvaTemplate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/SalvaTemplate" message="tns:ITerminalWeb_SalvaTemplate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/SalvaTemplateResponse" message="tns:ITerminalWeb_SalvaTemplate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcluiTemplate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/ExcluiTemplate" message="tns:ITerminalWeb_ExcluiTemplate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/ExcluiTemplateResponse" message="tns:ITerminalWeb_ExcluiTemplate_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ITerminalWeb" type="tns:ITerminalWeb">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RetornaTodasAnalises">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaTodasAnalises" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaUltimaAnalise">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaUltimaAnalise" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBVSPRT">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBMFRT">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBVSPDELAY">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPDELAY" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBMFDELAY">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFDELAY" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBVSPEOD">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaPrecoBVSPEOD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPrecoBMFEOD">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaPrecoBMFEOD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPRT">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPDELAY">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAY" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPEOD">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEOD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBMFRT">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBMFDELAY">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFDELAY" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBMFEOD">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBMFEOD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPRTBMFRT">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPRTBMFDELAY">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFDELAY" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPRTBMFEOD">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPRTBMFEOD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPDELAYBMFRT">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPEODBMFRT">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFRT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPDELAYBMFDELAY">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFDELAY" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPDELAYBMFEOD">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPDELAYBMFEOD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPEODBMFDELAY">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFDELAY" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaLinkPagamentoBVSPEODBMFEOD">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaLinkPagamentoBVSPEODBMFEOD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTemplatePorId">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetTemplatePorId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTemplatesPorUserId">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetTemplatesPorUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkspaceDefaultPorDistribuidor">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetWorkspaceDefaultPorDistribuidor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkspaceDefault">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetWorkspaceDefault" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveWorkspace">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveWorkspace" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveGrafico">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveGrafico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaGraficoPorAtivoPeriodicidade">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaGraficoPorAtivoPeriodicidade" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileS3">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/UploadFileS3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetScannerById">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetScannerById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetScanners">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetScanners" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCondicoes">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetCondicoes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveScanner">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveScanner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteScanner">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/DeleteScanner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetParcelaByCondicao">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetParcelaByCondicao" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResultadoScanner">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetResultadoScanner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReProcessaScanner">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/ReProcessaScanner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncluirBackTest">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/IncluirBackTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AtualizaBackTest">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/AtualizaBackTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcluiBackTest">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/ExcluiBackTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaBackTests">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaBackTests" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncluirTemplateBacktest">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/IncluirTemplateBacktest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AtualizaTemplateBacktest">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/AtualizaTemplateBacktest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcluiTemplateBacktest">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/ExcluiTemplateBacktest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaTemplatesBacktest">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaTemplatesBacktest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaSumarioResultadoBacktest">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaSumarioResultadoBacktest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsereMensagem">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/InsereMensagem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetornaPortfolios">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/RetornaPortfolios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginUserDistribuidorIntegrado">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/LoginUserDistribuidorIntegrado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InserirUsuario">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/InserirUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginUserFacebook">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/LoginUserFacebook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditarUsuario">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/EditarUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSegmentos">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetSegmentos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosPorSegmento">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosPorSegmento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIndices">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetIndices" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosPorIndice">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosPorIndice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBMFTodos">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosBMFTodos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBMFMini">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosBMFMini" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBMFCheio">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosBMFCheio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBovespaTodos">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosBovespaTodos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBovespaVista">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosBovespaVista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBovespaOpcao">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosBovespaOpcao" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAtivosBovespaTermo">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetAtivosBovespaTermo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCotacaoDiario">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetCotacaoDiario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCotacaoIntraday">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetCotacaoIntraday" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCotacaoIntradayDelayed">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetCotacaoIntradayDelayed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCotacaoIntradayDoDia">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetCotacaoIntradayDoDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaTemplate">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SalvaTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcluiTemplate">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/ExcluiTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TerminalWeb">
+    <wsdl:port name="BasicHttpBinding_ITerminalWeb" binding="tns:BasicHttpBinding_ITerminalWeb">
+      <soap:address location="http://localhost:8787/terminal-web" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,14 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_ITerminalWeb" maxReceivedMessageSize="2147483647" />
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:8787/terminal-web" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_ITerminalWeb" contract="TerminalWebSVC.ITerminalWeb"
+                name="BasicHttpBinding_ITerminalWeb" />
+        </client>
+    </system.serviceModel>
+</configuration>

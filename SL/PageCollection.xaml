@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Traderdata.Client.TerminalWEB.PageCollection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:localdialog="clr-namespace:Traderdata.Client.TerminalWEB.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400" xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style TargetType="Image" x:Key="tbIcon">
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="Image" x:Key="tbIconToolbar">
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="Image" x:Key="tbIcon2Toolbar">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="Image" x:Key="MenuIcon">
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White" Loaded="LayoutRoot_Loaded" HorizontalAlignment="Stretch" LayoutUpdated="LayoutRoot_LayoutUpdated_1" Unloaded="LayoutRoot_Unloaded">
+            <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="canvas" >                  
+                <c1:C1TabControl Padding="0" BorderThickness="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" Name="c1TabControl1" VerticalAlignment="Stretch" ShowSingleTab="False" TabItemShape="Rectangle" TabItemClose="InEachTab"  TabStripMenuVisibility="Visible" TabStripPlacement="Bottom"   CanUserReorder="False" Grid.Row="0"  />            
+            </Canvas>        
+    </Grid>
+</UserControl>

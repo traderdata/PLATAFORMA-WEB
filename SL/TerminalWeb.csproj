@@ -1,0 +1,705 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ED828A45-76B9-4652-8CC8-41BE44208F42}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Traderdata.Client.TerminalWEB</RootNamespace>
+    <AssemblyName>TerminalWeb</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>TerminalWeb.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>Traderdata.Client.TerminalWEB.App</SilverlightAppEntry>
+    <TestPageFileName>SilverlightApplication8TestPage.html</TestPageFileName>
+    <CreateTestPage>true</CreateTestPage>
+    <ValidateXaml>true</ValidateXaml>
+    <EnableOutOfBrowser>true</EnableOutOfBrowser>
+    <OutOfBrowserSettingsFile>Properties\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
+    <UsePlatformExtensions>false</UsePlatformExtensions>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <LinkedServerProject>
+    </LinkedServerProject>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\WEB\WebStartup\ClientBin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C1.Silverlight, Version=4.0.20112.192, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="C1.Silverlight.Extended, Version=4.0.20112.192, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="C1.Silverlight.FlexGrid.4, Version=4.0.20112.192, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
+    <Reference Include="C1.Silverlight.Toolbar, Version=4.0.20112.192, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
+    <Reference Include="FM.WebSync.Silverlight.Core">
+      <HintPath>..\..\..\..\Traderdata\Tecnologia\Websync\FM.WebSync.Silverlight.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ModulusFE.StockChartX.SL">
+      <HintPath>..\..\..\..\Traderdata\Tecnologia\Modulus\stxwpfsl_src_6543223 - Copia\SL3\Library\Bin\Debug\ModulusFE.StockChartX.SL.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="SharpZipLib, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TERMINAL-WEB\Bin\Debug\SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Controls.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Data.Input, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Controls.Data.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Input, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Toolkit, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContainerDireita.xaml.cs">
+      <DependentUpon>ContainerDireita.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChartOnlyMainPage.xaml.cs">
+      <DependentUpon>ChartOnlyMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\IndicadorDAO.cs" />
+    <Compile Include="DAO\MarketDataDAO.cs" />
+    <Compile Include="DAO\RealTimeDAO.cs" />
+    <Compile Include="DAO\TemplateDAO.cs" />
+    <Compile Include="Dialogs\AbrirGrafico.xaml.cs">
+      <DependentUpon>AbrirGrafico.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Backtest\CriaEditaBacktest.xaml.cs">
+      <DependentUpon>CriaEditaBacktest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Backtest\VisualizaResultadoBacktest.xaml.cs">
+      <DependentUpon>VisualizaResultadoBacktest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BuscaAtivoDialog.xaml.cs">
+      <DependentUpon>BuscaAtivoDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CommandBox.xaml.cs">
+      <DependentUpon>CommandBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ColorConfiguration.xaml.cs">
+      <DependentUpon>ColorConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Condicao.xaml.cs">
+      <DependentUpon>Condicao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\HorizontalLineEdit.xaml.cs">
+      <DependentUpon>HorizontalLineEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\LojaVirtual.xaml.cs">
+      <DependentUpon>LojaVirtual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Operacao\Compra.xaml.cs">
+      <DependentUpon>Compra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Operacao\Boletas.xaml.cs">
+      <DependentUpon>Boletas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Operacao\ExecutionReport.xaml.cs">
+      <DependentUpon>ExecutionReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Operacao\Venda.xaml.cs">
+      <DependentUpon>Venda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Operacao\Custodia.xaml.cs">
+      <DependentUpon>Custodia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Portfolio\StockTickerSymbol.xaml.cs">
+      <DependentUpon>StockTickerSymbol.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Portfolio\StockTickerYellow.xaml.cs">
+      <DependentUpon>StockTickerYellow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Portfolio\EventBase.cs" />
+    <Compile Include="Dialogs\Portfolio\PortfolioCellFactory.cs" />
+    <Compile Include="Dialogs\Portfolio\PortfolioDTO.cs" />
+    <Compile Include="Dialogs\Portfolio\PortfolioGrid.xaml.cs">
+      <DependentUpon>PortfolioGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Portfolio\StockTicker.xaml.cs">
+      <DependentUpon>StockTicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Configuration.xaml.cs">
+      <DependentUpon>Configuration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CustomCursor.xaml.cs">
+      <DependentUpon>CustomCursor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditIndicator.xaml.cs">
+      <DependentUpon>EditIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\InfoPanel.xaml.cs">
+      <DependentUpon>InfoPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NumericUpDownUC.xaml.cs">
+      <DependentUpon>NumericUpDownUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\RecomendarCompraVenda.xaml.cs">
+      <DependentUpon>RecomendarCompraVenda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Status.xaml.cs">
+      <DependentUpon>Status.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\StrokeTypePicker.xaml.cs">
+      <DependentUpon>StrokeTypePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\InsertIndicator.xaml.cs">
+      <DependentUpon>InsertIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PromptTexto.xaml.cs">
+      <DependentUpon>PromptTexto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SearchBox.xaml.cs">
+      <DependentUpon>SearchBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\StrokeThicknessPicker.xaml.cs">
+      <DependentUpon>StrokeThicknessPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Trades\TimesTrades.xaml.cs">
+      <DependentUpon>TimesTrades.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Videos.xaml.cs">
+      <DependentUpon>Videos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\AtivoDTO.cs" />
+    <Compile Include="DTO\BookDTO.cs" />
+    <Compile Include="DTO\CotacaoDTO.cs" />
+    <Compile Include="DTO\DeepCopy.cs" />
+    <Compile Include="DTO\IndicatorInfoDTO.cs" />
+    <Compile Include="DTO\IndicatorPropertyDTO.cs" />
+    <Compile Include="DTO\InfoPanelItemDTO.cs" />
+    <Compile Include="DTO\LogDTO.cs" />
+    <Compile Include="DTO\MsgDTO.cs" />
+    <Compile Include="DTO\ScannerDTO.cs" />
+    <Compile Include="DTO\TickDTO.cs" />
+    <Compile Include="DTO\TradeDTO.cs" />
+    <Compile Include="HistoricoCotacao.xaml.cs">
+      <DependentUpon>HistoricoCotacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Grafico.xaml.cs">
+      <DependentUpon>Grafico.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageCollection.xaml.cs">
+      <DependentUpon>PageCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageCollectionContainer.xaml.cs">
+      <DependentUpon>PageCollectionContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SavePage.xaml.cs">
+      <DependentUpon>SavePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TerminalWebSVC\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="StaticData.cs" />
+    <Compile Include="Util\DateTimeConverter.cs" />
+    <Compile Include="Util\DateTimeIntradayConverter.cs" />
+    <Compile Include="Util\GeneralUtil.cs" />
+    <Compile Include="Util\GenericConverters.cs" />
+    <Compile Include="Util\NumericConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="ContainerDireita.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChartOnlyMainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\AbrirGrafico.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Backtest\CriaEditaBacktest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Backtest\VisualizaResultadoBacktest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\BuscaAtivoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\CommandBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ColorConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Condicao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\HorizontalLineEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\LojaVirtual.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Operacao\Compra.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Operacao\Boletas.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Operacao\ExecutionReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Operacao\Venda.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Operacao\Custodia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Portfolio\StockTickerSymbol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Portfolio\StockTickerYellow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Portfolio\PortfolioGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Portfolio\StockTicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Configuration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\CustomCursor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\EditIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\InfoPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\NumericUpDownUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\RecomendarCompraVenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Status.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\StrokeTypePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\InsertIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\PromptTexto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\SearchBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\StrokeThicknessPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Trades\TimesTrades.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\Videos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HistoricoCotacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Grafico.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageCollectionContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SavePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="sounds\alert.mp3" />
+    <None Include="Properties\AppManifest.xml" />
+    <None Include="Service References\TerminalWebSVC\terminal-web.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TerminalWebSVC\terminal-web1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TerminalWebSVC\terminal-web2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TerminalWebSVC\terminal-web3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TerminalWebSVC\TerminalWeb.wsdl" />
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.AnaliseCompartilhadaDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.BacktestDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.CondicaoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.CondicaoParcelaDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.PortfolioDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.ResultadoScannerDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.ScannerDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.SumarioDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateBacktestDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.UsuarioDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.WorkspaceDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <Resource Include="images\map-icon.png" />
+    <Resource Include="images\box-icon.png" />
+    <Resource Include="images\Graph.png" />
+    <Resource Include="images\chart-icon.png" />
+    <Resource Include="images\clock-icon.png" />
+    <Resource Include="images\color-icon.png" />
+    <Resource Include="images\clock2.png" />
+    <Resource Include="images\clock2h.png" />
+    <Resource Include="images\clock3.png" />
+    <Resource Include="images\clock5.png" />
+    <Resource Include="images\clock1.png" />
+    <Resource Include="images\clock10.png" />
+    <Resource Include="images\clock15.png" />
+    <Resource Include="images\clock30.png" />
+    <Resource Include="images\clockD.png" />
+    <Resource Include="images\clockM.png" />
+    <Resource Include="images\clockS.png" />
+    <Resource Include="images\clock1h.png" />
+    <Resource Include="images\Help-icon.png" />
+    <Resource Include="images\Zoom-In-icon.png" />
+    <Resource Include="images\Zoom-Out-icon.png" />
+    <Resource Include="images\chart-line-icon.png" />
+    <Resource Include="images\candle-icon.png" />
+    <None Include="Service References\TerminalWebSVC\terminal-web.disco" />
+    <Resource Include="images\clear.png" />
+    <Resource Include="images\search.png" />
+    <Resource Include="images\nm.png" />
+    <Resource Include="images\slg.png" />
+    <Resource Include="images\line-thcikness-icon.png" />
+    <Resource Include="images\strokeType-icon.png" />
+    <Resource Include="images\pencil-icon.png" />
+    <Resource Include="images\resistencia-icon.png" />
+    <Resource Include="images\suporte-icon.png" />
+    <Resource Include="images\aftermarket-icon.png" />
+    <Resource Include="images\seta-down-icon.png" />
+    <Resource Include="images\seta-up-icon.png" />
+    <Resource Include="images\delete-icon.png" />
+    <Resource Include="images\logo.png" />
+    <Resource Include="images\fbook-login.png" />
+    <None Include="Properties\OutOfBrowserSettings.xml" />
+    <Resource Include="images\abrindo um gráfico.jpg" />
+    <Resource Include="images\confCores.jpg" />
+    <Resource Include="images\default.jpg" />
+    <Resource Include="images\maximize-icon.png" />
+    <Resource Include="images\minimize-icon.png" />
+    <Content Include="ServiceReferences.ClientConfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\salvar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\seta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Find-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\resetzoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\RetaVertical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\RetaHorizontal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Elipse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\line-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\buy.png" />
+    <Resource Include="images\sell.png" />
+    <Resource Include="images\SignalPrice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\fibo-arcs.png" />
+    <Resource Include="images\fibo-fan.png" />
+    <Resource Include="images\fibo-retracement.png" />
+    <Resource Include="images\fibo-timezone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\error-channel.png" />
+    <Resource Include="images\GannFan.png" />
+    <Resource Include="images\quadrantlines.png" />
+    <Resource Include="images\raff-regression.png" />
+    <Resource Include="images\speed-line.png" />
+    <Resource Include="images\tirone-levels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\numbers-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\text-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\novo-documento.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\folder-open-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\export-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\export-excel-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\horizontal-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\vertical-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\tile-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\refresh-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\info-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Add-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\save-all-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\facebook-icon.png" />
+    <Resource Include="images\social-icon.png" />
+    <Resource Include="images\twitter-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Help-icon16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\movies-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\chat-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\email-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TerminalWebSVC\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TerminalWebSVC\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TerminalWebSVC\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TerminalWebSVC\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialogs\Book\" />
+    <Folder Include="Dialogs\Scanner\" />
+    <Folder Include="Dialogs\Social\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

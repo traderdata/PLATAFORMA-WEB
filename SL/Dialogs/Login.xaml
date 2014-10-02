@@ -1,0 +1,42 @@
+﻿<controls:ChildWindow x:Class="Traderdata.Client.TerminalWEB.Dialogs.Login"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+           Width="700" Height="280" 
+           Title="Login" HasCloseButton="False">
+    <toolkit:BusyIndicator Name="busyIndicator" IsBusy="False" BusyContent="Carregando dados...">
+    <Grid x:Name="LayoutRoot" >        
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="350" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="1" BorderThickness="1,1,1,1" BorderBrush="Black"/>
+            <TextBlock Text="Já possuo Login"  FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="0"/>
+            <TextBlock Text="Email:" Margin="10,30,0,0" FontWeight="Bold" Grid.Column="0"/>
+            <TextBox Name="txtLogin" Margin="100,30,0,0" Width="200" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left"  Grid.Column="0" HorizontalContentAlignment="Left"/>
+            <TextBlock Text="Senha:" Margin="10,70,0,0" FontWeight="Bold" Grid.Column="0"/>
+            <PasswordBox Name="txtSenha" PasswordChar="*" Margin="100,66,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0" />
+            <Button x:Name="OKButton" Content="Entrar" Click="OKButton_Click" Width="75" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,100,0,0" Grid.Column="0"/>
+            <TextBlock Text="ou use:" Margin="0,135,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Column="0"/>
+            <Image Source="/TerminalWeb;component/images/fbook-login.png"  Width="63" Height="17" Margin="0,160,0,0" Name="fbButton" MouseLeftButtonDown="fbButton_MouseLeftButtonDown_1" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="0" MouseEnter="fbButton_MouseEnter_1" MouseLeave="fbButton_MouseLeave_1"/>
+        
+            
+            <TextBlock Text="Cadastre-se Gratuitamente" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"  FontWeight="Bold" Grid.Column="2"/>
+            <TextBlock Text="Nome:" Margin="10,30,0,10" FontWeight="Bold" Grid.Column="2"/>
+            <TextBlock Text="CPF: (SOMENTE NÚMEROS)" Margin="10,60,0,10" FontWeight="Bold" Grid.Column="2"/>
+            <TextBlock Text="Email:" Margin="10,90,0,10" FontWeight="Bold" Grid.Column="2"/>
+            <TextBlock Text="Senha:" Margin="10,120,0,0" FontWeight="Bold" Grid.Column="2"/>
+            <TextBlock Text="Confirma Senha:" Margin="10,150,0,0" FontWeight="Bold" Grid.Column="2"/>
+        
+        <TextBox Name="txtNome" Margin="190,26,0,0" Width="150" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="2"  />
+        <TextBox Name="txtCPF" Margin="190,56,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="2"  />
+        <TextBox Name="txtLoginNovoCadastroConfirma" Margin="190,86,0,0" Width="150" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="2"  />    
+        <PasswordBox Name="txtSenhaNovoCadastro" PasswordChar="*" Margin="190,116,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="2" />
+        <PasswordBox Name="txtSenhaNovoCadastroConfirma" PasswordChar="*" Margin="190,146,0,0" Width="100" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="2"/>
+        <Button x:Name="Cadastrar" Content="Cadastrar" Width="195" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="20,188,10,0" Grid.Column="2" Click="Cadastrar_Click"/>
+
+        </Grid>
+</toolkit:BusyIndicator>
+</controls:ChildWindow>

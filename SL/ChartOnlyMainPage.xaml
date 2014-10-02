@@ -1,0 +1,238 @@
+﻿<UserControl x:Class="Traderdata.Client.TerminalWEB.ChartOnlyMainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:localdialog="clr-namespace:Traderdata.Client.TerminalWEB.Dialogs"
+    xmlns:operacao="clr-namespace:Traderdata.Client.TerminalWEB.Dialogs.Operacao"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml"
+    xmlns:basics="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls" 
+    xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="966">
+
+    <UserControl.Resources>
+        <Style TargetType="Image" x:Key="tbIcon">
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="Image" x:Key="tbIconToolbar">
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style TargetType="Image" x:Key="tbIcon2Toolbar">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="Image" x:Key="MenuIcon">
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+        </Style>
+    </UserControl.Resources>
+    <toolkit:BusyIndicator Name="busyIndicator" IsBusy="False" >
+        <Grid x:Name="LayoutRoot" Background="White" Loaded="LayoutRoot_Loaded"  KeyUp="LayoutRoot_KeyUp_1" SizeChanged="LayoutRoot_SizeChanged">
+        
+        <Grid Margin="31,30,0,0" Name="gridPrincipal" VerticalAlignment="Stretch"  Visibility="Visible" HorizontalAlignment="Stretch" >
+            <Grid.ColumnDefinitions>            
+                <ColumnDefinition Width="*" />            
+            </Grid.ColumnDefinitions>
+            <Canvas  Margin="0" Name="canvasPrincipal" VerticalAlignment="Stretch"  Visibility="Visible" HorizontalAlignment="Stretch" Grid.Column="0"/>
+            
+        </Grid>
+
+            <Grid Margin="0,0,0,0" VerticalAlignment="Stretch"  Visibility="Visible" HorizontalAlignment="Stretch" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>                
+            
+                <c1:C1ToolbarStrip Name="c1ToolbarSuperior" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Horizontal" Height="36" Grid.Column="0" Background="LightGray">
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/salvar.png" ToolTipService.ToolTip="Salvar Gráfico Selecionado" Name="tbarSalvarGrafico"  Click="tbarSalvarGrafico_Click_1"/>
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/novo-documento.png" ToolTipService.ToolTip="Novo Gráfico" Name="tbarNovoGrafico"  Click="tbarNovoGrafico_Click"/>
+                <!--<c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarAbrirGrafico"  Click="tbarAbrirGrafico_Click"/>                -->
+                <TextBox Name="txtAtivo" Width="55" KeyDown="txtAtivo_KeyDown_1" Text="[ATIVO]" GotFocus="txtAtivo_GotFocus" />
+            <!--<c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarAbrirGrafico"  Click="tbarAbrirGrafico_Click_1"/>-->
+            <!--<c1:C1Separator/>
+            <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/info-icon.png" ToolTipService.ToolTip="Painel de Informações" Name="tbarPainelInformacoes" IsChecked="True" Click="tbarPainelInformacoes_Click"/>-->
+            <c1:C1Separator />
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/refresh-icon.png" ToolTipService.ToolTip="Refresh" Name="tbarRefreshCotacoes"  Click="tbarRefreshCotacoes_Click"/>
+            <c1:C1Separator />
+            <!--<c1:C1ToolbarToggleButton ToolTipService.ToolTip="After-Market" Name="tbarAfterMarket"  Click="tbarAfterMarket_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIcon2Toolbar}" Source="/TerminalWeb;component/images/aftermarket-icon.png" />
+            </c1:C1ToolbarToggleButton>
+            <c1:C1Separator />-->
+            <c1:C1ToolbarButton ToolTipService.ToolTip="Adicionar Indicador" HorizontalAlignment="Right" Height="24" Name="tbarInsertIndicador" Click="tbarInsertIndicador_Click">
+                <StackPanel Orientation="Horizontal" >
+                    <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/add-icon.png"/>
+                    <TextBlock Text="Indicador" VerticalAlignment="Center" TextAlignment="Right" Margin="5,0,10,0" />
+                </StackPanel>
+            </c1:C1ToolbarButton>
+            <c1:C1ToolbarDropDown AutoClose="True" Width="18" Height="24">                
+                <c1:C1ToolbarDropDown.Content>
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" Height="300">
+                        <c1:C1Menu Orientation="Vertical" AutoClose="True" Name="mnuIndicadores"  />                        
+                    </ScrollViewer>
+                </c1:C1ToolbarDropDown.Content>
+            </c1:C1ToolbarDropDown>            
+          <c1:C1Separator/>  
+            <c1:C1ToolbarDropDown ToolTipService.ToolTip="Skin de Cores do Grafico" AutoClose="True" Name="tbarSkin" Width="30" Height="24">
+                <c1:C1ToolbarDropDown.Header>
+                    <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/color-icon.png" />
+                </c1:C1ToolbarDropDown.Header>
+                <c1:C1ToolbarDropDown.Content>                    
+                    <localdialog:ColorConfiguration x:Name="configuration" Height="300" ClickOk="configurationOkClick" Opened="configurationOpen"/>
+                </c1:C1ToolbarDropDown.Content>
+            </c1:C1ToolbarDropDown>
+            <c1:C1ToolbarDropDown ToolTipService.ToolTip="Configuração geral do Grafico" AutoClose="True" Name="tbarConfiguration" Width="30" Height="24">
+                <c1:C1ToolbarDropDown.Header>
+                    <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/config.png" />
+                </c1:C1ToolbarDropDown.Header>
+                <c1:C1ToolbarDropDown.Content>
+                    <localdialog:Configuration x:Name="configurationGeral" Height="300" ClickOk="configurationGeralOkClick" Opened="configurationGeralOpen"/>
+                </c1:C1ToolbarDropDown.Content>
+            </c1:C1ToolbarDropDown>
+            <Button Name="btnColorPicker" ToolTipService.ToolTip="Cor dos objetos" Height="26" Width="20" Click="btnColorPicker_Click_1" Padding="3">
+                <Border Background="Black" Width="26" Height="21" Name="borderColorPicker" IsHitTestVisible="False" Padding="0,0,0,0"></Border>
+            </Button>                        
+            <c1:C1ColorPicker Name="objectColorPicker" ToolTipService.ToolTip="Cor dos objetos" SelectedColorChanged="objectColorPicker_SelectedColorChanged"  Height="26" Width="14" Mode="Both"  >
+                
+            </c1:C1ColorPicker>
+            <c1:C1ToolbarDropDown ToolTipService.ToolTip="Grossura dos objetos" AutoClose="True" Name="tbarStrokeSthickness" Width="30" Height="24">
+                <c1:C1ToolbarDropDown.Header>
+                    <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/line-thcikness-icon.png" />
+                </c1:C1ToolbarDropDown.Header>
+                <c1:C1ToolbarDropDown.Content>
+                    <localdialog:StrokeThicknessPicker x:Name="strokeThicknessPicker" ChangeSelection="strokeThicknessPicker_ChangeSelection" />
+                </c1:C1ToolbarDropDown.Content>
+            </c1:C1ToolbarDropDown>
+
+            <c1:C1ToolbarDropDown ToolTipService.ToolTip="Estilo das linhas" AutoClose="True" Name="tbarStrokeType" Width="30" Height="24">
+                <c1:C1ToolbarDropDown.Header>
+                    <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/strokeType-icon.png" Margin="5,0,0,0"/>
+                </c1:C1ToolbarDropDown.Header>
+                <c1:C1ToolbarDropDown.Content>
+                    <localdialog:StrokeTypePicker x:Name="strokeTypePicker" ChangeSelection="strokeTypePicker_ChangeSelection"  />
+                </c1:C1ToolbarDropDown.Content>
+            </c1:C1ToolbarDropDown>
+            <c1:C1Separator/>
+            <c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 1 Minuto" Name="tbar1Minuto"  GroupName="Periodicidade"  Width="24" Height="24" Click="tbar1Minuto_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock1.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 2 Minutos" Name="tbar2Minutos" GroupName="Periodicidade"  Width="24" Height="24" Click="tbar2Minutos_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock2.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 3 Minutos" Name="tbar3Minutos" GroupName="Periodicidade" Width="24" Height="24" Click="tbar3Minutos_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock3.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 5 Minutos" Name="tbar5Minutos"  GroupName="Periodicidade" Width="24" Height="24" Click="tbar5Minutos_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock5.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 10 Minutos" Name="tbar10Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar10Minutos_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock10.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 15 Minutos" Name="tbar15Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar15Minutos_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock15.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 30 Minutos" Name="tbar30Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar30Minutos_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock30.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 1 Hora" Name="tbar60Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar60Minutos_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock1h.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 2 Horas" Name="tbar120Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar120Minutos_Click" IsEnabled="False" Visibility="Collapsed">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock2h.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Diario" Name="tbarDiario"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarDiario_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clockD.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Semanal" Name="tbarSemanal"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarSemanal_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clockS.png"/>
+            </c1:C1ToolbarToggleButton>
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Mensal" Name="tbarMensal"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarMensal_Click" IsEnabled="False">
+                <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clockM.png"/>
+            </c1:C1ToolbarToggleButton>
+            <c1:C1Separator />
+            <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/candle-icon.png" ToolTipService.ToolTip="Candle"   Width="24" Height="24" Name="tbarCandle"  GroupName="TipoBarra" Click="tbarCandle_Click"/>
+            <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/chart-icon.png" ToolTipService.ToolTip="Barra" Width="24" Height="24"  Name="tbarBarra" GroupName="TipoBarra" Click="tbarBarra_Click"/>
+            <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/chart-line-icon.png" ToolTipService.ToolTip="Linha" Width="24" Height="24"  Name="tbarLinha" GroupName="TipoBarra" Click="tbarLinha_Click"/>
+            <c1:C1Separator />
+            <c1:C1ToolbarToggleButton ToolTipService.ToolTip="Escala Normal" Width="24" Height="24"  Name="tbarEscalaNormal" GroupName="TipoEscala" Click="tbarEscalaNormal_Click">
+                <Image Style="{StaticResource tbIcon2Toolbar}" Source="/TerminalWeb;component/images/nm.png"/>
+            </c1:C1ToolbarToggleButton>
+            <c1:C1ToolbarToggleButton  ToolTipService.ToolTip="Escala Semilog" Width="24" Height="24"  Name="tbarEscalaSemilog" GroupName="TipoEscala" Click="tbarEscalaSemilog_Click">
+                <Image Style="{StaticResource tbIcon2Toolbar}" Source="/TerminalWeb;component/images/slg.png"/>
+            </c1:C1ToolbarToggleButton>
+            <c1:C1Separator />
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/social-icon.png" ToolTipService.ToolTip="Publicar na Zona de Compartilhamento" Name="tbarPublicarTraderdata"  Width="24" Height="24" Click="tbarPublicarTraderdata_Click_1" IsEnabled="False"            ></c1:C1ToolbarButton>
+            <c1:C1ToolbarDropDown AutoClose="True"  Height="24" Width="30">
+                <c1:C1ToolbarDropDown.Header>
+                    <Image Style="{StaticResource tbIcon}" Margin="2,2,2,2" Source="/TerminalWeb;component/images/facebook-icon.png" />
+                </c1:C1ToolbarDropDown.Header>
+                <c1:C1ToolbarDropDown.Content>
+                    <c1:C1Menu Orientation="Vertical" AutoClose="True" Name="mnuFacebook" Background="White">
+                        <c1:C1MenuItem Header="Publicar Análise" Name="mnuPublicarFacebook" Click="mnuPublicarFacebook_Click_1" Background="White"/>
+                        <c1:C1MenuItem Header="Convide seus amigos" Name="InviteFacebookFriends" Click="InviteFacebookFriends_Click_1" Background="White"/>
+                        <!--<c1:C1MenuItem Header="Recomendar Compra" Name="RecommendBuy" Click="RecommendBuy_Click_1" Background="White"/>
+                        <c1:C1MenuItem Header="Recomendar Venda" Name="RecommendSell" Click="RecommendSell_Click_1" Background="White"/>-->
+                    </c1:C1Menu>
+                </c1:C1ToolbarDropDown.Content>
+            </c1:C1ToolbarDropDown>
+            <c1:C1Separator />            
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/help-icon.png" ToolTipService.ToolTip="Manual" Name="tbarManual"  Width="24" Height="24" />
+
+        </c1:C1ToolbarStrip>
+                <Canvas Grid.Column="1" Background="LightGray" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="250" Margin="00,0,0,00">
+                    <TextBlock Name="txtAtivoVariacao"  Text="" FontWeight="Bold" FontSize="14" Foreground="Green" TextAlignment="Right" Width="250" Height="28" Margin="-10,0,0,0"/>
+                </Canvas>
+            </Grid>
+
+            <ScrollViewer Name="scrollToolBar" HorizontalScrollBarVisibility="Disabled" Margin="0,30,0,40"  VerticalScrollBarVisibility="Hidden" Width="30" Background="Silver" VerticalAlignment="Stretch"  HorizontalAlignment="Left" BorderThickness="0,0,0,0" Padding="0,0,0,0">
+                <c1:C1ToolbarStrip Name="c1Toolbar" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="30"  HorizontalAlignment="Left" Orientation="Vertical" Overflow="None" BorderThickness="0,0,0,0">
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/seta.png" ToolTipService.ToolTip="Mouse Comum" Name="tbarSeta" Click="tbarSeta_Click" IsChecked="True"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/cross.png" ToolTipService.ToolTip="Mouse Cross" Name="tbarCross" Click="tbarCross_Click" />
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/zoom-in-icon.png" ToolTipService.ToolTip="Zoom" Name="tbarZoomIn" Click="tbarZoomIn_Click" Width="24" Height="24"/>
+                    <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/zoom-out-icon.png" ToolTipService.ToolTip="Ressetar Zoom" Name="tbarZoomOut" Click="tbarResetZoom_Click" Width="24" Height="24"/>
+
+                    <c1:C1Separator/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/line-icon.png" ToolTipService.ToolTip="Inserir Linha de Tendência" Name="tbarRetaTendencia" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/RetaHorizontal.png" ToolTipService.ToolTip="Inserir Reta Horizontal" Name="tbarLinhaHorizontal" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/RetaVertical.png" ToolTipService.ToolTip="Inserir Reta Vertical" Name="tbarLinhaVertical" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/Elipse.png" ToolTipService.ToolTip="Inserir Círculo" Name="tbarElipse" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/square.png" ToolTipService.ToolTip="Inserir Retângulo" Name="tbarRetangulo" Click="tbarLateral_Click"/>
+                    <c1:C1Separator/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/text-icon.png" ToolTipService.ToolTip="Inserir Texto" Name="tbarTexto" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/numbers-icon.png" ToolTipService.ToolTip="Inserir Valor Y" Name="tbarValorY" Click="tbarLateral_Click"/>
+                    <c1:C1Separator/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/suporte-icon.png" ToolTipService.ToolTip="Inserir Reta de Suporte" Name="tbarSuporte" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/resistencia-icon.png" ToolTipService.ToolTip="Inserir Reta de Resistência" Name="tbarResistencia" Click="tbarLateral_Click"/>
+                    <c1:C1Separator/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/buy.png" ToolTipService.ToolTip="Inserir Símbolo de Alta" Name="tbarCompra" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/sell.png" ToolTipService.ToolTip="Inserir Símbolo de Baixa" Name="tbarVenda" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/SignalPrice.png" ToolTipService.ToolTip="Inserir Símbolo de Sinal" Name="tbarSinal" Click="tbarLateral_Click"/>
+                    <c1:C1Separator/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/fibo-retracement.png" ToolTipService.ToolTip="Inserir Fibonacci Retracement" Name="tbarFiboRetracement" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/fibo-arcs.png" ToolTipService.ToolTip="Inserir Fibonacci Arcs" Name="tbarFiboArcs" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/fibo-fan.png" ToolTipService.ToolTip="Inserir Fibonacci Fan" Name="tbarFiboFan" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/fibo-timezone.png" ToolTipService.ToolTip="Inserir Fibonacci Timezone" Name="tbarFiboTimezone" Click="tbarLateral_Click"/>
+                    <c1:C1Separator/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/gannfan.png" ToolTipService.ToolTip="Inserir Gann Fan" Name="tbarGannFan" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/error-channel.png" ToolTipService.ToolTip="Inserir Error Channel" Name="tbarErrorChannel" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/speed-line.png" ToolTipService.ToolTip="Inserir SpeedLine" Name="tbarSpeedLine" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/tirone-levels.png" ToolTipService.ToolTip="Inserir Tirone Levels" Name="tbarTironeLevels" Click="tbarLateral_Click"/>
+                    <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/raff-regression.png" ToolTipService.ToolTip="Inserir Raff Regression" Name="tbarRaffRegression" Click="tbarLateral_Click"/>
+                </c1:C1ToolbarStrip >
+            </ScrollViewer>
+            <Button Name="scrollToolbarUp" HorizontalAlignment="Left" Height="20" Width="30" Margin="0,0,0,20" VerticalAlignment="Bottom"  Click="scrollBarUpClick">
+                <Image  Source="/TerminalWeb;component/images/seta-up-icon.png"/>
+            </Button>
+        <Button Name="scrollToolbarDown" Height="20" Width="30" Click="scrollBarDownClick" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+                <Image Source="/TerminalWeb;component/images/seta-down-icon.png"/>
+            </Button>
+    </Grid>
+    </toolkit:BusyIndicator>
+</UserControl>
