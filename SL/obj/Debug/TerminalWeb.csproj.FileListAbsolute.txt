@@ -1,0 +1,212 @@
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\ClientBin\TerminalWeb.dll
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\ClientBin\TerminalWeb.pdb
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\ClientBin\AppManifest.xaml
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\ClientBin\TerminalWeb.xap
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\ClientBin\SilverlightApplication8TestPage.html
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\App.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\ContainerDireita.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\ChartOnlyMainPage.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\AbrirGrafico.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Backtest\CriaEditaBacktest.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Backtest\VisualizaResultadoBacktest.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\BuscaAtivoDialog.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\ColorPicker.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\CommandBox.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\ColorConfiguration.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Condicao.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\HorizontalLineEdit.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\LojaVirtual.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Operacao\Compra.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Operacao\Boletas.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Operacao\ExecutionReport.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Operacao\Venda.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Operacao\Custodia.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Portfolio\StockTickerSymbol.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Portfolio\StockTickerYellow.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Portfolio\PortfolioGrid.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Portfolio\StockTicker.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Configuration.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\CustomCursor.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\EditIndicator.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\InfoPanel.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Login.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\NumericUpDownUC.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\RecomendarCompraVenda.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Status.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\StrokeTypePicker.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\InsertIndicator.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\PromptTexto.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\SearchBox.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\StrokeThicknessPicker.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Trades\TimesTrades.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Dialogs\Videos.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\HistoricoCotacao.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\MainPage.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\Grafico.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\PageCollection.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\PageCollectionContainer.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\SavePage.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\TerminalWeb.g.resources
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\TerminalWeb.dll
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\TerminalWeb.pdb
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\XapCacheFile.xml
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\SL\obj\Debug\TerminalWeb.csprojResolveAssemblyReference.cache
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\WEB\WebStartup\ClientBin\TerminalWeb.dll
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\WEB\WebStartup\ClientBin\TerminalWeb.pdb
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\WEB\WebStartup\ClientBin\AppManifest.xaml
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\WEB\WebStartup\ClientBin\TerminalWeb.xap
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\WEB\WebStartup\ClientBin\SilverlightApplication8TestPage.html
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\TerminalWeb.csprojResolveAssemblyReference.cache
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\App.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\ContainerDireita.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\ChartOnlyMainPage.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\AbrirGrafico.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Backtest\CriaEditaBacktest.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Backtest\VisualizaResultadoBacktest.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\BuscaAtivoDialog.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\ColorPicker.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\CommandBox.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\ColorConfiguration.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Condicao.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\HorizontalLineEdit.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\LojaVirtual.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Operacao\Compra.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Operacao\Boletas.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Operacao\ExecutionReport.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Operacao\Venda.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Operacao\Custodia.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Portfolio\StockTickerSymbol.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Portfolio\StockTickerYellow.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Portfolio\PortfolioGrid.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Portfolio\StockTicker.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Configuration.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\CustomCursor.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\EditIndicator.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\InfoPanel.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Login.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\NumericUpDownUC.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\RecomendarCompraVenda.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Status.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\StrokeTypePicker.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\InsertIndicator.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\PromptTexto.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\SearchBox.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\StrokeThicknessPicker.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Trades\TimesTrades.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Dialogs\Videos.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\HistoricoCotacao.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\MainPage.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\Grafico.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\PageCollection.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\PageCollectionContainer.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\SavePage.g.i.cs
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\TerminalWeb.g.resources
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\TerminalWeb.dll
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\TerminalWeb.pdb
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012 - Copia\SL\obj\Debug\XapCacheFile.xml
+C:\Backup\GITHUB\Nova pasta\WEB\WebStartup\ClientBin\TerminalWeb.dll
+C:\Backup\GITHUB\Nova pasta\WEB\WebStartup\ClientBin\TerminalWeb.pdb
+C:\Backup\GITHUB\Nova pasta\WEB\WebStartup\ClientBin\AppManifest.xaml
+C:\Backup\GITHUB\Nova pasta\WEB\WebStartup\ClientBin\TerminalWeb.xap
+C:\Backup\GITHUB\Nova pasta\WEB\WebStartup\ClientBin\SilverlightApplication8TestPage.html
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\TerminalWeb.csprojResolveAssemblyReference.cache
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\App.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\ContainerDireita.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\ChartOnlyMainPage.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\AbrirGrafico.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Backtest\CriaEditaBacktest.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Backtest\VisualizaResultadoBacktest.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\BuscaAtivoDialog.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\ColorPicker.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\CommandBox.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\ColorConfiguration.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Condicao.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\HorizontalLineEdit.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\LojaVirtual.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Operacao\Compra.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Operacao\Boletas.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Operacao\ExecutionReport.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Operacao\Venda.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Operacao\Custodia.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Portfolio\StockTickerSymbol.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Portfolio\StockTickerYellow.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Portfolio\PortfolioGrid.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Portfolio\StockTicker.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Configuration.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\CustomCursor.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\EditIndicator.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\InfoPanel.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Login.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\NumericUpDownUC.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\RecomendarCompraVenda.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Status.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\StrokeTypePicker.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\InsertIndicator.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\PromptTexto.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\SearchBox.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\StrokeThicknessPicker.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Trades\TimesTrades.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Dialogs\Videos.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\HistoricoCotacao.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\MainPage.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\Grafico.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\PageCollection.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\PageCollectionContainer.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\SavePage.g.i.cs
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\TerminalWeb.g.resources
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\TerminalWeb.dll
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\TerminalWeb.pdb
+C:\Backup\GITHUB\Nova pasta\SL\obj\Debug\XapCacheFile.xml
+C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\TerminalWeb.dll
+C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\TerminalWeb.pdb
+C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\AppManifest.xaml
+C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\TerminalWeb.xap
+C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\SilverlightApplication8TestPage.html
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.csprojResolveAssemblyReference.cache
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\App.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\ContainerDireita.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\ChartOnlyMainPage.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\AbrirGrafico.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Backtest\CriaEditaBacktest.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Backtest\VisualizaResultadoBacktest.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\BuscaAtivoDialog.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\ColorPicker.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\CommandBox.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\ColorConfiguration.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Condicao.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\HorizontalLineEdit.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\LojaVirtual.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Operacao\Compra.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Operacao\Boletas.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Operacao\ExecutionReport.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Operacao\Venda.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Operacao\Custodia.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Portfolio\StockTickerSymbol.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Portfolio\StockTickerYellow.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Portfolio\PortfolioGrid.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Portfolio\StockTicker.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Configuration.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\CustomCursor.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\EditIndicator.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\InfoPanel.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Login.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\NumericUpDownUC.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\RecomendarCompraVenda.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Status.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\StrokeTypePicker.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\InsertIndicator.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\PromptTexto.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\SearchBox.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\StrokeThicknessPicker.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Trades\TimesTrades.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Videos.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\HistoricoCotacao.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\MainPage.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Grafico.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\PageCollection.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\PageCollectionContainer.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\SavePage.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.g.resources
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.dll
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.pdb
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\XapCacheFile.xml

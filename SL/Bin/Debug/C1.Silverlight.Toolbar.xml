@@ -1,0 +1,851 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>C1.Silverlight.Toolbar</name>
+    </assembly>
+    <members>
+        <member name="T:C1.Silverlight.Toolbar.C1Toolbar">
+            <summary>
+            C1Toolbar control represents a toolbar that contains the controls consolidated
+            in the toolbar groups. Usually C1Toolbar consists from one or more C1ToolbarGroups. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1Toolbar.ItemsInternalProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Items.  This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1Toolbar.OnApplyTemplate">
+            <summary>
+            Called when applying template.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1Toolbar.PrepareContainerForItemOverride(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Prepares item container.
+            </summary>
+            <param name="element"></param>
+            <param name="item"></param>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1Toolbar.ShowHelpButtonProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1Toolbar.ShowHelpButton"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1Toolbar.ShowCollapseButtonProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1Toolbar.ShowCollapseButton"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1Toolbar.MouseOverBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1Toolbar.MouseOverBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1Toolbar.PressedBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1Toolbar.PressedBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1Toolbar.FocusBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1Toolbar.FocusBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1Toolbar.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1Toolbar"/>.
+            </summary>
+        </member>
+        <member name="E:C1.Silverlight.Toolbar.C1Toolbar.HelpClick">
+            <summary>
+            Fires when help buttom is clicked.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1Toolbar.Items">
+            <summary>
+            Gets the collection of toolbar items.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1Toolbar.ShowHelpButton">
+            <summary>
+            Gets or sets the help button visibility
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1Toolbar.ShowCollapseButton">
+            <summary>
+            Gets or sets the collapse button visibility
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1Toolbar.MouseOverBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the control when it has the mouse over.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1Toolbar.PressedBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to paint a button when it is pressed.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1Toolbar.FocusBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the focused control.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarButton">
+            <summary>
+            C1ToolbarButton control represents a button on the C1ToobarStrip. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarButton.LabelTitleProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for LabelTitle.  
+            This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarButton.SmallImageSourceProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for SmallImageSource.  
+            This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarButton.LargeImageSourceProperty">
+            <summary>
+             Using a DependencyProperty as the backing store for LargeImageSource. 
+             This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarButton.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Called when measuring a control.
+            </summary>
+            <param name="availableSize"></param>
+            <returns></returns>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarButton.MouseOverBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarButton.MouseOverBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarButton.PressedBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarButton.PressedBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarButton.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarButton"/>.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarButton.LabelTitle">
+            <summary>
+            Gets or sets the label title of control.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarButton.SmallImageSource">
+            <summary>
+            Gets or sets the small image source of the control.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarButton.LargeImageSource">
+            <summary>
+            Gets or sets the large image source of the control.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarButton.MouseOverBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the control when it has the mouse over.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarButton.PressedBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to paint a button when it is pressed.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarCommand">
+            <summary>
+            Represents toolbar command. 
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarCommand.LabelTitle">
+            <summary>
+            Gets or sets the command label.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarCommand.SmallImageSource">
+            <summary>
+            Gets or sets the small command image source.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarCommand.LargeImageSource">
+            <summary>
+            Gets or sets the large command image source.
+            </summary>
+        </member>
+        <member name="E:C1.Silverlight.Toolbar.C1ToolbarCommand.PropertyChanged">
+            <summary>
+            Fires when property changed.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarDropDown">
+            <summary>
+            C1ToolbarDropDown control represents a drop-down button on the C1ToobarStrip. 
+            When clicking it displays popup panel with Content property or context menu set by Menu property.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarDropDown.MenuProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarDropDown.Menu"/> dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarDropDown.OnApplyTemplate">
+            <summary>
+            Invoked during a call of ApplyTemplate() method.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarDropDown.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Called when measuring a control.
+            </summary>
+            <param name="availableSize"></param>
+            <returns></returns>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarDropDown.ContentBackgroundProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarDropDown.ContentBackground"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarDropDown.MouseOverBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarDropDown.MouseOverBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarDropDown.PressedBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarDropDown.PressedBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarDropDown.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarDropDown"/>.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarDropDown.Menu">
+            <summary>
+            Gets or sets the context menu which is displayed when the control is clicked.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarDropDown.ContentBackground">
+            <summary>
+            Gets or sets the content background.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarDropDown.MouseOverBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the control when it has the mouse over.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarDropDown.PressedBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to paint a button when it is pressed.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarGroup">
+            <summary>
+            C1ToolbarGroup control represents toolbar group that 
+            contains one or more toolbar strips.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarGroup.HeaderProperty">
+            <summary>
+             Identifies the Header dependency property.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarGroup.GroupSizeDefinitionsProperty">
+            <summary>
+             Identifies the GroupSizeDefinitions dependency property.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarGroup.ShowDialogLauncherProperty">
+            <summary>
+            Identifies the  ShowDialogLauncher dependency property.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroup.OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Invoked when Items property changed.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroup.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Called when measuring a control.
+            </summary>
+            <param name="availableSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroup.PrepareContainerForItemOverride(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Prepares item container.
+            </summary>
+            <param name="element"></param>
+            <param name="item"></param>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarGroup.MouseOverBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarGroup.MouseOverBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarGroup.PressedBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarGroup.PressedBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarGroup.FocusBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarGroup.FocusBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroup.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarGroup"/>.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroup.OnApplyTemplate">
+            <summary>
+            Builds the visual tree for the <see cref="T:C1.Silverlight.Toolbar.C1ToolbarGroup"/> control when a new template is applied.
+            </summary>
+            <remarks>
+            This method is invoked whenever application code or an internal process, such as a rebuilding layout pass, calls the <see cref="M:ApplyTemplate"/> method.
+            </remarks>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarGroup.Header">
+            <summary>
+            Gets or sets the header of the toolbar group.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarGroup.GroupSizeDefinitions">
+            <summary>
+            Gets or sets the collection of group size definitions for the toolbar group.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarGroup.ShowDialogLauncher">
+            <summary>
+            Gets or sets the dialog launcher visibility.
+            </summary>
+        </member>
+        <member name="E:C1.Silverlight.Toolbar.C1ToolbarGroup.DialogLauncherClick">
+            <summary>
+            Fires when dialog launcher is clicked.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarGroup.MouseOverBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the control when it has the mouse over.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarGroup.PressedBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to paint a button when it is pressed.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarGroup.FocusBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the focused control.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarControlSize">
+            <summary>
+            Represents available sizes of control in toolbar.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarControlSize.Large">
+            <summary>
+            Large appearance.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarControlSize.Medium">
+            <summary>
+            Medium appearance.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarControlSize.Small">
+            <summary>
+            Small appearance.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarGroupSizeDefinition">
+            <summary>
+            Represents the definition of control sizes in toolbar group.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroupSizeDefinition.#ctor">
+            <summary>
+            Creates an instance of C1ToolbarGroupSizeDefinition class.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarGroupSizeDefinition.ControlSizes">
+            <summary>
+            Gets or sets the collection of control sizes.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarGroupPanel">
+            <summary>
+            C1ToolbarGroupPanel class represents a panel that is used for element layout in C1ToolbarGroup.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroupPanel.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarGroupPanel"/>.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroupPanel.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Called when measuring a control.
+            </summary>
+            <param name="availableSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarGroupPanel.ArrangeOverride(System.Windows.Size)">
+            <summary>
+            Called when arranging a control.
+            </summary>
+            <param name="finalSize"></param>
+            <returns></returns>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarPanel">
+            <summary>
+            C1ToolbarPanel class represents a panel that is used for element layout in C1Toolbar.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarPanel.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarPanel"/>.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarPanel.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Called when measuring a control.
+            </summary>
+            <param name="availableSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarPanel.ArrangeOverride(System.Windows.Size)">
+            <summary>
+            Called when arranging a control.
+            </summary>
+            <param name="finalSize"></param>
+            <returns></returns>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarSplitButton">
+            <summary>
+            Represents toolbar split button.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarSplitButton.#ctor">
+            <summary>
+            Creates an instance of C1ToolbarSplitButton.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarSplitButton.OnApplyTemplate">
+            <summary>
+            Called when applying template.
+            </summary>
+        </member>
+        <member name="E:C1.Silverlight.Toolbar.C1ToolbarSplitButton.Click">
+            <summary>
+            Fires whan the button is clicked.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.ToolbarOverflow">
+            <summary>
+            ToolbarOverflow enumeration contains available values for overflow handling
+            in toolbar elements.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.ToolbarOverflow.None">
+            <summary>
+            Overflow is not handled.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.ToolbarOverflow.Menu">
+            <summary>
+            Shows menu.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.ToolbarOverflow.Panel">
+            <summary>
+            Shows panel with elements which do not fit to the main container. 
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarStrip">
+            <summary>
+            C1ToolbarStrip control represents a strip that contains one or more controls.
+            C1ToolbarStrip can be used alone or as content of toolbar group.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStrip.OverflowProperty">
+            <summary>
+            Identifies the Overflow dependency property.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStrip.OverflowPanelProperty">
+            <summary>
+            Identifies the OverflowPanel dependency property.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStrip.OrientationProperty">
+            <summary>
+            Identifies the Orientation dependency property.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStrip.OnApplyTemplate">
+            <summary>
+             Invoked during a call of ApplyTemplate() method.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStrip.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Called when measuring a control.
+            </summary>
+            <param name="availableSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStrip.ArrangeOverride(System.Windows.Size)">
+            <summary>
+            Called when arranging a control.
+            </summary>
+            <param name="finalSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStrip.GetContainerForItemOverride">
+            <summary>
+            Creates the element to display the item.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStrip.IsItemItsOwnContainerOverride(System.Object)">
+            <summary>
+            Determines if the specified item is its own container.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStrip.PrepareContainerForItemOverride(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Prepares the specified element to display the specified item.
+            </summary>
+            <param name="element"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStrip.UpadateMenu">
+            <summary>
+            Creates menu from the "invisible" elements.
+            </summary>
+            <returns>True if there are elements in menu.</returns>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStrip.MouseOverBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarStrip.MouseOverBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStrip.PressedBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarStrip.PressedBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStrip.ButtonBackgroundProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarStrip.ButtonBackground"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStrip.ButtonForegroundProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarStrip.ButtonForeground"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStrip.FocusBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarStrip.FocusBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStrip.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarStrip"/>.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.Overflow">
+            <summary>
+            Gets or set the value that indicates how to handle the items
+            which do not fit to the available space.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.OverflowPanel">
+            <summary>
+            Gets or sets the template for overflow panel.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.Orientation">
+            <summary>
+            Gets or sets the orientation of the toolbar strip.
+            </summary>
+        </member>
+        <member name="E:C1.Silverlight.Toolbar.C1ToolbarStrip.OverflowItemAdded">
+            <summary>
+            Fires when an element is added to the overflow items.
+            The overflow items include the elements hidden from
+            the toolbar strip due to lack of available space.
+            </summary>
+        </member>
+        <member name="E:C1.Silverlight.Toolbar.C1ToolbarStrip.OverflowItemRemoved">
+            <summary>
+            Fires when an element is removed from the overflow items.
+            The overflow items include the elements hidden from
+            the toolbar strip due to lack of available space.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.OverflowMenuItems">
+            <summary>
+            Gets the collection that contains elements of overflow menu.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.MouseOverBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the control when it has the mouse over.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.PressedBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to paint a button when it is pressed.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.ButtonBackground">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> that will be assigned to the Background of the buttons inside the control.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.ButtonForeground">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> that will be assigned to the Foreground of the buttons inside the control.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStrip.FocusBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the focused control.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarStripItem">
+            <summary>
+            C1ToolbarStripItem represents wrapper for the items on the C1ToolbarStrip.
+            Each item added on the toolbar strip is put into the separate C1ToolbarStripItem.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStripItem.OnApplyTemplate">
+            <summary>
+            Invoked during a call of ApplyTemplate() method.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStripItem.ArrangeOverride(System.Windows.Size)">
+            <summary>
+            Called when arranging a control.
+            </summary>
+            <param name="finalSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStripItem.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Called when measuring a control.
+            </summary>
+            <param name="availableSize"></param>
+            <returns></returns>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStripItem.MouseOverBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarStripItem.MouseOverBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStripItem.PressedBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarStripItem.PressedBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarStripItem.FocusBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarStripItem.FocusBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarStripItem.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarStripItem"/>.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStripItem.MouseOverBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the control when it has the mouse over.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStripItem.PressedBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to paint a button when it is pressed.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarStripItem.FocusBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the focused control.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarTabItem">
+            <summary>
+            Represents toolbar tab item.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarTabItem.#ctor">
+            <summary>
+            Creates an instance of C1ToolbarTabItem.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarTabItem.GroupsProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for Items.  This enables animation, styling, binding, etc... 
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarTabItem.Groups">
+            <summary>
+            Gets the collection of toolbar groups.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarGroupCollection">
+            <summary>
+            Represents collection of toolbar groups.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarTabControl">
+            <summary>
+            Represents toolbar tab control.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarTabControl.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarTabControl"/>.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarTabControl.OnApplyTemplate">
+            <summary>
+            Builds the visual tree for the <see cref="T:C1.Silverlight.Toolbar.C1ToolbarTabControl"/> control when a new template is applied.
+            </summary>
+            <remarks>
+            This method is invoked whenever application code or an internal process, such as a rebuilding layout pass, calls the <see cref="M:ApplyTemplate"/> method.
+            </remarks>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarToggleButton">
+            <summary>
+            C1ToolbarButton control represents a toggle button on the C1ToobarStrip.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarToggleButton.LabelTitleProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for LabelTitle.  
+            This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarToggleButton.SmallImageSourceProperty">
+            <summary>
+            Using a DependencyProperty as the backing store for SmallImageSource.  
+            This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarToggleButton.LargeImageSourceProperty">
+            <summary>
+             Using a DependencyProperty as the backing store for LargeImageSource. 
+             This enables animation, styling, binding, etc...
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarToggleButton.GroupNameProperty">
+            <summary>
+            Identifies the GroupName dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarToggleButton.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Called when measuring a control. 
+            </summary>
+            <param name="availableSize"></param>
+            <returns></returns>\
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarToggleButton.OnToggle">
+            <summary>
+            Called when toggling button state.
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarToggleButton.MouseOverBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarToggleButton.MouseOverBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="F:C1.Silverlight.Toolbar.C1ToolbarToggleButton.PressedBrushProperty">
+            <summary>
+            Identifies the <see cref="P:C1.Silverlight.Toolbar.C1ToolbarToggleButton.PressedBrush"/> dependency property. 
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarToggleButton.#ctor">
+            <summary>
+            Initializes a new instance of a <see cref="T:C1.Silverlight.Toolbar.C1ToolbarToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarToggleButton.LabelTitle">
+            <summary>
+            Gets or sets the label title of control.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarToggleButton.SmallImageSource">
+            <summary>
+            Gets or sets the small image source of the control.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarToggleButton.LargeImageSource">
+            <summary>
+            Gets or sets the large image source of the control.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarToggleButton.GroupName">
+            <summary>
+            Gets or sets the name that specifies which C1ToolbarToggleButton controls are mutually exclusive.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarToggleButton.MouseOverBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to highlight the control when it has the mouse over.
+            </summary>
+        </member>
+        <member name="P:C1.Silverlight.Toolbar.C1ToolbarToggleButton.PressedBrush">
+            <summary>
+            Gets or sets the <see cref="T:System.Windows.Media.Brush"/> used to paint a button when it is pressed.
+            </summary>
+        </member>
+        <member name="T:C1.Silverlight.Toolbar.C1ToolbarCommandConverter">
+            <summary>
+            Converter for command.
+            </summary>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarCommandConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts value.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:C1.Silverlight.Toolbar.C1ToolbarCommandConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts value back.
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="parameter"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

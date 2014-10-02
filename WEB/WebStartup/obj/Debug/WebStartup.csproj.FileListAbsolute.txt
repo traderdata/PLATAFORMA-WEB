@@ -1,0 +1,5 @@
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\bin\WebStartup.dll
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\bin\WebStartup.pdb
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\obj\Debug\WebStartup.dll
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\obj\Debug\WebStartup.pdb
+C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\obj\Debug\WebStartup.csprojResolveAssemblyReference.cache

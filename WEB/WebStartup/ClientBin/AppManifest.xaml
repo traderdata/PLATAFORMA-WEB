@@ -1,0 +1,35 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="TerminalWeb" EntryPointType="Traderdata.Client.TerminalWEB.App" RuntimeVersion="5.0.61118.0">
+  <Deployment.OutOfBrowserSettings>
+    <OutOfBrowserSettings ShortName="Terminal Traderdata" EnableGPUAcceleration="False" ShowInstallMenuItem="True">
+      <OutOfBrowserSettings.Blurb>Terminal Traderdata</OutOfBrowserSettings.Blurb>
+      <OutOfBrowserSettings.WindowSettings>
+        <WindowSettings Title="Terminal Traderdata" />
+      </OutOfBrowserSettings.WindowSettings>
+      <OutOfBrowserSettings.SecuritySettings>
+        <SecuritySettings ElevatedPermissions="NotRequired" />
+      </OutOfBrowserSettings.SecuritySettings>
+      <OutOfBrowserSettings.Icons />
+    </OutOfBrowserSettings>
+  </Deployment.OutOfBrowserSettings>
+  <Deployment.Parts>
+    <AssemblyPart x:Name="TerminalWeb" Source="TerminalWeb.dll" />
+    <AssemblyPart x:Name="C1.Silverlight" Source="C1.Silverlight.dll" />
+    <AssemblyPart x:Name="C1.Silverlight.Extended" Source="C1.Silverlight.Extended.dll" />
+    <AssemblyPart x:Name="C1.Silverlight.FlexGrid.4" Source="C1.Silverlight.FlexGrid.4.dll" />
+    <AssemblyPart x:Name="C1.Silverlight.Toolbar" Source="C1.Silverlight.Toolbar.dll" />
+    <AssemblyPart x:Name="FM.WebSync.Silverlight.Core" Source="FM.WebSync.Silverlight.Core.dll" />
+    <AssemblyPart x:Name="ModulusFE.StockChartX.SL" Source="ModulusFE.StockChartX.SL.dll" />
+    <AssemblyPart x:Name="SharpZipLib" Source="SharpZipLib.dll" />
+    <AssemblyPart x:Name="System.ComponentModel.DataAnnotations" Source="System.ComponentModel.DataAnnotations.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Data" Source="System.Windows.Controls.Data.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Data.Input" Source="System.Windows.Controls.Data.Input.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls" Source="System.Windows.Controls.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Input" Source="System.Windows.Controls.Input.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Input.Toolkit" Source="System.Windows.Controls.Input.Toolkit.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Navigation" Source="System.Windows.Controls.Navigation.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Toolkit" Source="System.Windows.Controls.Toolkit.dll" />
+    <AssemblyPart x:Name="System.Windows.Data" Source="System.Windows.Data.dll" />
+    <AssemblyPart x:Name="System.Xml.Linq" Source="System.Xml.Linq.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Toolkit.Internals" Source="System.Windows.Controls.Toolkit.Internals.dll" />
+  </Deployment.Parts>
+</Deployment>
