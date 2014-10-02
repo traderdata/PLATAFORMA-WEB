@@ -218,12 +218,12 @@ namespace Traderdata.Client.TerminalWEB
                 TerminalWebSVC.WorkspaceDTO workspace = new TerminalWebSVC.WorkspaceDTO();
                 workspace.Nome = "DEFAULT";
                 workspace.UsuarioId = StaticData.User.Id;
-                workspace.Graficos = ((MainPage)this.RootVisual).GetGraficos();
+                //workspace.Graficos = ((MainPage)this.RootVisual).GetGraficos();
 
                 //salvando workspace no isolated storage
-                terminalWebClient.SaveWorkspaceAsync(workspace);
+                //terminalWebClient.SaveWorkspaceAsync(workspace);
 
-                Thread.Sleep(10000);
+                //Thread.Sleep(10000);
 
 
                 //chamando JS

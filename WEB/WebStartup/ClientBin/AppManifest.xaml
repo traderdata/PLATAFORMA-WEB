@@ -1,16 +1,4 @@
 ﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="TerminalWeb" EntryPointType="Traderdata.Client.TerminalWEB.App" RuntimeVersion="5.0.61118.0">
-  <Deployment.OutOfBrowserSettings>
-    <OutOfBrowserSettings ShortName="Terminal Traderdata" EnableGPUAcceleration="False" ShowInstallMenuItem="True">
-      <OutOfBrowserSettings.Blurb>Terminal Traderdata</OutOfBrowserSettings.Blurb>
-      <OutOfBrowserSettings.WindowSettings>
-        <WindowSettings Title="Terminal Traderdata" />
-      </OutOfBrowserSettings.WindowSettings>
-      <OutOfBrowserSettings.SecuritySettings>
-        <SecuritySettings ElevatedPermissions="NotRequired" />
-      </OutOfBrowserSettings.SecuritySettings>
-      <OutOfBrowserSettings.Icons />
-    </OutOfBrowserSettings>
-  </Deployment.OutOfBrowserSettings>
   <Deployment.Parts>
     <AssemblyPart x:Name="TerminalWeb" Source="TerminalWeb.dll" />
     <AssemblyPart x:Name="C1.Silverlight" Source="C1.Silverlight.dll" />
