@@ -1,11 +1,12 @@
-﻿<xapCache source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\..\WEB\WebStartup\ClientBin\TerminalWeb.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="02/10/2014 18:00:44">
-  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.dll" archivePath="TerminalWeb.dll" lastWriteTime="02/10/2014 18:00:43" />
+﻿<xapCache source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\..\WEB\WebStartup\ClientBin\TerminalWeb.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="08/10/2014 20:28:57">
+  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.dll" archivePath="TerminalWeb.dll" lastWriteTime="08/10/2014 20:28:55" />
+  <file source="C:\Backup\GITHUB\CORE-SERVICES\API-SL\Bin\Debug\API-SL.dll" archivePath="API-SL.dll" lastWriteTime="08/10/2014 16:02:03" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\C1.Silverlight.dll" archivePath="C1.Silverlight.dll" lastWriteTime="15/07/2011 17:15:12" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\C1.Silverlight.Extended.dll" archivePath="C1.Silverlight.Extended.dll" lastWriteTime="15/07/2011 17:15:12" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\C1.Silverlight.FlexGrid.4.dll" archivePath="C1.Silverlight.FlexGrid.4.dll" lastWriteTime="15/07/2011 17:15:14" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\C1.Silverlight.Toolbar.dll" archivePath="C1.Silverlight.Toolbar.dll" lastWriteTime="15/07/2011 12:20:06" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\FM.WebSync.Silverlight.Core.dll" archivePath="FM.WebSync.Silverlight.Core.dll" lastWriteTime="31/05/2011 14:08:32" />
-  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\ModulusFE.StockChartX.SL.dll" archivePath="ModulusFE.StockChartX.SL.dll" lastWriteTime="10/09/2014 09:44:15" />
+  <file source="C:\Backup\GITHUB\COMPONENTES\Modulus-SLWPF\SL3\Library\Bin\Debug\ModulusFE.StockChartX.SL.dll" archivePath="ModulusFE.StockChartX.SL.dll" lastWriteTime="08/10/2014 17:08:40" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\SharpZipLib.dll" archivePath="SharpZipLib.dll" lastWriteTime="06/05/2010 12:19:42" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ComponentModel.DataAnnotations.dll" archivePath="System.ComponentModel.DataAnnotations.dll" lastWriteTime="18/11/2011 17:40:20" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Controls.Data.dll" archivePath="System.Windows.Controls.Data.dll" lastWriteTime="18/11/2011 17:40:20" />
@@ -16,8 +17,8 @@
   <file source="C:\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Controls.Navigation.dll" archivePath="System.Windows.Controls.Navigation.dll" lastWriteTime="18/11/2011 17:40:20" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\System.Windows.Controls.Toolkit.dll" archivePath="System.Windows.Controls.Toolkit.dll" lastWriteTime="13/04/2010 20:15:14" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Windows.Data.dll" archivePath="System.Windows.Data.dll" lastWriteTime="18/11/2011 17:40:20" />
-  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\System.Xml.Linq.dll" archivePath="System.Xml.Linq.dll" lastWriteTime="26/08/2010 02:17:48" />
+  <file source="C:\Backup\GITHUB\COMPONENTES\Modulus-SLWPF\SL3\Library\Bin\Debug\System.Xml.Linq.dll" archivePath="System.Xml.Linq.dll" lastWriteTime="26/08/2010 02:17:48" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\System.Windows.Controls.Toolkit.Internals.dll" archivePath="System.Windows.Controls.Toolkit.Internals.dll" lastWriteTime="13/04/2010 19:59:48" />
-  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\ServiceReferences.ClientConfig" archivePath="ServiceReferences.ClientConfig" lastWriteTime="24/09/2012 10:07:01" />
-  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="02/10/2014 17:46:10" />
+  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\ServiceReferences.ClientConfig" archivePath="ServiceReferences.ClientConfig" lastWriteTime="08/10/2014 14:35:20" />
+  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="08/10/2014 17:06:02" />
 </xapCache>

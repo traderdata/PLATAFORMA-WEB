@@ -19,6 +19,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.GZip;
 using Traderdata.Client.TerminalWEB.Util;
+using Traderdata.Server.Core.DTO;
 
 namespace Traderdata.Client.TerminalWEB.DAO
 {
@@ -29,8 +30,8 @@ namespace Traderdata.Client.TerminalWEB.DAO
         /// <summary>
         /// Variavel de acesso aos webservices
         /// </summary>
-        private TerminalWebSVC.TerminalWebClient terminalWebClient =
-            new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
+        private MDApiSVC.MarketDataWCFClient mdWebClient =
+            new MDApiSVC.MarketDataWCFClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
 
         #endregion
 
@@ -235,485 +236,72 @@ namespace Traderdata.Client.TerminalWEB.DAO
         public MarketDataDAO()
         {
             //assinando eventos WCF
-            terminalWebClient.GetAtivosPorIndiceCompleted += new EventHandler<TerminalWebSVC.GetAtivosPorIndiceCompletedEventArgs>(terminalWebClient_GetAtivosPorIndiceCompleted);
-            terminalWebClient.GetIndicesCompleted += new EventHandler<TerminalWebSVC.GetIndicesCompletedEventArgs>(terminalWebClient_GetIndicesCompleted);
-            terminalWebClient.GetCotacaoDiarioCompleted += new EventHandler<TerminalWebSVC.GetCotacaoDiarioCompletedEventArgs>(terminalWebClient_GetCotacaoDiarioCompleted);
-            terminalWebClient.GetCotacaoIntradayCompleted += new EventHandler<TerminalWebSVC.GetCotacaoIntradayCompletedEventArgs>(terminalWebClient_GetCotacaoIntradayCompleted);
-            terminalWebClient.GetCotacaoIntradayDelayedCompleted += new EventHandler<TerminalWebSVC.GetCotacaoIntradayDelayedCompletedEventArgs>(terminalWebClient_GetCotacaoIntradayDelayedCompleted);
-
-            terminalWebClient.GetAtivosBovespaTodosCompleted+=new EventHandler<TerminalWebSVC.GetAtivosBovespaTodosCompletedEventArgs>(terminalWebClient_GetAtivosBovespaTodosCompleted);
-            terminalWebClient.GetAtivosBovespaOpcaoCompleted += new EventHandler<TerminalWebSVC.GetAtivosBovespaOpcaoCompletedEventArgs>(terminalWebClient_GetAtivosBovespaOpcaoCompleted);
-            terminalWebClient.GetAtivosBovespaTermoCompleted += new EventHandler<TerminalWebSVC.GetAtivosBovespaTermoCompletedEventArgs>(terminalWebClient_GetAtivosBovespaTermoCompleted);
-            terminalWebClient.GetAtivosBovespaVistaCompleted += new EventHandler<TerminalWebSVC.GetAtivosBovespaVistaCompletedEventArgs>(terminalWebClient_GetAtivosBovespaVistaCompleted);
-            terminalWebClient.GetAtivosBMFTodosCompleted += new EventHandler<TerminalWebSVC.GetAtivosBMFTodosCompletedEventArgs>(terminalWebClient_GetAtivosBMFTodosCompleted);
-            terminalWebClient.GetAtivosBMFCheioCompleted += new EventHandler<TerminalWebSVC.GetAtivosBMFCheioCompletedEventArgs>(terminalWebClient_GetAtivosBMFCheioCompleted);
-            terminalWebClient.GetAtivosBMFMiniCompleted += new EventHandler<TerminalWebSVC.GetAtivosBMFMiniCompletedEventArgs>(terminalWebClient_GetAtivosBMFMiniCompleted);
-            terminalWebClient.GetSegmentosCompleted += new EventHandler<TerminalWebSVC.GetSegmentosCompletedEventArgs>(terminalWebClient_GetSegmentosCompleted);
-            terminalWebClient.GetAtivosPorSegmentoCompleted += new EventHandler<TerminalWebSVC.GetAtivosPorSegmentoCompletedEventArgs>(terminalWebClient_GetAtivosPorSegmentoCompleted);
-            //terminalWebClient.GetCotacaoIntradayDoDiaCompleted += new EventHandler<TerminalWebSVC.GetCotacaoIntradayDoDiaCompletedEventArgs>(terminalWebClient_GetCotacaoIntradayDoDiaCompleted);
-
+            mdWebClient.GetCotacaoCompleted += new EventHandler<MDApiSVC.GetCotacaoCompletedEventArgs>(mdWebClient_GetCotacaoCompleted);
+        
             //assinando eventos de realtime
             RealTimeDAO.TickReceived += new RealTimeDAO.TickHandler(RealTimeDAO_TickReceived);
         }
 
-        
 
         #endregion
 
         #region Eventos WCF
 
-        ///// <summary>
-        ///// Evento que retorna após o sistema devolver as cotacoes intraday do dia corrente
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //void terminalWebClient_GetCotacaoIntradayDoDiaCompleted(object sender, TerminalWebSVC.GetCotacaoIntradayDoDiaCompletedEventArgs e)
-        //{
-        //    List<CotacaoDTO> listaCotacao = new List<CotacaoDTO>();
-        //    foreach (string obj in e.Result)
-        //    {
-        //        string[] colunas = obj.Split(';');
-        //        DateTime data = new DateTime(Convert.ToInt32(colunas[6].Substring(6, 4)),
-        //            Convert.ToInt32(colunas[6].Substring(3, 2)),
-        //            Convert.ToInt32(colunas[6].Substring(0, 2)),
-        //            Convert.ToInt32(colunas[7].Substring(0, 2)),
-        //            Convert.ToInt32(colunas[7].Substring(2, 2)),
-        //            0);
-        //        listaCotacao.Add(new CotacaoDTO(Convert.ToDouble(colunas[0], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[1], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[2], GeneralUtil.NumberProvider),
-        //            Convert.ToDouble(colunas[3], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[4], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[5], GeneralUtil.NumberProvider), data, Convert.ToBoolean(colunas[8]), colunas[7]));
-        //    }
-
-        //    //montando a lista, juntando as cotações do S3 + as que eu baixei agora
-        //    List<CotacaoDTO> listaTemp = new List<CotacaoDTO>();
-        //    foreach (CotacaoDTO obj in StaticData.cacheCotacaoIntradayS3[(string)e.UserState])
-        //    {
-        //        listaTemp.Add(obj);
-        //    }
-        //    foreach (CotacaoDTO obj in listaCotacao)
-        //    {
-        //        listaTemp.Add(obj);
-        //    }
-
-        //    //armazenando no cache
-        //    StaticData.cacheCotacaoIntraday[(string)e.UserState] = listaTemp;
-
-        //    //assinando a atualização para o ativo resgatado
-        //    RealTimeDAO.StartTickSubscription((string)e.UserState);
-
-        //    //Disparanbdo o evento
-        //    if (GetCotacaoIntradayCompleted != null)
-        //        GetCotacaoIntradayCompleted(listaTemp);
-        //}
-
-
-        /// <summary>
-        /// Evento de complete dos dados intraday
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetCotacaoIntradayCompleted(object sender, TerminalWebSVC.GetCotacaoIntradayCompletedEventArgs e)
+        void mdWebClient_GetCotacaoCompleted(object sender, MDApiSVC.GetCotacaoCompletedEventArgs e)
         {
-            List<CotacaoDTO> listaCotacao = new List<CotacaoDTO>();
-            foreach (string obj in e.Result)
-            {
-                string[] colunas = obj.Split(';');
-                if (colunas[7].Length == 3)
-                    colunas[7] = "0" + colunas[7];
-                DateTime data = new DateTime(Convert.ToInt32(colunas[6].Substring(6, 4)), 
-                    Convert.ToInt32(colunas[6].Substring(3, 2)), 
-                    Convert.ToInt32(colunas[6].Substring(0, 2)),
-                    Convert.ToInt32(colunas[7].Substring(0,2)),
-                    Convert.ToInt32(colunas[7].Substring(2,2)),
-                    0);
-                listaCotacao.Add(new CotacaoDTO(Convert.ToDouble(colunas[0], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[1], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[2], GeneralUtil.NumberProvider),
-                    Convert.ToDouble(colunas[3], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[4], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[5], GeneralUtil.NumberProvider), data, Convert.ToBoolean(colunas[8]), colunas[7]));
-            }
-
+            //recuperando parametros enviados
             List<object> args = (List<object>)e.UserState;
+            string quoteType = Convert.ToString(args[0]);
+            string symbol = Convert.ToString(args[1]);
 
-            //armazenando no cache
-            StaticData.cacheCotacaoIntraday[(string)args[0]] = listaCotacao;
-
-            //Disparanbdo o evento
-            if ((bool)args[1])
-            {
-                if (GetCotacaoIntradayCompleted != null)
-                    GetCotacaoIntradayCompleted(listaCotacao);
-            }
-        }
-
-        /// <summary>
-        /// Evento disparado ao receber as cotações com atraso intraday
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetCotacaoIntradayDelayedCompleted(object sender, TerminalWebSVC.GetCotacaoIntradayDelayedCompletedEventArgs e)
-        {
-            List<CotacaoDTO> listaCotacao = new List<CotacaoDTO>();
-            foreach (string obj in e.Result)
-            {
-                string[] colunas = obj.Split(';');
-                if (colunas[7].Length == 3)
-                    colunas[7] = "0" + colunas[7];
-                DateTime data = new DateTime(Convert.ToInt32(colunas[6].Substring(6, 4)),
-                    Convert.ToInt32(colunas[6].Substring(3, 2)),
-                    Convert.ToInt32(colunas[6].Substring(0, 2)),
-                    Convert.ToInt32(colunas[7].Substring(0, 2)),
-                    Convert.ToInt32(colunas[7].Substring(2, 2)),
-                    0);
-                listaCotacao.Add(new CotacaoDTO(Convert.ToDouble(colunas[0], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[1], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[2], GeneralUtil.NumberProvider),
-                    Convert.ToDouble(colunas[3], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[4], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[5], GeneralUtil.NumberProvider), data, Convert.ToBoolean(colunas[8]), colunas[7]));
-            }
-
-            List<object> args = (List<object>)e.UserState;
-
-            //armazenando no cache
-            StaticData.cacheCotacaoIntraday[(string)args[0]] = listaCotacao;
-
-            //Disparanbdo o evento
-            if ((bool)args[1])
-            {
-                if (GetCotacaoIntradayCompleted != null)
-                    GetCotacaoIntradayCompleted(listaCotacao);
-            }
-        }
-
-
-        /// <summary>
-        /// Evento de complete dos dados diarios
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetCotacaoDiarioCompleted(object sender, TerminalWebSVC.GetCotacaoDiarioCompletedEventArgs e)
-        {
-            if (GetCotacaoDiariaCompleted != null)
+            if (quoteType == "I")
             {
                 List<CotacaoDTO> listaCotacao = new List<CotacaoDTO>();
                 foreach (string obj in e.Result)
                 {
-                    string[] colunas = obj.Split(';');
-                    listaCotacao.Add(new CotacaoDTO(Convert.ToDouble(colunas[0], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[1], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[2], GeneralUtil.NumberProvider),
-                        Convert.ToDouble(colunas[3], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[4], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[5], GeneralUtil.NumberProvider), Convert.ToDateTime(colunas[6]), false, ""));
+                    CotacaoDTO quote = new CotacaoDTO();
+                    CotacaoDTO.TryParse(obj, out quote);
+                    quote.Data = quote.Data.ToLocalTime();
+                    listaCotacao.Add(quote);
                 }
-                
+
+
                 //armazenando no cache
-                StaticData.cacheCotacaoDiario[(string)e.UserState] = listaCotacao;
-                
-                //assinando a atualização para o ativo resgatado
-                RealTimeDAO.StartTickSubscription((string)e.UserState);
+                StaticData.cacheCotacaoIntraday[symbol] = listaCotacao;
 
                 //Disparanbdo o evento
-                GetCotacaoDiariaCompleted(listaCotacao);
-            }
-                
-        }
-
-        /// <summary>
-        /// Evento de complete de retorno de ativos por indice
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosPorIndiceCompleted(object sender, TerminalWebSVC.GetAtivosPorIndiceCompletedEventArgs e)
-        {
-            if (GetAtivosPorIndiceCompleted != null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
+                if ((bool)args[2])
                 {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
-
-                    listaAtivo.Add(ativo);
+                    if (GetCotacaoIntradayCompleted != null)
+                        GetCotacaoIntradayCompleted(listaCotacao);
                 }
-
-                //armazenando no cache
-                StaticData.cacheAtivosPorIndice[(string)e.UserState] = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosPorIndiceCompleted(listaAtivo, (string)e.UserState);
             }
-        }
-
-        /// <summary>
-        /// Evento de complete de indices
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetIndicesCompleted(object sender, TerminalWebSVC.GetIndicesCompletedEventArgs e)
-        {
-            if (GetIndicesCompleted != null)
+            else if (quoteType == "EOD")
             {
-                //armazenando no cache
-                StaticData.cacheIndices = e.Result;
-
-
-                //Disparanbdo o evento
-                GetIndicesCompleted(e.Result);
-            }
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os ativos bovespa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosBovespaTodosCompleted(object sender, TerminalWebSVC.GetAtivosBovespaTodosCompletedEventArgs e)
-        {
-            if (GetAtivosBovespaTodosCompleted != null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
+                if (GetCotacaoDiariaCompleted != null)
                 {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
+                    List<CotacaoDTO> listaCotacao = new List<CotacaoDTO>();
+                    foreach (string obj in e.Result)
+                    {
+                        CotacaoDTO quote = new CotacaoDTO();
+                        CotacaoDTO.TryParse(obj, out quote);
+                        listaCotacao.Add(quote);
+                    }
 
-                    listaAtivo.Add(ativo);
+                    //armazenando no cache
+                    StaticData.cacheCotacaoDiario[symbol] = listaCotacao;
+
+                    //assinando a atualização para o ativo resgatado
+                    RealTimeDAO.StartTickSubscription(symbol);
+
+                    //Disparanbdo o evento
+                    GetCotacaoDiariaCompleted(listaCotacao);
                 }
-
-                //armazenando no cache
-                StaticData.cacheAtivosBovespaTodos = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosBovespaTodosCompleted(listaAtivo);
-                
             }
+            
         }
 
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os ativos bovespa (somente a vista)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosBovespaVistaCompleted(object sender, TerminalWebSVC.GetAtivosBovespaVistaCompletedEventArgs e)
-        {
-            if (GetAtivosBovespaVistaCompleted != null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
-
-                    listaAtivo.Add(ativo);
-                }
-
-                //armazenando no cache
-                StaticData.cacheAtivosBovespaVista = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosBovespaVistaCompleted(listaAtivo);
-
-            }
-
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os ativos bovespa (somente a termo)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosBovespaTermoCompleted(object sender, TerminalWebSVC.GetAtivosBovespaTermoCompletedEventArgs e)
-        {
-            if (GetAtivosBovespaTermoCompleted != null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
-
-                    listaAtivo.Add(ativo);
-                }
-
-                //armazenando no cache
-                StaticData.cacheAtivosBovespaTermo = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosBovespaTermoCompleted(listaAtivo);
-
-            }
-
-
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os ativos bovespa (somente opção)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosBovespaOpcaoCompleted(object sender, TerminalWebSVC.GetAtivosBovespaOpcaoCompletedEventArgs e)
-        {
-            if (GetAtivosBovespaOpcaoCompleted != null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
-
-                    listaAtivo.Add(ativo);
-                }
-
-                //armazenando no cache
-                StaticData.cacheAtivosBovespaOpcao = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosBovespaOpcaoCompleted(listaAtivo);
-
-            }
-
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os ativos BMF (Todos)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosBMFTodosCompleted(object sender, TerminalWebSVC.GetAtivosBMFTodosCompletedEventArgs e)
-        {
-            if (GetAtivosBMFTodosCompleted != null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
-
-                    listaAtivo.Add(ativo);
-                }
-
-                //armazenando no cache
-                StaticData.cacheAtivosBMFTodos = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosBMFTodosCompleted(listaAtivo);
-
-            }
-  
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os ativos BMF (Mini)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosBMFMiniCompleted(object sender, TerminalWebSVC.GetAtivosBMFMiniCompletedEventArgs e)
-        {
-            if (GetAtivosBMFMiniContratosCompleted != null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
-
-                    listaAtivo.Add(ativo);
-                }
-
-                //armazenando no cache
-                StaticData.cacheAtivosBMFMiniContrato = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosBMFMiniContratosCompleted(listaAtivo);
-
-            }
-
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os ativos BMF (Cheio)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosBMFCheioCompleted(object sender, TerminalWebSVC.GetAtivosBMFCheioCompletedEventArgs e)
-        {
-            if (GetAtivosBMFPrincipalCheioCompleted != null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
-
-                    listaAtivo.Add(ativo);
-                }
-
-                //armazenando no cache
-                StaticData.cacheAtivosBMFPrincpalCheio = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosBMFPrincipalCheioCompleted(listaAtivo);
-
-            }
-
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os segmentos
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetSegmentosCompleted(object sender, TerminalWebSVC.GetSegmentosCompletedEventArgs e)
-        {
-            //armazenando no cache
-            StaticData.cacheSegmentos = e.Result;
-
-            if (GetSegmentosCompleted != null)
-                GetSegmentosCompleted(e.Result);
-        }
-
-        /// <summary>
-        /// Evento disparado ao se carregar os ativos por segenton
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetAtivosPorSegmentoCompleted(object sender, TerminalWebSVC.GetAtivosPorSegmentoCompletedEventArgs e)
-        {
-            if (GetAtivosPorSegmentoCompleted!= null)
-            {
-                List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-                foreach (string obj in e.Result)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0];
-                    ativo.Empresa = colunas[1];
-
-                    listaAtivo.Add(ativo);
-                }
-
-                //armazenando no cache
-                StaticData.cacheAtivosPorSegmento[(string)e.UserState] = listaAtivo;
-
-                //Disparanbdo o evento
-                GetAtivosPorSegmentoCompleted(listaAtivo);
-            }
-        }
+        
 
         #endregion
 
@@ -744,393 +332,10 @@ namespace Traderdata.Client.TerminalWEB.DAO
 
         #region Eventos Cache
 
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os ativos BMF
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webClientDownloadAtivosBMF_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            //descompactando 
-            string text = Uncompress(e.Result);
-
-            List<AtivoDTO> listaAtivoTodos = new List<AtivoDTO>();
-            List<AtivoDTO> listaAtivoMini = new List<AtivoDTO>();
-            List<AtivoDTO> listaAtivoCheio = new List<AtivoDTO>();
-            
-            foreach (string obj in text.Split('|'))
-            {
-                if (obj.Trim().Length > 0)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0].Trim();
-                    ativo.Empresa = colunas[1].Trim();
-
-                    listaAtivoTodos.Add(ativo);
-
-                    if ((ativo.Codigo.Substring(0, 3) == "WIN") ||
-                         (ativo.Codigo.Substring(0, 3) == "WDO") ||
-                         (ativo.Codigo.Substring(0, 3) == "WCF") ||
-                         (ativo.Codigo.Substring(0, 3) == "WGI"))
-                        listaAtivoMini.Add(ativo);
-
-                    if ((ativo.Codigo.Substring(0,3) == "IND") ||
-                         (ativo.Codigo.Substring(0, 3) =="DOL") ||
-                         (ativo.Codigo.Substring(0, 3)=="ICF") ||
-                         (ativo.Codigo.Substring(0, 3)=="BGI"))
-                        listaAtivoCheio.Add(ativo);
-
-
-                }
-            }
-
-            //armazenando no cache
-            StaticData.cacheAtivosBMFTodos = listaAtivoTodos;
-            StaticData.cacheAtivosBMFMiniContrato= listaAtivoMini;
-            StaticData.cacheAtivosBMFPrincpalCheio = listaAtivoCheio;
-            
-            if (SetCacheAtivosBMFTodosCompleted != null)
-            {
-                //Disparanbdo o evento
-                SetCacheAtivosBMFTodosCompleted(listaAtivoTodos);
-            }
-        }
-
-        /// <summary>
-        /// Evento disparado ao terminar de fazer download do arquivo de indices
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webClientDownloadIndices_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            //descompactando 
-            string text = Uncompress(e.Result);
-
-            foreach (string obj in text.Split('|'))
-            {
-                if (obj.Trim().Length > 0)
-                {
-                    StaticData.cacheIndices.Add(obj.Trim());
-                }
-            }
-                        
-            if (SetCacheIndicesCompleted != null)
-            {
-                //Disparanbdo o evento
-                SetCacheIndicesCompleted(StaticData.cacheIndices);
-            }
-        }
-
-        /// <summary>
-        /// Evento disparado ao receber um arquivo de cotações intraday
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webclientDowloadIntraday_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            try
-            {
-                //descompactando
-                string text = Uncompress(e.Result);
-
-                List<CotacaoDTO> listaCotacao = new List<CotacaoDTO>();
-
-                string[] linhas = text.Split('|');
-                foreach (string obj in linhas)
-                {
-                    if (obj.Length > 0)
-                    {
-                        string[] colunas = obj.Split(';');
-                        DateTime dataTemp = Convert.ToDateTime(colunas[6]).AddHours(Convert.ToDouble(colunas[7].Substring(0,2))).AddMinutes(Convert.ToDouble(colunas[7].Substring(2,2)));
-                        
-
-                        listaCotacao.Add(new CotacaoDTO(Convert.ToDouble(colunas[0], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[1], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[2], GeneralUtil.NumberProvider),
-                            Convert.ToDouble(colunas[3], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[4], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[5], GeneralUtil.NumberProvider), dataTemp, Convert.ToBoolean(colunas[8]), colunas[7]));
-                    }
-                }
-
-                //armazenando no cache
-                if (StaticData.cacheCotacaoIntradayS3.ContainsKey((string)e.UserState))
-                    StaticData.cacheCotacaoIntradayS3[(string)e.UserState] = listaCotacao;
-                else
-                    StaticData.cacheCotacaoIntradayS3.Add((string)e.UserState, listaCotacao);
-
-                //disparando evento de setCache
-                if (SetCotacaoIntradayCacheCompleted != null)
-                    SetCotacaoIntradayCacheCompleted((string)e.UserState);
-            }
-            catch
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Evento disparado ao terminar de fazer download do arquivo
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webclientDowloadDiarioCache_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            try
-            {
-                //descompactando
-                string text = Uncompress(e.Result);
-
-                List<CotacaoDTO> listaCotacao = new List<CotacaoDTO>();
-
-                string[] linhas = text.Split('|');
-                foreach (string obj in linhas)
-                {
-                    if (obj.Length > 0)
-                    {
-                        string[] colunas = obj.Split(';');
-                        listaCotacao.Add(new CotacaoDTO(Convert.ToDouble(colunas[0], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[1], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[2], GeneralUtil.NumberProvider),
-                            Convert.ToDouble(colunas[3], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[4], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[5], GeneralUtil.NumberProvider), Convert.ToDateTime(colunas[6]), false, ""));
-                    }
-                }
-
-                //armazenando no cache
-                StaticData.cacheCotacaoDiario[(string)e.UserState] = listaCotacao;
-
-                //disparando evento de setCache
-                if (SetCotacaoDiariaCacheCompleted != null)
-                    SetCotacaoDiariaCacheCompleted((string)e.UserState);
-            }
-            catch 
-            {
-
-            }
-
-        }
-
-        /// <summary>
-        /// Evento disparado ao terminar de fazer download do arquivo
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webclientDowloadDiario_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            try
-            {
-                //descompactando
-                string text = Uncompress(e.Result);
-
-                List<CotacaoDTO> listaCotacao = new List<CotacaoDTO>();
-
-                string[] linhas = text.Split('|');
-                foreach (string obj in linhas)
-                {
-                    if (obj.Length > 0)
-                    {
-                        string[] colunas = obj.Split(';');
-                        listaCotacao.Add(new CotacaoDTO(Convert.ToDouble(colunas[0], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[1], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[2], GeneralUtil.NumberProvider),
-                            Convert.ToDouble(colunas[3], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[4], GeneralUtil.NumberProvider), Convert.ToDouble(colunas[5], GeneralUtil.NumberProvider), Convert.ToDateTime(colunas[6]), false, ""));
-                    }
-                }
-
-                //armazenando no cache
-                StaticData.cacheCotacaoDiario[(string)e.UserState] = listaCotacao;
-
-                //disparando evento de setCache
-                if (GetCotacaoDiariaCompleted != null)
-                    GetCotacaoDiariaCompleted(StaticData.cacheCotacaoDiario[(string)e.UserState]);
-            }
-            catch(Exception exc)
-            {
-                throw exc;
-            }
-
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de baixar a lista de ativos que compoem um indice
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webClientDownloadAtivoPorIndice_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            //descompactando 
-            string text = Uncompress(e.Result);
-
-            List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-
-            foreach (string obj in text.Split('|'))
-            {
-                if (obj.Trim().Length > 0)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0].Trim();
-                    ativo.Empresa = colunas[1].Trim();
-
-                    listaAtivo.Add(ativo);
-                }
-            }
-
-            //armazenando no cache
-            StaticData.cacheAtivosPorIndice[(string)e.UserState] = listaAtivo;
-
-            if (SetCacheAtivosPorIndiceCompleted != null)
-            {
-                //Disparanbdo o evento
-                SetCacheAtivosPorIndiceCompleted(listaAtivo, (string)e.UserState);
-            }
-        }
-
-        /// <summary>
-        /// Setando o cache de ativos Bovespa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webClientDownloadAtivosBovespa_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            //descompactando 
-            string text = Uncompress(e.Result);
-
-            List<AtivoDTO> listaAtivoTodos = new List<AtivoDTO>();
-            List<AtivoDTO> listaAtivoOpcao = new List<AtivoDTO>();
-            List<AtivoDTO> listaAtivoVista = new List<AtivoDTO>();
-            List<AtivoDTO> listaAtivoTermo = new List<AtivoDTO>();
-
-            foreach (string obj in text.Split('|'))
-            {
-                if (obj.Trim().Length > 0)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0].Trim();
-                    ativo.Empresa = colunas[1].Trim();
-                    
-                    listaAtivoTodos.Add(ativo);
-
-                    switch (colunas[2].Trim())
-                    {
-                        case "O":
-                            listaAtivoOpcao.Add(ativo);
-                            break;
-                        case "V":
-                            listaAtivoVista.Add(ativo);
-                            break;
-                        case "T":
-                            listaAtivoTermo.Add(ativo);
-                            break;
-                    }
-                }
-            }
-
-            //armazenando no cache
-            StaticData.cacheAtivosBovespaTodos = listaAtivoTodos;
-            StaticData.cacheAtivosBovespaVista = listaAtivoVista;
-            StaticData.cacheAtivosBovespaTermo = listaAtivoTermo;
-            StaticData.cacheAtivosBovespaOpcao = listaAtivoOpcao;
-
-            if (SetCacheAtivosBovespaCompleted != null)
-            {
-                //Disparanbdo o evento
-                SetCacheAtivosBovespaCompleted(listaAtivoTodos);
-            }
-        }
-
-        /// <summary>
-        /// Lista de ativos que devem ser cachados de Bovespa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webClientDownloadAtivosQuedevemSerCachadosBovespa_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            //descompactando 
-            string text = Uncompress(e.Result);
-
-            List<AtivoDTO> listaAtivo = new List<AtivoDTO>();
-            
-            foreach (string obj in text.Split('|'))
-            {
-                if (obj.Trim().Length > 0)
-                {
-                    string[] colunas = obj.Split(';');
-                    AtivoDTO ativo = new AtivoDTO();
-                    ativo.Codigo = colunas[0].Trim();
-                    ativo.Empresa = colunas[1].Trim();
-
-                    listaAtivo.Add(ativo);
-
-                }
-            }
-
-            //setando o cache
-            StaticData.cachePortfolioPadraoBovespa = listaAtivo;
-
-            if (GetAtivosBovespaQueDevemSerCacheadosCompleted != null)
-            {
-                //Disparanbdo o evento
-                GetAtivosBovespaQueDevemSerCacheadosCompleted(listaAtivo);
-            }
-        }
-
-        /// <summary>
-        /// Evento disparado ao se terminar de carregar os segmentos
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void webClientDownloadSegmentos_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            //descompactando 
-            string text = Uncompress(e.Result);
-
-            foreach (string obj in text.Split('|'))
-            {
-                if (obj.Trim().Length > 0)
-                {
-                    string[] colunas = obj.Split(';');
-
-                    if (!StaticData.cacheSegmentos.Contains(colunas[0].Trim()))
-                        StaticData.cacheSegmentos.Add(colunas[0].Trim());                    
-                        
-                    if (StaticData.cacheAtivosPorSegmento.ContainsKey(colunas[0].Trim()))
-                    {
-                        AtivoDTO ativo = new AtivoDTO();
-                        ativo.Codigo = colunas[1];
-                        ativo.Empresa = colunas[2];
-                        StaticData.cacheAtivosPorSegmento[colunas[0].Trim()].Add(ativo);
-                    }
-                    else
-                    {
-                        AtivoDTO ativo = new AtivoDTO();
-                        ativo.Codigo = colunas[1];
-                        ativo.Empresa = colunas[2];
-                        List<AtivoDTO> listaTemp = new List<AtivoDTO>();
-                        listaTemp.Add(ativo);
-                        StaticData.cacheAtivosPorSegmento.Add(colunas[0].Trim(),listaTemp);
-                    }
-                }
-            }
-
-            if (SetCacheSegmentosCompleted != null)
-            {
-                //Disparanbdo o evento
-                SetCacheSegmentosCompleted(StaticData.cacheSegmentos);
-            }
-        }
-
+        
         #endregion
 
         #region Metodos
-
-        /// <summary>
-        /// Metodo que retorna se o ativo é de Bovespa
-        /// </summary>
-        /// <param name="ativo"></param>
-        public static bool IsBovespa(string ativo)
-        {
-            foreach (AtivoDTO obj in StaticData.cacheAtivosBovespaTodos)
-            {
-                if (obj.Codigo == ativo)
-                    return true;
-            }
-            return false;
-        }
 
         /// <summary>
         /// Metodo que retorna as cotações diarias
@@ -1140,23 +345,13 @@ namespace Traderdata.Client.TerminalWEB.DAO
         {
             try
             {
-                if ((ativo != "PETR4") && (ativo != "IBOV"))
-                {
-                    if (IsBovespa(ativo))
-                    {
-                        if (!StaticData.User.HasSnapshotBovespaDiario)
-                            return;
-                    }
-                    else
-                    {
-                        if (!StaticData.User.HasSnapshotBMFDiario)
-                            return;
-                    }
-                }
-
+                List<object> args = new List<object>();
+                args.Add("EOD");
+                args.Add(ativo);
+                
                 if (!StaticData.cacheCotacaoDiario.ContainsKey(ativo))
                 {
-                    terminalWebClient.GetCotacaoDiarioAsync(ativo, ativo);
+                    mdWebClient.GetCotacaoAsync(ativo, MDApiSVC.CotacaoDTOBasePeriodicity.DailyEOD, 1, null, null, StaticData.DelayedVersion, null, false, false, args);
                 }
                 else
                 {
@@ -1180,88 +375,22 @@ namespace Traderdata.Client.TerminalWEB.DAO
         {
             try
             {
-                if (!forceRefresh)
-                {
-                    if (StaticData.cacheCotacaoIntraday.ContainsKey(ativo))
-                    {
-                        if (GetCotacaoIntradayCompleted != null)
-                            GetCotacaoIntradayCompleted(StaticData.cacheCotacaoIntraday[ativo]);
-                    }
-                    else
-                    {
-                        List<object> args = new List<object>();
-                        args.Add(ativo);
-                        args.Add(disparaEvento);
-
-                        if (!StaticData.DelayedVersion)
-                            terminalWebClient.GetCotacaoIntradayAsync(ativo, 15, args);
-                        else
-                            terminalWebClient.GetCotacaoIntradayDelayedAsync(ativo, 45, args);
-                    }
-                }
-                else
-                {
-                    List<object> args = new List<object>();
-                    args.Add(ativo);
-                    args.Add(disparaEvento);
-
-                    if (!StaticData.DelayedVersion)
-                        terminalWebClient.GetCotacaoIntradayAsync(ativo, 15, args);
-                    else
-                        terminalWebClient.GetCotacaoIntradayDelayedAsync(ativo, 45, args);
-                }
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-              
-        /// <summary>
-        /// Metodo que seta o cache das cotações intraday
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void SetCacheCotacaoIntradayAsync(string ativo)
-        {
-            try
-            {
-                //if (!StaticData.cacheCotacaoDiario.ContainsKey(ativo))
-                //{
-                //    WebClient webclientDowloadIntraday = new WebClient();
-                //    webclientDowloadIntraday.OpenReadCompleted += new OpenReadCompletedEventHandler(webclientDowloadIntraday_OpenReadCompleted);
-                //    webclientDowloadIntraday.OpenReadAsync(new Uri("https://s3-sa-east-1.amazonaws.com/td-marketdata-intraday/" + ativo + ".zip"), ativo);
-                //}
                 List<object> args = new List<object>();
+                args.Add("I");
                 args.Add(ativo);
-                args.Add(false);
-                if (!StaticData.DelayedVersion)
-                    terminalWebClient.GetCotacaoIntradayAsync(ativo, 15, args);
-                else
-                    terminalWebClient.GetCotacaoIntradayDelayedAsync(ativo, 45, args);
+                args.Add(disparaEvento);
 
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-               
-
-        /// <summary>
-        /// Metodo que seta o cache das cotações intraday
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void SetCacheCotacaoDiarioAsync(string ativo)
-        {
-            try
-            {
-                if (!StaticData.cacheCotacaoDiario.ContainsKey(ativo))
+                if (!StaticData.cacheCotacaoIntraday.ContainsKey(ativo))
                 {
-                    WebClient webclientDowloadDiario = new WebClient();
-                                        
-                    webclientDowloadDiario.OpenReadCompleted += new OpenReadCompletedEventHandler(webclientDowloadDiarioCache_OpenReadCompleted);
-                    //webclientDowloadDiario.OpenReadAsync(new Uri("https://s3-sa-east-1.amazonaws.com/md-cache/" + ativo + ".zip"), ativo);
+                    mdWebClient.GetCotacaoAsync(ativo, MDApiSVC.CotacaoDTOBasePeriodicity.Minute, 1, null, null, StaticData.DelayedVersion, 10000, false, false, args);                
                 }
+                else
+                {
+                    if (GetCotacaoIntradayCompleted != null)
+                        GetCotacaoIntradayCompleted(StaticData.cacheCotacaoIntraday[ativo]);
+                }
+
+                
                 
             }
             catch (Exception exc)
@@ -1269,375 +398,7 @@ namespace Traderdata.Client.TerminalWEB.DAO
                 throw exc;
             }
         }
-
-        /// <summary>
-        /// Metodo que retorna os segmentos
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetSegmentosAsync()
-        {
-            try
-            {
-                if (StaticData.cacheSegmentos.Count > 0)
-                {
-                    if (GetSegmentosCompleted != null)
-                        GetSegmentosCompleted(StaticData.cacheSegmentos);
-
-                }
-                else
-                    terminalWebClient.GetSegmentosAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os segmentos
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void SetCacheSegmentosAsync()
-        {
-            try
-            {
-                WebClient webClientDownloadSegmentos = new WebClient();
-                webClientDownloadSegmentos.OpenReadCompleted += new OpenReadCompletedEventHandler(webClientDownloadSegmentos_OpenReadCompleted);
-                //webClientDownloadSegmentos.OpenReadAsync(new Uri("https://s3-sa-east-1.amazonaws.com/td-marketdata/segmentos.zip"));
-
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-
-        /// <summary>
-        /// Metodo que retorna os ativos por segmento
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosPorSegmentoAsync(string segmento)
-        {
-            try
-            {
-                if (StaticData.cacheAtivosPorSegmento.ContainsKey(segmento))
-                {
-                    if (GetAtivosPorSegmentoCompleted != null)
-                        GetAtivosPorSegmentoCompleted(StaticData.cacheAtivosPorSegmento[segmento]);
-
-                }
-                else
-                    terminalWebClient.GetAtivosPorSegmentoAsync(segmento, segmento);
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos por segmento
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosBovespaQueDevemSerCacheadosAsync()
-        {
-            try
-            {
-                if (StaticData.cachePortfolioPadraoBovespa.Count > 0)
-                {
-                    if (GetAtivosBovespaQueDevemSerCacheadosCompleted != null)
-                    {
-                        GetAtivosBovespaQueDevemSerCacheadosCompleted(StaticData.cachePortfolioPadraoBovespa);
-                    }
-                }
-                else
-                {
-                    WebClient webClientDownloadAtivosQuedevemSerCachadosBovespa = new WebClient();
-                    webClientDownloadAtivosQuedevemSerCachadosBovespa.OpenReadCompleted += new OpenReadCompletedEventHandler(webClientDownloadAtivosQuedevemSerCachadosBovespa_OpenReadCompleted);
-                    //webClientDownloadAtivosQuedevemSerCachadosBovespa.OpenReadAsync(new Uri("https://s3-sa-east-1.amazonaws.com/td-marketdata/ativosCacheadosBovespa.zip"));
-                }
-
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os indices
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetIndicesAsync()
-        {
-            try
-            {
-                if (StaticData.cacheIndices.Count > 0)
-                {
-                    if (GetIndicesCompleted != null)
-                        GetIndicesCompleted(StaticData.cacheIndices);
-
-                }
-                else
-                    terminalWebClient.GetIndicesAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os indices
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void SetCacheIndicesAsync()
-        {
-            try
-            {
-                WebClient webClientDownloadIndices = new WebClient();
-                webClientDownloadIndices.OpenReadCompleted += new OpenReadCompletedEventHandler(webClientDownloadIndices_OpenReadCompleted);
-                //webClientDownloadIndices.OpenReadAsync(new Uri("https://s3-sa-east-1.amazonaws.com/td-marketdata/indices.zip"));
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos por indices
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosPorIndiceAsync(string indice)
-        {
-            try
-            {
-                if (StaticData.cacheAtivosPorIndice.ContainsKey(indice))
-                {
-                    if (GetAtivosPorIndiceCompleted != null)
-                        GetAtivosPorIndiceCompleted(StaticData.cacheAtivosPorIndice[indice], indice);
-                }
-                else
-                {
-                    terminalWebClient.GetAtivosPorIndiceAsync(indice, indice);
-                }
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos por indices
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void SetCacheAtivosPorIndiceAsync(string indice)
-        {
-            try
-            {
-                WebClient webClientDownloadAtivosIndices = new WebClient();
-                webClientDownloadAtivosIndices.OpenReadCompleted += new OpenReadCompletedEventHandler(webClientDownloadAtivoPorIndice_OpenReadCompleted);
-                //webClientDownloadAtivosIndices.OpenReadAsync(new Uri("https://s3-sa-east-1.amazonaws.com/td-marketdata/" + indice + ".zip"), indice);
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos bmf
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosBMFTodosAsync()
-        {
-            try
-            {
-                if (StaticData.cacheAtivosBMFTodos.Count > 0)
-                {
-                    if (GetAtivosBMFTodosCompleted != null)
-                        GetAtivosBMFTodosCompleted(StaticData.cacheAtivosBMFTodos);
-                }
-                else
-                    terminalWebClient.GetAtivosBMFTodosAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos bmf
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosBMFMiniContratosAsync()
-        {
-            try
-            {
-                if (StaticData.cacheAtivosBMFMiniContrato.Count > 0)
-                {
-                    if (GetAtivosBMFMiniContratosCompleted != null)
-                        GetAtivosBMFMiniContratosCompleted(StaticData.cacheAtivosBMFMiniContrato);
-                }
-                else
-                    terminalWebClient.GetAtivosBMFMiniAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos bmf principais cheios
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosBMFPrincipaisCheiosAsync()
-        {
-            try
-            {
-                if (StaticData.cacheAtivosBMFPrincpalCheio.Count > 0)
-                {
-                    if (GetAtivosBMFPrincipalCheioCompleted!= null)
-                        GetAtivosBMFPrincipalCheioCompleted(StaticData.cacheAtivosBMFPrincpalCheio);
-                }
-                else
-                    terminalWebClient.GetAtivosBMFCheioAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos bovepa
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosBovespaTodosAsync()
-        {
-            try
-            {
-                if (StaticData.cacheAtivosBovespaTodos.Count > 0)
-                {
-                    if (GetAtivosBovespaTodosCompleted != null)
-                        GetAtivosBovespaTodosCompleted(StaticData.cacheAtivosBovespaTodos);
-                }
-                else
-                    terminalWebClient.GetAtivosBovespaTodosAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos bovepa
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void SetCacheAtivosBovespaAsync()
-        {
-            try
-            {
-                WebClient webClientDownloadAtivosBovespa = new WebClient();
-                webClientDownloadAtivosBovespa.OpenReadCompleted += new OpenReadCompletedEventHandler(webClientDownloadAtivosBovespa_OpenReadCompleted);
-                //webClientDownloadAtivosBovespa.OpenReadAsync(new Uri("https://s3-sa-east-1.amazonaws.com/td-marketdata/ativosBovespa.zip"));
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos BMF
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void SetCacheAtivosBMFAsync()
-        {
-            try
-            {
-                WebClient webClientDownloadAtivosBMF = new WebClient();
-                webClientDownloadAtivosBMF.OpenReadCompleted += new OpenReadCompletedEventHandler(webClientDownloadAtivosBMF_OpenReadCompleted);
-                //webClientDownloadAtivosBMF.OpenReadAsync(new Uri("https://s3-sa-east-1.amazonaws.com/td-marketdata/ativosBMF.zip"));
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-
-        /// <summary>
-        /// Metodo que retorna os ativos bovepa (somente a vista)
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosBovespaVistaAsync()
-        {
-            try
-            {
-                if (StaticData.cacheAtivosBovespaVista.Count > 0)
-                {
-                    if (GetAtivosBovespaVistaCompleted != null)
-                        GetAtivosBovespaVistaCompleted(StaticData.cacheAtivosBovespaVista);
-                }
-                else
-                    terminalWebClient.GetAtivosBovespaVistaAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos bovepa (somente opcao)
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosBovespaOpcaoAsync()
-        {
-            try
-            {
-                if (StaticData.cacheAtivosBovespaOpcao.Count > 0)
-                {
-                    if (GetAtivosBovespaOpcaoCompleted != null)
-                        GetAtivosBovespaOpcaoCompleted(StaticData.cacheAtivosBovespaOpcao);
-                }
-                else
-                    terminalWebClient.GetAtivosBovespaOpcaoAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que retorna os ativos bovepa (somente  atermo)
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void GetAtivosBovespaTermoAsync()
-        {
-            try
-            {
-                if (StaticData.cacheAtivosBovespaTermo.Count > 0)
-                {
-                    if (GetAtivosBovespaTermoCompleted != null)
-                        GetAtivosBovespaTermoCompleted(StaticData.cacheAtivosBovespaTermo);
-                }
-                else
-                    terminalWebClient.GetAtivosBovespaTermoAsync();
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
+          
 
         /// <summary>
         /// Metodo que espera receber a lista de cotação intraday em barras de minuto e devolve uma serie na periodicidade solicitada
@@ -1801,7 +562,7 @@ namespace Traderdata.Client.TerminalWEB.DAO
                 foreach (CotacaoDTO obj in listaCotacao)
                 {
                     //Efetuo a normalização da barra
-                    horaNormalizada = NormalizaPeriodo(obj.Hora, periodicidade);
+                    horaNormalizada = NormalizaPeriodo(obj.Data.ToString("HHmm"), periodicidade);
                     DateTime dataHoraBarraNormalizada = new DateTime(obj.Data.Year,
                         obj.Data.Month, obj.Data.Day,
                         Convert.ToInt16(horaNormalizada.Substring(0, 2)),
@@ -1853,7 +614,7 @@ namespace Traderdata.Client.TerminalWEB.DAO
                 barraResultado.Data = listaCotacao[0].Data;
                 barraResultado.Maximo = Double.MinValue;
                 barraResultado.Minimo = Double.MaxValue;
-                barraResultado.Hora = NormalizaPeriodo(listaCotacao[0].Hora, periodicidade);
+                string Hora = NormalizaPeriodo(listaCotacao[0].Data.ToString("HHmm"), periodicidade);
                 barraResultado.Quantidade = 0;
                 barraResultado.Ultimo = 0;
                 barraResultado.Volume = 0;

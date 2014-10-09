@@ -61,6 +61,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="API-SL">
+      <HintPath>..\..\CORE-SERVICES\API-SL\Bin\Debug\API-SL.dll</HintPath>
+    </Reference>
     <Reference Include="C1.Silverlight, Version=4.0.20112.192, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="C1.Silverlight.Extended, Version=4.0.20112.192, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce" />
     <Reference Include="C1.Silverlight.FlexGrid.4, Version=4.0.20112.192, Culture=neutral, PublicKeyToken=2aa4ec5576d6c3ce, processorArchitecture=MSIL" />
@@ -69,7 +72,7 @@
       <HintPath>..\..\..\..\Traderdata\Tecnologia\Websync\FM.WebSync.Silverlight.Core.dll</HintPath>
     </Reference>
     <Reference Include="ModulusFE.StockChartX.SL">
-      <HintPath>..\..\..\..\Traderdata\Tecnologia\Modulus\stxwpfsl_src_6543223 - Copia\SL3\Library\Bin\Debug\ModulusFE.StockChartX.SL.dll</HintPath>
+      <HintPath>..\..\COMPONENTES\Modulus-SLWPF\SL3\Library\Bin\Debug\ModulusFE.StockChartX.SL.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="SharpZipLib, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
@@ -128,9 +131,6 @@
     <Compile Include="DAO\TemplateDAO.cs" />
     <Compile Include="Dialogs\AbrirGrafico.xaml.cs">
       <DependentUpon>AbrirGrafico.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\BuscaAtivoDialog.xaml.cs">
-      <DependentUpon>BuscaAtivoDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
@@ -194,7 +194,6 @@
     </Compile>
     <Compile Include="DTO\AtivoDTO.cs" />
     <Compile Include="DTO\BookDTO.cs" />
-    <Compile Include="DTO\CotacaoDTO.cs" />
     <Compile Include="DTO\DeepCopy.cs" />
     <Compile Include="DTO\IndicatorInfoDTO.cs" />
     <Compile Include="DTO\IndicatorPropertyDTO.cs" />
@@ -204,9 +203,6 @@
     <Compile Include="DTO\ScannerDTO.cs" />
     <Compile Include="DTO\TickDTO.cs" />
     <Compile Include="DTO\TradeDTO.cs" />
-    <Compile Include="HistoricoCotacao.xaml.cs">
-      <DependentUpon>HistoricoCotacao.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Grafico.xaml.cs">
       <DependentUpon>Grafico.xaml</DependentUpon>
     </Compile>
@@ -216,6 +212,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SavePage.xaml.cs">
       <DependentUpon>SavePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\MDApiSVC\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\TerminalWebSVC\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -239,10 +240,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\AbrirGrafico.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\BuscaAtivoDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -326,10 +323,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HistoricoCotacao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Grafico.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -344,6 +337,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\MDApiSVC\MarketDataWCF.wsdl" />
+    <None Include="Service References\MDApiSVC\MDAPI.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MDApiSVC\MDAPI1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MDApiSVC\MDAPI2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MDApiSVC\MDAPI3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -443,6 +449,13 @@
     <Resource Include="images\default.jpg" />
     <Resource Include="images\maximize-icon.png" />
     <Resource Include="images\minimize-icon.png" />
+    <None Include="Service References\MDApiSVC\MDAPI.disco" />
+    <None Include="Service References\MDApiSVC\configuration91.svcinfo" />
+    <None Include="Service References\MDApiSVC\configuration.svcinfo" />
+    <None Include="Service References\MDApiSVC\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
@@ -560,6 +573,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\MDApiSVC\" />
     <WCFMetadataStorage Include="Service References\TerminalWebSVC\" />
   </ItemGroup>
   <ItemGroup>

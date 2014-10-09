@@ -37,198 +37,54 @@ namespace Traderdata.Client.TerminalWEB
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            HtmlPage.RegisterScriptableObject("ShutdownManager", shutdownManager);
-
-            StaticData.UrlWebservice = "https://webservice.traderdata.com.br/tw20/service.svc";
-
-            StaticData.BVSPRTTickHost = "https://webfeeder-a.traderdata.com.br/tw20.tick.bmfbovespa.rt/request.ashx";
-            StaticData.BVSPDelayHost = "https://webfeeder-a.traderdata.com.br/tw20.tick.bmfbovespa.delay/request.ashx";
-            StaticData.BVSPRTBookHost = "https://easytrader-bookserver.traderdata.com.br/book.bvsp.realtime/request.ashx";
-            StaticData.BVSPRTTradeHost = "https://easytrader-tradeserver.traderdata.com.br/trade.bvsp.realtime/request.ashx";
-
-            StaticData.BMFRTTickHost = "https://webfeeder-a.traderdata.com.br/tw20.tick.bmfbovespa.rt/request.ashx";
-            StaticData.BMFDelayTickHost = "https://webfeeder-a.traderdata.com.br/tw20.tick.bmfbovespa.delay/request.ashx";
-            StaticData.BMFRTBookHost = "https://easytrader-bookserver.traderdata.com.br/book.bmf.realtime/request.ashx";
-            StaticData.BMFRTTradeHost = "https://easytrader-tradeserver.traderdata.com.br/trade.bmf.realtime/request.ashx";
-
-            StaticData.URLScannerIntraday = "https://twrt.traderdata.inf.br/sc-intraday/request.ashx";
-            StaticData.URLChatServer = "http://easytrader.traderdata.com.br/chat/request.ashx";
-
+            StaticData.ClientWebservice = "https://webservice.traderdata.com.br/tw20/service.svc";
+            StaticData.MDWebservice = "https://app-ext.traderdata.com.br/md-api/mdapi.svc";
+            StaticData.TickServer = "https://app-ext.traderdata.com.br/tw10.tick.bmfbovespa.rt/request.ashx";
+            
             //parametros globais
-            StaticData.TempoDemo = 0;
             StaticData.CacheHabilitado = false;
             StaticData.User = new TerminalWebSVC.UsuarioDTO();
-            StaticData.DistribuidorId = 1;
-
-            //Comentar antes de subir
-            //e.InitParams.Add(new KeyValuePair<string,string>("distribuidor","ATG"));
-
-            #region Segurança Single-Signon
-            if (e.InitParams.ContainsKey("login-integrado"))
+            
+            //configurações
+            if (e.InitParams.ContainsKey("broker"))
             {
-                if (e.InitParams["login-integrado"] != null)
-                {
-                    //checando pela segurança para single-signon
-                    SHA256Managed hashSHA = new SHA256Managed();
-                    hashSHA.ComputeHash(ConvertStringToByteArray(e.InitParams["login-integrado"] + "-" + DateTime.Today.ToString("dd-MM-yyyy")));
-
-                    string stringHash = "";
-
-                    foreach (byte b in hashSHA.Hash)
-                    {
-                        stringHash += Convert.ToString(Convert.ToInt16(b)) + "-";
-                    }
-
-                    stringHash = stringHash.Remove(stringHash.Length - 1);
-
-                    if (e.InitParams.ContainsKey("ambiente"))
-                    {
-                        if (e.InitParams["ambiente"] == "PRD")
-                        {
-                            if (stringHash != e.InitParams["token-integrado"])
-                            {
-                                MessageBox.Show("Token Inválido");
-                                return;
-                            }
-                        }
-                        //else
-                        //    MessageBox.Show(e.InitParams["ambiente"]);
-                    }
-                    else
-                    {
-                        MessageBox.Show("nao encontrou ambiente");
-                    }
-                }
-            }
-            #endregion
-
-            if (!e.InitParams.ContainsKey("save"))
-            {
-                if (e.InitParams.ContainsKey("distribuidor"))
-                {
-
-                    if (e.InitParams["distribuidor"] == "ATG")
-                    {
-                        StaticData.WaterMark = "ATG";
-                        StaticData.PluginChat = false;
-                        StaticData.PluginRastreadorEOD = false;
-                        StaticData.PluginRastreadorRT = false;
-                        StaticData.PluginVideoAula = false;
-                        StaticData.PluginPortfolio = false;
-                        StaticData.ContainerPlugins = false;
-                        StaticData.Rastreador = false;
-                        StaticData.TimesTrades = false;
-                        StaticData.DelayedVersion = false;
-                        StaticData.SingleSignOn = true;
-                        StaticData.Distribuidor = "ATG";
-                        StaticData.DistribuidorId = 5;
-                        StaticData.LoginIntegradoDistribuidor = e.InitParams["login-integrado"];
-                        StaticData.SymbolSolicitadonoDistribuidor = e.InitParams["symbol"];
-                        StaticData.Backtest = false;
-
-                    }
-                    else if (e.InitParams["distribuidor"] == "WALPIRES")
-                    {
-                        StaticData.WaterMark = "WALPIRES";
-                        StaticData.PluginChat = false;
-                        StaticData.PluginRastreadorEOD = false;
-                        StaticData.PluginRastreadorRT = false;
-                        StaticData.PluginVideoAula = false;
-                        StaticData.PluginPortfolio = false;
-                        StaticData.ContainerPlugins = false;
-                        StaticData.Rastreador = false;
-                        StaticData.TimesTrades = false;
-                        StaticData.DelayedVersion = false;
-                        StaticData.SingleSignOn = true;
-                        StaticData.Distribuidor = "WALPIRES";
-                        StaticData.DistribuidorId = 8;
-                        StaticData.LoginIntegradoDistribuidor = e.InitParams["login-integrado"];
-                        StaticData.SymbolSolicitadonoDistribuidor = e.InitParams["symbol"];
-                        StaticData.Backtest = false;
-
-                    }
-                    else if (e.InitParams["distribuidor"] == "TITULO")
-                    {
-                        StaticData.WaterMark = "easyInvest";
-                        StaticData.PluginChat = false;
-                        StaticData.PluginRastreadorEOD = false;
-                        StaticData.PluginRastreadorRT = false;
-                        StaticData.PluginVideoAula = false;
-                        StaticData.PluginPortfolio = false;
-                        StaticData.ContainerPlugins = false;
-                        StaticData.Rastreador = false;
-                        StaticData.TimesTrades = false;
-                        StaticData.DelayedVersion = false;
-                        StaticData.SingleSignOn = true;
-                        StaticData.Distribuidor = "TITULO";
-                        StaticData.DistribuidorId = 8;
-                        StaticData.LoginIntegradoDistribuidor = e.InitParams["login-integrado"];
-                        StaticData.SymbolSolicitadonoDistribuidor = e.InitParams["symbol"];
-                        StaticData.Backtest = false;
-                    }
-
-                }
-                else
-                {
-                    StaticData.WaterMark = "WALPIRES";
-                    StaticData.PluginChat = false;
-                    StaticData.PluginRastreadorEOD = false;
-                    StaticData.PluginRastreadorRT = false;
-                    StaticData.PluginVideoAula = false;
-                    StaticData.PluginPortfolio = false;
-                    StaticData.ContainerPlugins = false;
-                    StaticData.Rastreador = false;
-                    StaticData.TimesTrades = false;
-                    StaticData.DelayedVersion = false;
-                    StaticData.SingleSignOn = true;
-                    StaticData.Distribuidor = "WALPIRES";
-                    StaticData.DistribuidorId = 8;
-                    StaticData.LoginIntegradoDistribuidor = "FELIPE3";
-                    StaticData.SymbolSolicitadonoDistribuidor = "";
-                    StaticData.Backtest = false;
-                }
-                
-                if (e.InitParams.ContainsKey("refid"))
-                {
-                    if (e.InitParams["refid"] != "")
-                    {
-                        StaticData.RefId = Convert.ToInt32(e.InitParams["refid"]);
-                    }
-                    else
-
-                        StaticData.RefId = 0;
-                }
-                                
-
-                this.RootVisual = new ChartOnlyMainPage();
-                
+                StaticData.WaterMark = e.InitParams["broker"];
+                StaticData.Distribuidor = e.InitParams["broker"];
             }
             else
-            {                
-                this.RootVisual = new SavePage();
+            {
+                StaticData.WaterMark = "TRADERDATA";
+                StaticData.Distribuidor = "DEMO";
             }
+
+            StaticData.DelayedVersion = false;            
+            StaticData.DistribuidorId = 8;
+            
+            //abrindo o main page
+            this.RootVisual = new ChartOnlyMainPage();
+            
         }
 
         private void Application_Exit(object sender, EventArgs e)
         {
-            if (!StaticData.WorkspaceSalvo)
-            {
-                terminalWebClient = new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
+            //if (!StaticData.WorkspaceSalvo)
+            //{
+            //    terminalWebClient = new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
 
-                TerminalWebSVC.WorkspaceDTO workspace = new TerminalWebSVC.WorkspaceDTO();
-                workspace.Nome = "DEFAULT";
-                workspace.UsuarioId = StaticData.User.Id;
-                //workspace.Graficos = ((MainPage)this.RootVisual).GetGraficos();
+            //    TerminalWebSVC.WorkspaceDTO workspace = new TerminalWebSVC.WorkspaceDTO();
+            //    workspace.Nome = "DEFAULT";
+            //    workspace.UsuarioId = StaticData.User.Id;
+            //    //workspace.Graficos = ((MainPage)this.RootVisual).GetGraficos();
 
-                //salvando workspace no isolated storage
-                //terminalWebClient.SaveWorkspaceAsync(workspace);
+            //    //salvando workspace no isolated storage
+            //    //terminalWebClient.SaveWorkspaceAsync(workspace);
 
-                //Thread.Sleep(10000);
+            //    //Thread.Sleep(10000);
 
 
-                //chamando JS
-                //HtmlPage.Window.Invoke("salvar", null);
-            }
+            //    //chamando JS
+            //    //HtmlPage.Window.Invoke("salvar", null);
+            //}
 
         }
 

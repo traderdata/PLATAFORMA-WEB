@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Traderdata.Server.Core.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Traderdata.Server.Core.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="AtivoDTO.ReturnType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FullString" />
+      <xs:enumeration value="ShortString" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AtivoDTO.ReturnType" nillable="true" type="tns:AtivoDTO.ReturnType" />
+  <xs:simpleType name="CotacaoDTO.BasePeriodicity">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DailyEOD" />
+      <xs:enumeration value="DailyRT" />
+      <xs:enumeration value="Minute" />
+      <xs:enumeration value="MinuteWithAfterMarket" />
+      <xs:enumeration value="Second" />
+      <xs:enumeration value="IntradayEODMixed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CotacaoDTO.BasePeriodicity" nillable="true" type="tns:CotacaoDTO.BasePeriodicity" />
+</xs:schema>

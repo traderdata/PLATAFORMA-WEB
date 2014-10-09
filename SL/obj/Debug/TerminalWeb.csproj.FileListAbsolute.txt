@@ -162,11 +162,9 @@ C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\TerminalWeb.pdb
 C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\AppManifest.xaml
 C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\TerminalWeb.xap
 C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\SilverlightApplication8TestPage.html
-C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.csprojResolveAssemblyReference.cache
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\App.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\ChartOnlyMainPage.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\AbrirGrafico.g.i.cs
-C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\BuscaAtivoDialog.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\ColorPicker.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\CommandBox.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\ColorConfiguration.g.i.cs
@@ -187,7 +185,6 @@ C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\PromptTexto.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\SearchBox.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\StrokeThicknessPicker.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\Videos.g.i.cs
-C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\HistoricoCotacao.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Grafico.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\PageCollection.g.i.cs
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\SavePage.g.i.cs
@@ -195,3 +192,4 @@ C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.g.resources
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.dll
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.pdb
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\XapCacheFile.xml
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.csprojResolveAssemblyReference.cache

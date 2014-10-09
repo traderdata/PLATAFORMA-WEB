@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="Traderdata.Client.TerminalWEB.ChartOnlyMainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:localdialog="clr-namespace:Traderdata.Client.TerminalWEB.Dialogs"
-    xmlns:operacao="clr-namespace:Traderdata.Client.TerminalWEB.Dialogs.Operacao"
+    xmlns:localdialog="clr-namespace:Traderdata.Client.TerminalWEB.Dialogs"    
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -167,21 +166,6 @@
             <c1:C1ToolbarToggleButton  ToolTipService.ToolTip="Escala Semilog" Width="24" Height="24"  Name="tbarEscalaSemilog" GroupName="TipoEscala" Click="tbarEscalaSemilog_Click">
                 <Image Style="{StaticResource tbIcon2Toolbar}" Source="/TerminalWeb;component/images/slg.png"/>
             </c1:C1ToolbarToggleButton>
-            <c1:C1Separator />
-            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/social-icon.png" ToolTipService.ToolTip="Publicar na Zona de Compartilhamento" Name="tbarPublicarTraderdata"  Width="24" Height="24" Click="tbarPublicarTraderdata_Click_1" IsEnabled="False"            ></c1:C1ToolbarButton>
-            <c1:C1ToolbarDropDown AutoClose="True"  Height="24" Width="30">
-                <c1:C1ToolbarDropDown.Header>
-                    <Image Style="{StaticResource tbIcon}" Margin="2,2,2,2" Source="/TerminalWeb;component/images/facebook-icon.png" />
-                </c1:C1ToolbarDropDown.Header>
-                <c1:C1ToolbarDropDown.Content>
-                    <c1:C1Menu Orientation="Vertical" AutoClose="True" Name="mnuFacebook" Background="White">
-                        <c1:C1MenuItem Header="Publicar Análise" Name="mnuPublicarFacebook" Click="mnuPublicarFacebook_Click_1" Background="White"/>
-                        <c1:C1MenuItem Header="Convide seus amigos" Name="InviteFacebookFriends" Click="InviteFacebookFriends_Click_1" Background="White"/>
-                        <!--<c1:C1MenuItem Header="Recomendar Compra" Name="RecommendBuy" Click="RecommendBuy_Click_1" Background="White"/>
-                        <c1:C1MenuItem Header="Recomendar Venda" Name="RecommendSell" Click="RecommendSell_Click_1" Background="White"/>-->
-                    </c1:C1Menu>
-                </c1:C1ToolbarDropDown.Content>
-            </c1:C1ToolbarDropDown>
             <c1:C1Separator />            
             <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/help-icon.png" ToolTipService.ToolTip="Manual" Name="tbarManual"  Width="24" Height="24" />
 

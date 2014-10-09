@@ -13,6 +13,7 @@ using Traderdata.Client.TerminalWEB.DTO;
 using System.Threading;
 using System.ComponentModel;
 using Traderdata.Client.TerminalWEB.Util;
+using Traderdata.Server.Core.DTO;
 
 namespace Traderdata.Client.TerminalWEB.DAO
 {
@@ -89,8 +90,8 @@ namespace Traderdata.Client.TerminalWEB.DAO
         {
             string urlbmfBVSPTick = "";
             string urlBMFBVSPTrade = "";
-            
-            urlbmfBVSPTick = StaticData.BVSPRTTickHost;
+
+            urlbmfBVSPTick = StaticData.TickServer;
             urlBMFBVSPTrade = StaticData.BVSPRTTradeHost;
             
 
@@ -144,32 +145,6 @@ namespace Traderdata.Client.TerminalWEB.DAO
                     clientBMFBVSPTick.Reconnect();                                        
                 }
             });
-
-            ////Conectando
-            //clientBMFBVSPTrade.Connect(new ConnectArgs
-            //{
-            //    //StayConnected = true,
-            //    OnSuccess = (args) =>
-            //    {
-                    
-            //    },
-            //    OnFailure = (args) =>
-            //    {
-            //        //Disparar evento de falha
-            //        if (OnConnectErrorTick != null)
-            //        {
-            //            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            //            {
-            //                OnConnectErrorTick();
-            //            });
-            //        }
-            //    },
-            //    OnStreamFailure = (args) =>
-            //    {
-            //        //codigo necessario no insucesso da conexao
-            //        clientBMFBVSPTrade.Reconnect();
-            //    }
-            //});
 
             // Cria uma instância de uma AsyncOperation para gerenciar o contexto
             asyncOperation = AsyncOperationManager.CreateOperation(null);
@@ -235,103 +210,7 @@ namespace Traderdata.Client.TerminalWEB.DAO
             }
 
         }
-        
-
-        /// <summary>
-        /// Metodo usado para assinar um determinado ativo
-        /// </summary>
-        /// <param name="ativo"></param>
-        public static void StartTradeSubscription(string ativo)
-        {
-            if (MarketDataDAO.IsBovespa(ativo))
-            {
-                if (clientBMFBVSPTrade != null)
-                {
-                    clientBMFBVSPTrade.Subscribe(new SubscribeArgs
-                    {
-                        Channel = "/" + ativo,
-                        OnSuccess = (args) =>
-                        {
-
-                        },
-                        OnFailure = (args) =>
-                        {
-                            //codigo de falha de assinatura
-                        },
-                        OnReceive = (args) =>
-                        {
-                            if (TradeReceived != null)
-                            {
-                                TradeDTO trade = ParseiaNegocio(JSON.Deserialize<string>(args.DataJson));
-                                //dispara evento para aqueles forms que estão aguardando o dado tick a tick
-                                //Assinando o evento de disparo de dados
-                                GenericEventHandler = new SendOrPostCallback(TradeReceived);
-                                asyncOperation.Post(GenericEventHandler, trade);
-
-                            }
-                        }
-                    });
-                }
-            }
-            
-        }
-        
-        /// <summary>
-        /// Parseia pacote de negócio em formato TraderData. Atenção: Os DTOs de corretoras gerados não refletem as corretora do banco.
-        /// Formato: N:[1-Ativo]:[2-Bolsa]:[3-Hora]:[4-Valor]:[5-Quantidade]:[6-Numero]:[7-Corretora Compra]:[8-Corretora Venda]:[9-Tipo registro]
-        /// </summary>
-        /// <param name="negocioString"></param>
-        /// <returns></returns>
-        private static TradeDTO ParseiaNegocio(string negocioString)
-        {
-            TradeDTO negocioDTO = new TradeDTO();
-            string[] negocio = negocioString.Split(':');
-
-            
-            try
-            {
-                negocioDTO.Id = 0;
-                negocioDTO.Ativo = negocio[1];
-                negocioDTO.Bolsa = Convert.ToInt32(negocio[2]);
-                negocioDTO.HoraBolsa = negocio[3];
-                negocioDTO.Valor = Convert.ToDouble(negocio[4], GeneralUtil.NumberProvider);
-                negocioDTO.Quantidade = Convert.ToDouble(negocio[5], GeneralUtil.NumberProvider);
-                negocioDTO.Numero = Convert.ToInt32(negocio[6], GeneralUtil.NumberProvider);
-
-                try
-                {
-                    negocioDTO.CorretoraCompradora = StaticData.CorretoraBovespa[Convert.ToInt32(negocio[7])];
-                }
-                catch
-                {
-                    negocioDTO.CorretoraCompradora = negocio[7];
-                }
-                try
-                {
-                    negocioDTO.CorretoraVendedora = StaticData.CorretoraBovespa[Convert.ToInt32(negocio[8])];
-                }
-                catch
-                {
-                    negocioDTO.CorretoraVendedora = negocio[8];
-                }
-
-                //Acertando hora se necessario
-                if (negocioDTO.HoraBolsa.Length == 3)
-                    negocioDTO.HoraBolsa = "0" + negocioDTO.HoraBolsa;
-
-                negocioDTO.TipoRegistro = negocio[9];
-                negocioDTO.TimeStamp = DateTime.Now;//new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, Convert.ToInt32(negocioDTO.HoraBolsa.Substring(0, 2)), Convert.ToInt32(negocioDTO.HoraBolsa.Substring(2, 2)), 0);
-
-                return negocioDTO;
-            }
-            catch (Exception exc)
-            {
-                throw exc;
-            }
-        }
-
-
-        
+                
 
         /// <summary>
         /// Parsea o dados de um pacote tick e dispara o evento OnTick.
@@ -424,76 +303,6 @@ namespace Traderdata.Client.TerminalWEB.DAO
             }
         }
 
-        /// <summary>
-        /// Metodo que vai receber um tick e vai atualizar o cache do ativo caso o mesmo já esteja cacheado
-        /// </summary>
-        /// <param name="tickDTO"></param>
-        private static void AtualizaCacheDiario(TickDTO tickDTO)
-        {
-            try
-            {
-                if (StaticData.cacheCotacaoDiario.ContainsKey(tickDTO.Ativo))
-                {
-                    if (StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoDiario[tickDTO.Ativo].Count - 1].Data.Date == tickDTO.Data.Date)
-                    {
-                        StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoDiario[tickDTO.Ativo].Count - 1].Abertura = tickDTO.Abertura;
-                        StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoDiario[tickDTO.Ativo].Count - 1].Maximo = tickDTO.Maximo;
-                        StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoDiario[tickDTO.Ativo].Count - 1].Minimo = tickDTO.Minimo;
-                        StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoDiario[tickDTO.Ativo].Count - 1].Quantidade = tickDTO.Quantidade;
-                        StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoDiario[tickDTO.Ativo].Count - 1].Ultimo = tickDTO.Ultimo;
-                        StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoDiario[tickDTO.Ativo].Count - 1].Volume = tickDTO.Volume;
-                    }
-                    else if (StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoDiario[tickDTO.Ativo].Count - 1].Data.Date < tickDTO.Data.Date)
-                    {
-                        StaticData.cacheCotacaoDiario[tickDTO.Ativo].Add(new CotacaoDTO(tickDTO.Abertura, tickDTO.Maximo, tickDTO.Minimo, tickDTO.Ultimo,
-                            tickDTO.Quantidade, tickDTO.Volume, tickDTO.Data, false, tickDTO.Hora));
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que faz a atualização do cache intraday
-        /// </summary>
-        /// <param name="tickDTO"></param>
-        private static void AtualizaCacheIntraday(TickDTO tickDTO)
-        {
-            try
-            {
-                if (StaticData.cacheCotacaoIntraday.ContainsKey(tickDTO.Ativo))
-                {
-                    if (StaticData.cacheCotacaoIntraday[tickDTO.Ativo][StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Count - 1].Data == tickDTO.Data)
-                    {
-                        StaticData.cacheCotacaoIntraday[tickDTO.Ativo][StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Count - 1].Maximo =
-                            Math.Max(StaticData.cacheCotacaoIntraday[tickDTO.Ativo][StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Count - 1].Maximo, tickDTO.Ultimo);
-                        StaticData.cacheCotacaoIntraday[tickDTO.Ativo][StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Count - 1].Minimo = 
-                            Math.Min(StaticData.cacheCotacaoIntraday[tickDTO.Ativo][StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Count - 1].Minimo,tickDTO.Ultimo);
-                        StaticData.cacheCotacaoIntraday[tickDTO.Ativo][StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Count - 1].Ultimo = tickDTO.Ultimo;
-                        StaticData.cacheCotacaoIntraday[tickDTO.Ativo][StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Count - 1].Volume = tickDTO.VolumeUltimoMinuto;
-
-                        //StaticData.cacheCotacaoDiario[tickDTO.Ativo][StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Count - 1].Quantidade = tickDTO.Quantidade;                        
-                        
-                    }
-                    else 
-                    {
-                        StaticData.cacheCotacaoIntraday[tickDTO.Ativo].Add(new CotacaoDTO(tickDTO.Ultimo, tickDTO.Ultimo, tickDTO.Ultimo, tickDTO.Ultimo,
-                            0, tickDTO.VolumeUltimoMinuto, tickDTO.Data, false, tickDTO.Hora));
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
-        }
-
-        
 
         #endregion
     }

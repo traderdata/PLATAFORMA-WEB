@@ -152,7 +152,7 @@
 		  <param name="onError" value="onSilverlightError" />
           <param name="onLoad" value="pluginLoaded" />
           <param name="windowless" value="true" />
-          <param name="initParams" value="fblogin=false,refid=<%=Request["refid"]%>,distribuidor=<%=ConfigurationSettings.AppSettings["DISTRIBUIDOR"]%>,login-integrado=<%=Request["codcliente"]%>, token-integrado=<%=Request["sessid"]%>, symbol=<%=Request["ativo"]%>, ambiente=<%=ConfigurationSettings.AppSettings["AMBIENTE"]%>" />
+          <param name="initParams" value="broker=<%=Request["broker"]%>,usr=<%=Request["usr"] %>,token=<%=Request["token"]%>,symbol=<%=Request["symbol"]%>" />
 		  <param name="background" value="white" />
 		  <param name="minRuntimeVersion" value="4.0.50826.0" />
 		  <param name="autoUpgrade" value="true" />

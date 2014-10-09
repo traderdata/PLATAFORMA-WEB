@@ -88,7 +88,7 @@ namespace Traderdata.Client.TerminalWEB
         /// Variavel de acesso aos webservices
         /// </summary>
         private TerminalWebSVC.TerminalWebClient terminalWebClient =
-            new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
+            new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.ClientDataEndpoint());
 
         #endregion
 
@@ -102,11 +102,6 @@ namespace Traderdata.Client.TerminalWEB
             InitializeComponent();
                         
             //assinando eventos de marketdata
-            marketDataDAO.SetCacheIndicesCompleted += new MarketDataDAO.SetCacheIndicesHandler(marketDataDAO_SetCacheIndicesCompleted);
-            marketDataDAO.SetCacheAtivosPorIndiceCompleted += new MarketDataDAO.SetCacheAtivosPorIndiceHandler(marketDataDAO_SetCacheAtivosPorIndiceCompleted);
-            marketDataDAO.SetCotacaoDiariaCacheCompleted += new MarketDataDAO.CotacaoDiarioCacheHandler(marketDataDAO_SetCotacaoDiariaCacheCompleted);
-            marketDataDAO.SetCacheAtivosBovespaCompleted += new MarketDataDAO.SetCacheAtivosBovespaHandler(marketDataDAO_SetCacheAtivosBovespaCompleted);
-            marketDataDAO.GetAtivosBovespaQueDevemSerCacheadosCompleted += new MarketDataDAO.GetAtivosBovespaQueDevemSerCacheadosHandler(marketDataDAO_GetAtivosBovespaQueDevemSerCacheadosCompleted);
             marketDataDAO.SetCacheSegmentosCompleted += new MarketDataDAO.SetCacheSegmentosHandler(marketDataDAO_SetCacheSegmentosCompleted);
             marketDataDAO.SetCacheAtivosBMFTodosCompleted += new MarketDataDAO.SetCacheAtivosBMFTodosHandler(marketDataDAO_SetCacheAtivosBMFTodosCompleted);
             marketDataDAO.SetCotacaoIntradayCacheCompleted += new MarketDataDAO.SetCotacaoIntradayCacheHandler(marketDataDAO_SetCotacaoIntradayCacheCompleted);
@@ -125,16 +120,10 @@ namespace Traderdata.Client.TerminalWEB
             
             //assinando eventos de grafico
             terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeCompleted += terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted;
-                                   
-            //já logou portanto devo carregar os caches
-            SetCacheBasico();
-
+            
             //assinando evento de timer para chamar login
-            if (!StaticData.FacebookIntegrationLogin)
-                timerLogin.Interval = new TimeSpan(0,0,StaticData.TempoDemo);
-            else
-                timerLogin.Interval = new TimeSpan(0, 0, 1);
-
+            timerLogin.Interval = new TimeSpan(0,0,StaticData.TempoDemo);
+            
             timerLogin.Tick += timerLogin_Tick;
             timerLogin.Start();
 
@@ -162,6 +151,10 @@ namespace Traderdata.Client.TerminalWEB
 
             //Reecbimento de tick
             RealTimeDAO.TickReceived += new RealTimeDAO.TickHandler(RealTimeDAO_TickReceived);
+
+            //Conectando canal de tick
+            RealTimeDAO.ConnectBMFBVSP();
+
             #endregion
 
             #region Setando as TAGs laterais
@@ -228,52 +221,12 @@ namespace Traderdata.Client.TerminalWEB
         {
             timerLogin.Stop();
 
-            if (!StaticData.SingleSignOn)
-            {
-                if (!StaticData.FacebookIntegrationLogin)
-                {
-                    //abrindo o form de login
-                    Login login = new Login();
-                    HtmlPage.RegisterScriptableObject("SL2JS", login);
+            busyIndicator.BusyContent = "Efetuando Login";
+            busyIndicator.IsBusy = true;
 
-                    login.Closing += (sender1, e1) =>
-                    {
-                        if (login.DialogResult != null)
-                            if (login.DialogResult.Value == true)
-                            {
-                                busyIndicator.BusyContent = "Carregando Workspace...";
-                                busyIndicator.IsBusy = true;
-
-                                //carregando a lista de portfolios
-                                terminalWebClient.RetornaPortfoliosAsync(StaticData.User);
-
-                                //carregamento de segurança
-                                CarregaSeguranca();
-
-                                //conectando nos servidores de RT
-                                ConnectRTServers();
-
-                            }
-                    };
-                    login.Show();
-                }
-                else
-                {
-                    //abrindo o form de login
-                    HtmlPage.RegisterScriptableObject("SL2JS", this);
-                    HtmlPage.Window.Invoke("login", null);
-                }
-            }
-            else
-            {
-                busyIndicator.BusyContent = "Efetuando Login";
-                busyIndicator.IsBusy = true;
-
-                //chamando o metodo de login
-                terminalWebClient.LoginUserDistribuidorIntegradoAsync(StaticData.LoginIntegradoDistribuidor, StaticData.DistribuidorId);
-            }
-
-
+            //chamando o metodo de login
+            terminalWebClient.LoginUserDistribuidorIntegradoAsync(StaticData.User.Login, StaticData.DistribuidorId);
+            
         }
 
         /// <summary>
@@ -292,7 +245,7 @@ namespace Traderdata.Client.TerminalWEB
             portfolioListProcessed = true;
 
             //carregamento de segurança
-            CarregaSeguranca();
+            //CarregaSeguranca();
 
             //conectando nos servidores de RT
             ConnectRTServers();
@@ -364,11 +317,6 @@ namespace Traderdata.Client.TerminalWEB
             //carregando os templates do usuario
             terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
 
-            if (StaticData.Backtest)
-            {
-                //carregando os backtestings
-                terminalWebClient.RetornaBackTestsAsync(StaticData.User);
-            }
         }
 
         /// <summary>
@@ -376,46 +324,7 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         private void ConnectRTServers()
         {
-            //if (!StaticData.DelayedVersion)
-            //{
-            //    if (StaticData.User.HasBovespaRT)
-            //    {
-            //        //Connect RT
-            //        RealTimeDAO.ConnectBMFBVSP();
-            //    }
-            //    else if (StaticData.User.HasBovespaDELAY)
-            //    {
-            //        //Connect Delay
-            //        RealTimeDAO.ConnectBVSP(false);
-            //    }
-            //    else
-            //    {
-            //        bovespaRTDelayProcessed = true;
-            //    }
-
-            //    if (StaticData.User.HasBMFRT)
-            //    {
-            //        //Connect RT
-            //        RealTimeDAO.ConnectBMF(true);
-            //    }
-            //    else if (StaticData.User.HasBMFDELAY)
-            //    {
-            //        //Connect Delay
-            //        RealTimeDAO.ConnectBMF(false);
-            //    }
-            //    else
-            //    {
-            //        bmfRTDelayProcessed = true;
-            //    }
-            //}
-            //else
-            //{                
-            //    //Connect Delay
-            //    RealTimeDAO.ConnectBVSP(false);
-                
-            //    //Connect Delay
-            //    RealTimeDAO.ConnectBMF(false);                
-            //}
+            
         }
 
         #endregion
@@ -478,34 +387,8 @@ namespace Traderdata.Client.TerminalWEB
 
         #region Cache
 
-        /// <summary>
-        /// Metodo que inicia o processamento de cache
-        /// </summary>
-        private void SetCacheBasico()
-        {
-            //Carregando os itens cacheaveis
-            PopulaCorretoras();
-            marketDataDAO.SetCacheSegmentosAsync();
-            marketDataDAO.SetCacheIndicesAsync();
-            marketDataDAO.SetCacheAtivosBovespaAsync();
-            marketDataDAO.SetCacheAtivosBMFAsync();
-        }
 
-        /// <summary>
-        /// Metodo que seta o cache das cotações
-        /// </summary>
-        private void SetCacheCotacao()
-        {
-            marketDataDAO.GetAtivosBovespaQueDevemSerCacheadosAsync();
-
-            //cacheando ativos BMF
-            marketDataDAO.SetCacheCotacaoDiarioAsync("WINFUT");
-            marketDataDAO.SetCacheCotacaoDiarioAsync("INDFUT");
-            marketDataDAO.SetCacheCotacaoDiarioAsync("DOLFUT");
-            marketDataDAO.SetCacheCotacaoDiarioAsync("WDOFUT");
-
-        }
-
+        
         /// <summary>
         /// Evento disparado após encerrar o cache de um ativo intraday
         /// </summary>
@@ -533,63 +416,8 @@ namespace Traderdata.Client.TerminalWEB
             StaticData.AddLog("Lista de segmentos carregada com sucesso");
         }
 
-        /// <summary>
-        /// Evento disparado apos carregar os ativos que devem ser cacheados
-        /// </summary>
-        /// <param name="Result"></param>
-        void marketDataDAO_GetAtivosBovespaQueDevemSerCacheadosCompleted(List<AtivoDTO> Result)
-        {
-            foreach (AtivoDTO obj in Result)
-            {
-                if (StaticData.CacheHabilitado)
-                {
-                    marketDataDAO.SetCacheCotacaoDiarioAsync(obj.Codigo);
-                    //Thread.Sleep(3000);
-                }
-            }
-        }
 
-        /// <summary>
-        /// Evento disparado apos carregar os ativos Bovespa
-        /// </summary>
-        /// <param name="Result"></param>
-        void marketDataDAO_SetCacheAtivosBovespaCompleted(List<AtivoDTO> Result)
-        {
-            StaticData.AddLog("Lista de ativos de Bovespa carregada com sucesso");
-        }
-
-        /// <summary>
-        /// Evento disparado apos carregar a lista de indices
-        /// </summary>
-        /// <param name="Result"></param>
-        void marketDataDAO_SetCacheIndicesCompleted(List<string> Result)
-        {
-            foreach (string obj in Result)
-            {
-                marketDataDAO.SetCacheAtivosPorIndiceAsync(obj);
-            }
-        }
-
-
-        /// <summary>
-        /// Evento disparado apos carregar cotações diarias de um ativo
-        /// </summary>
-        /// <param name="Result"></param>
-        void marketDataDAO_SetCotacaoDiariaCacheCompleted(string Result)
-        {
-            StaticData.AddLog("Cotações diárias de " + Result + " carregadas com sucesso");
-        }
-
-        /// <summary>
-        /// Evento disparado apos carregar a lista de ativos de um indice
-        /// </summary>
-        /// <param name="Result"></param>
-        /// <param name="Indice"></param>
-        void marketDataDAO_SetCacheAtivosPorIndiceCompleted(List<AtivoDTO> Result, string Indice)
-        {
-            StaticData.AddLog("Lista de ativos de " + Indice + " carregadas com sucesso");
-        }
-
+        
 
         #endregion
 
@@ -832,29 +660,29 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         private void AbrirGraficoExistente()
         {
-            BuscaAtivoDialog buscaAtivo = new BuscaAtivoDialog();
-            buscaAtivo.Title = "Abrir Grafico Existente";
-            buscaAtivo.Closing += (sender1, e1) =>
-            {
-                if (buscaAtivo.DialogResult.Value == true)
-                {
-                    foreach (AtivoDTO item in buscaAtivo._flexGridAtivos.SelectedItems)
-                    {
-                        busyIndicator.BusyContent = "Abrindo gráfico...";
-                        busyIndicator.IsBusy = true;
+            //BuscaAtivoDialog buscaAtivo = new BuscaAtivoDialog();
+            //buscaAtivo.Title = "Abrir Grafico Existente";
+            //buscaAtivo.Closing += (sender1, e1) =>
+            //{
+            //    if (buscaAtivo.DialogResult.Value == true)
+            //    {
+            //        foreach (AtivoDTO item in buscaAtivo._flexGridAtivos.SelectedItems)
+            //        {
+            //            busyIndicator.BusyContent = "Abrindo gráfico...";
+            //            busyIndicator.IsBusy = true;
 
-                        List<object> args = new List<object>();
-                        args.Add(item.Codigo);
-                        args.Add(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag));
-                        terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeAsync(item.Codigo,
-                            Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag),
-                            StaticData.User.Id, args);                        
-                        //NovoGrafico(item.Codigo, null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag)));
-                    }
+            //            List<object> args = new List<object>();
+            //            args.Add(item.Codigo);
+            //            args.Add(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag));
+            //            terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeAsync(item.Codigo,
+            //                Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag),
+            //                StaticData.User.Id, args);                        
+            //            //NovoGrafico(item.Codigo, null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag)));
+            //        }
 
-                }
-            };
-            buscaAtivo.Show();
+            //    }
+            //};
+            //buscaAtivo.Show();
         }
 
         #endregion
@@ -1828,33 +1656,7 @@ namespace Traderdata.Client.TerminalWEB
 
         #region Cache
 
-        /// <summary>
-        /// Evento disparado ao se clicar em Limpar Cache
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuLimparCache_Click(object sender, SourcedEventArgs e)
-        {
-            StaticData.cacheCotacaoDiario = new Dictionary<string, List<CotacaoDTO>>();
-            StaticData.cacheCotacaoIntraday = new Dictionary<string, List<CotacaoDTO>>();
-            StaticData.cacheAtivosPorIndice = new Dictionary<string, List<AtivoDTO>>();
-            StaticData.cacheAtivosPorSegmento = new Dictionary<string, List<AtivoDTO>>();
-            StaticData.cacheIndices = new List<string>();
-            StaticData.cacheAtivosBMFTodos = new List<AtivoDTO>();
-            StaticData.cacheAtivosBMFPrincpalCheio = new List<AtivoDTO>();
-            StaticData.cacheAtivosBMFMiniContrato = new List<AtivoDTO>();
-            StaticData.cacheAtivosBovespaTodos = new List<AtivoDTO>();
-            StaticData.cacheAtivosBovespaVista = new List<AtivoDTO>();
-            StaticData.cacheAtivosBovespaOpcao = new List<AtivoDTO>();
-            StaticData.cacheAtivosBovespaTermo = new List<AtivoDTO>();
-            StaticData.cacheSegmentos = new List<string>();
-        }
-
-        private void mnuCacheHabilitado_Click(object sender, SourcedEventArgs e)
-        {
-            //StaticData.CacheHabilitado = mnuCacheHabilitado.IsChecked;
-        }
-
+       
         #endregion
 
         #region Salvar Imagem Grafico
@@ -2318,29 +2120,29 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void AbrirNovoGraficoDialog()
         {
-            BuscaAtivoDialog buscaAtivo = new BuscaAtivoDialog();
+            //BuscaAtivoDialog buscaAtivo = new BuscaAtivoDialog();
             
-            buscaAtivo.Closing += (sender1, e1) =>
-            {
-                if (buscaAtivo.DialogResult.Value == true)
-                {
-                    foreach (AtivoDTO item in buscaAtivo._flexGridAtivos.SelectedItems)
-                    {
-                        //busyIndicator.BusyContent = "Abrindo gráfico...";
-                        //busyIndicator.IsBusy = true;
+            //buscaAtivo.Closing += (sender1, e1) =>
+            //{
+            //    if (buscaAtivo.DialogResult.Value == true)
+            //    {
+            //        foreach (AtivoDTO item in buscaAtivo._flexGridAtivos.SelectedItems)
+            //        {
+            //            //busyIndicator.BusyContent = "Abrindo gráfico...";
+            //            //busyIndicator.IsBusy = true;
                         
-                        //List<object> args = new List<object>();
-                        //args.Add(item.Codigo);
-                        //args.Add(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag));
-                        //terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeAsync(item.Codigo,
-                        //    Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag),
-                        //    StaticData.User.Id, args);                        
-                        NovoGrafico(item.Codigo, null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag)));
-                    }
+            //            //List<object> args = new List<object>();
+            //            //args.Add(item.Codigo);
+            //            //args.Add(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag));
+            //            //terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeAsync(item.Codigo,
+            //            //    Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag),
+            //            //    StaticData.User.Id, args);                        
+            //            NovoGrafico(item.Codigo, null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag)));
+            //        }
 
-                }
-            };
-            buscaAtivo.Show();
+            //    }
+            //};
+            //buscaAtivo.Show();
 
         }
 

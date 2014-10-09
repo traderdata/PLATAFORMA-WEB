@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Traderdata.Client.TerminalWEB.DTO;
 using ModulusFE.SL;
 using System.IO.IsolatedStorage;
+using Traderdata.Server.Core.DTO;
 
 namespace Traderdata.Client.TerminalWEB
 {
@@ -158,7 +159,12 @@ namespace Traderdata.Client.TerminalWEB
         /// <summary>
         /// String de URL para marketdata Service
         /// </summary>
-        public static string UrlWebservice = "";
+        public static string ClientWebservice = "";
+
+        /// <summary>
+        /// String Url para market data
+        /// </summary>
+        public static string MDWebservice = "";
         
         /// <summary>
         /// Metodo que retorna o endpointAdress com a url passado
@@ -167,7 +173,17 @@ namespace Traderdata.Client.TerminalWEB
         /// <returns></returns>
         public static EndpointAddress MarketDataEndpoint()
         {
-            return new EndpointAddress(UrlWebservice);
+            return new EndpointAddress(MDWebservice);
+        }
+
+        /// <summary>
+        /// Metodo que retorna o endpointAdress com a url passado
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static EndpointAddress ClientDataEndpoint()
+        {
+            return new EndpointAddress(ClientWebservice);
         }
 
         /// <summary>
@@ -193,54 +209,14 @@ namespace Traderdata.Client.TerminalWEB
         #region RealTime
 
         /// <summary>
-        /// Variavel que recebe o caminho do chat server
-        /// </summary>
-        public static string URLChatServer = "";
-
-        /// <summary>
-        /// Variavel que guarda a string de conexao no scanner intraday
-        /// </summary>
-        public static string URLScannerIntraday = "";
-
-        /// <summary>
         /// String de conexao ao servidor RT Bovespa
         /// </summary>
-        public static string BVSPRTTickHost = "";
+        public static string TickServer = "";
 
         /// <summary>
         /// String de conexao ao servidor RT Bovespa
         /// </summary>
         public static string BVSPRTTradeHost = "";
-
-        /// <summary>
-        /// String de conexao ao servidor RT Bovespa
-        /// </summary>
-        public static string BVSPRTBookHost = "";
-
-        /// <summary>
-        /// String de conexao ao servidor DELAY Bovespa
-        /// </summary>
-        public static string BVSPDelayHost = "";
-
-        /// <summary>
-        /// String de conexao ao servidor RT BMF
-        /// </summary>
-        public static string BMFRTTickHost = "";
-
-        /// <summary>
-        /// String de conexao ao servidor RT BMF
-        /// </summary>
-        public static string BMFRTTradeHost = "";
-
-        /// <summary>
-        /// String de conexao ao servidor RT BMF
-        /// </summary>
-        public static string BMFRTBookHost = "";
-
-        /// <summary>
-        /// String de conexao ao servidor DELAY BMF
-        /// </summary>
-        public static string BMFDelayTickHost = "";
 
         #endregion
 
@@ -269,16 +245,10 @@ namespace Traderdata.Client.TerminalWEB
         #region Usuario
 
         /// <summary>
-        /// variavel que identifica se o usuario esta vindo por dentro do facebook
-        /// </summary>
-        public static bool FacebookIntegrationLogin = false;
-
-        /// <summary>
         /// Variavel que armazena as configurações locais do usuario
         /// </summary>
         public static IsolatedStorageSettings userSettings = IsolatedStorageSettings.ApplicationSettings;
-
-
+        
         /// <summary>
         /// Variavel que armazena quem é o distribuidor responsável por este cliente
         /// </summary>
@@ -343,30 +313,10 @@ namespace Traderdata.Client.TerminalWEB
 
         #endregion
 
-        #region Habilitacao Plugins Laterias
-
-        public static bool PluginChat = true;
-        public static bool PluginRastreadorEOD = true;
-        public static bool PluginRastreadorRT = true;
-        public static bool PluginVideoAula = true;
-        public static bool PluginPortfolio = true;
-        public static bool ContainerPlugins = true;
-
-        #endregion
-
-        #region Habilitação de itens de menu
-
-        public static bool TimesTrades = true;
-        public static bool Rastreador = true;
-
-        #endregion
-
         public static bool DelayedVersion = false;
-        public static bool SingleSignOn = false;
-        public static string LoginIntegradoDistribuidor = "";
         public static string SymbolSolicitadonoDistribuidor = "";
         public static string Distribuidor = "";
-        public static bool Backtest = false;
+        
 
         public enum TipoAcao { Seta, Zoom, Ferramenta, Indicador, CROSS }
         public enum TipoFerramenta { Nenhum, RetaTendencia, RetaSuporte, RetaResistencia, RetaHorizontal, RetaVertical, Retangulo, Elipse, Texto, ValorY, Compra, Vende, Signal, RaffRegression, FiboRetracement, ErrorChannel, FiboFan, FiboArcs, SpeedLine, FiboTimezone, GannFan, TironeLevels, QuadrantLines, Image }

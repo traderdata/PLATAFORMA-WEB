@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E7643A7-08CC-4FD9-96AC-6353CF276A5A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Traderdata.Server.App.TerminalWeb</RootNamespace>
+    <AssemblyName>TD.APP.TERMINALWEB</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AWSSDK">
+      <HintPath>..\..\..\..\Program Files (x86)\AWS SDK for .NET\bin\Net35\AWSSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\CORE\CLASS\CLASS\bin\Debug\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="SprightlySoftAWS">
+      <HintPath>..\..\..\..\..\Traderdata\Tecnologia\SprightlySoft AWS Component .NET\SprightlySoft AWS Component .NET\SprightlySoftAWS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TASDK">
+      <HintPath>..\..\SCANNER\ScannerDiario\bin\Debug\TASDK.exe</HintPath>
+    </Reference>
+    <Reference Include="TD.CORE">
+      <HintPath>..\..\..\CORE\CLASS\CLASS\bin\Debug\TD.CORE.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessManager\AnaliseCompartilhadaBM.cs" />
+    <Compile Include="BusinessManager\BackTestBM.cs" />
+    <Compile Include="BusinessManager\BaseBM.cs" />
+    <Compile Include="BusinessManager\CalculoEstatisticoBacktestBM.cs" />
+    <Compile Include="BusinessManager\CalculoEstatisticoScannerBM.cs" />
+    <Compile Include="BusinessManager\GraficoBM.cs" />
+    <Compile Include="BusinessManager\PortfolioBM.cs" />
+    <Compile Include="BusinessManager\ScannerBM.cs" />
+    <Compile Include="BusinessManager\SegurancaBM.cs" />
+    <Compile Include="BusinessManager\SocialBM.cs" />
+    <Compile Include="BusinessManager\TemplateBM.cs" />
+    <Compile Include="BusinessManager\UtilBM.cs" />
+    <Compile Include="BusinessManager\WorkspaceBM.cs" />
+    <Compile Include="DAO\BacktestDAO.cs" />
+    <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="DAO\CondicaoDAO.cs" />
+    <Compile Include="DAO\CondicaoParcelaDAO.cs" />
+    <Compile Include="DAO\CondicaoValorBacktestDAO.cs" />
+    <Compile Include="DAO\GraficoDAO.cs" />
+    <Compile Include="DAO\IndicadorDAO.cs" />
+    <Compile Include="DAO\LayoutDAO.cs" />
+    <Compile Include="DAO\MensagemDAO.cs" />
+    <Compile Include="DAO\ObjetoEstudoDAO.cs" />
+    <Compile Include="DAO\PainelDAO.cs" />
+    <Compile Include="DAO\PortfolioDAO.cs" />
+    <Compile Include="DAO\ResultadoBacktestDAO.cs" />
+    <Compile Include="DAO\ResultadoScannerDAO.cs" />
+    <Compile Include="DAO\ScannerCondicaoValorDAO.cs" />
+    <Compile Include="DAO\ScannerDAO.cs" />
+    <Compile Include="DAO\TemplateBacktestDAO.cs" />
+    <Compile Include="DAO\TemplateDAO.cs" />
+    <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="DAO\UsuarioLogadoDAO.cs" />
+    <Compile Include="DAO\WorkspaceDAO.cs" />
+    <Compile Include="DTO\AnaliseCompartilhadaDTO.cs" />
+    <Compile Include="DTO\BacktestDTO.cs" />
+    <Compile Include="DTO\CondicaoDTO.cs" />
+    <Compile Include="DTO\CondicaoParcelaDTO.cs" />
+    <Compile Include="DTO\CondicaoValorBackTestDTO.cs" />
+    <Compile Include="DTO\GraficoDTO.cs" />
+    <Compile Include="DTO\IndicadorDTO.cs" />
+    <Compile Include="DTO\LayoutDTO.cs" />
+    <Compile Include="DTO\MensagemDTO.cs" />
+    <Compile Include="DTO\ObjetoEstudoDTO.cs" />
+    <Compile Include="DTO\PainelDTO.cs" />
+    <Compile Include="DTO\PortfolioDTO.cs" />
+    <Compile Include="DTO\ResultadoBacktestDTO.cs" />
+    <Compile Include="DTO\ResultadoScannerDTO.cs" />
+    <Compile Include="DTO\ScannerCondicaoValorDTO.cs" />
+    <Compile Include="DTO\ScannerDTO.cs" />
+    <Compile Include="DTO\SumarioDTO.cs" />
+    <Compile Include="DTO\TemplateBacktestDTO.cs" />
+    <Compile Include="DTO\TemplateDTO.cs" />
+    <Compile Include="DTO\UsuarioDTO.cs" />
+    <Compile Include="DTO\UsuarioLogadoDTO.cs" />
+    <Compile Include="DTO\WorkspaceDTO.cs" />
+    <Compile Include="ITerminalWeb.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TerminalWeb.cs" />
+    <Compile Include="Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

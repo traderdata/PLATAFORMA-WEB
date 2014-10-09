@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStartup", "WEB\WebStartu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalWeb", "SL\TerminalWeb.csproj", "{ED828A45-76B9-4652-8CC8-41BE44208F42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCF", "WCF\WCF.csproj", "{3E7643A7-08CC-4FD9-96AC-6353CF276A5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{ED828A45-76B9-4652-8CC8-41BE44208F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED828A45-76B9-4652-8CC8-41BE44208F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED828A45-76B9-4652-8CC8-41BE44208F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E7643A7-08CC-4FD9-96AC-6353CF276A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E7643A7-08CC-4FD9-96AC-6353CF276A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E7643A7-08CC-4FD9-96AC-6353CF276A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E7643A7-08CC-4FD9-96AC-6353CF276A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -97,7 +97,7 @@ namespace Traderdata.Client.TerminalWEB
             this.templateDTO = template;
 
             //setando o cache intraday
-            marketDataDAO.SetCacheCotacaoIntradayAsync(ativo);
+            //marketDataDAO.SetCacheCotacaoIntradayAsync(ativo);
 
             //assinando os eventos de interface
             c1TabControl1.SelectionChanged += new SelectionChangedEventHandler(c1TabControl1_SelectionChanged);
@@ -130,7 +130,7 @@ namespace Traderdata.Client.TerminalWEB
             this.graficoDTO = grafico;
 
             //setando o cache intraday
-            marketDataDAO.SetCacheCotacaoIntradayAsync(grafico.Ativo);
+            //marketDataDAO.SetCacheCotacaoIntradayAsync(grafico.Ativo);
             
             //assinando os eventos de interface
             c1TabControl1.SelectionChanged += new SelectionChangedEventHandler(c1TabControl1_SelectionChanged);

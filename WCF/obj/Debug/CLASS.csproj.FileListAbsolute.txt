@@ -1,0 +1,36 @@
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\obj\Debug\ResolveAssemblyReference.cache
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.APP.TERMINALWEB.dll.config
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.APP.TERMINALWEB.dll
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.APP.TERMINALWEB.pdb
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\Iesi.Collections.dll
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\NHibernate.dll
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.CORE.BM.dll
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.CORE.DAO.dll
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.CORE.DTO.dll
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.CORE.BM.pdb
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.CORE.DAO.pdb
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.CORE.DTO.pdb
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\obj\Debug\TD.APP.TERMINALWEB.dll
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\obj\Debug\TD.APP.TERMINALWEB.pdb
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\SprightlySoftAWS.dll
+C:\Backup\Projetos2010\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\SprightlySoftAWS.xml
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.APP.TERMINALWEB.dll.config
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.APP.TERMINALWEB.dll
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\TD.APP.TERMINALWEB.pdb
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\SprightlySoftAWS.dll
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB\CLASS\bin\Debug\SprightlySoftAWS.xml
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB\CLASS\obj\Debug\ResolveAssemblyReference.cache
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB\CLASS\obj\Debug\TD.APP.TERMINALWEB.dll
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB\CLASS\obj\Debug\TD.APP.TERMINALWEB.pdb
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\TD.APP.TERMINALWEB.dll.config
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\TD.APP.TERMINALWEB.dll
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\TD.APP.TERMINALWEB.pdb
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\SprightlySoftAWS.dll
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\TD.CORE.dll
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\SprightlySoftAWS.xml
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\TD.CORE.pdb
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\obj\Debug\TD.APP.TERMINALWEB.dll
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\obj\Debug\TD.APP.TERMINALWEB.pdb
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\MySql.Data.dll
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\bin\Debug\TASDK.exe
+C:\Backup\Projetos2012\SERVER\APP\TERMINAL-WEB - 3.0\CLASS\obj\Debug\CLASS.csprojResolveAssemblyReference.cache

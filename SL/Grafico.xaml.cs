@@ -20,6 +20,7 @@ using Traderdata.Client.TerminalWEB.DTO;
 using System.Windows.Browser;
 using System.Windows.Media.Imaging;
 using Traderdata.Client.TerminalWEB.Util;
+using Traderdata.Server.Core.DTO;
 
 namespace Traderdata.Client.TerminalWEB
 {
@@ -869,12 +870,12 @@ namespace Traderdata.Client.TerminalWEB
                 if (!this.Intraday())
                 {                    
                     marketDataDAO.GetCotacaoDiariaAsync(ativo);
-                    marketDataDAO.SetCacheCotacaoIntradayAsync(ativo);
+                    //marketDataDAO.SetCacheCotacaoIntradayAsync(ativo);
                     
                 }
                 else
                 {
-                    marketDataDAO.SetCacheCotacaoDiarioAsync(ativo);
+                    //marketDataDAO.SetCacheCotacaoDiarioAsync(ativo);
                     marketDataDAO.GetCotacaoIntradayAsync(ativo, true, false);
                 }
                 
