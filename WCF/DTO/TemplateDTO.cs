@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using System.Data.Linq.Mapping;
 
 namespace Traderdata.Server.App.TerminalWeb.DTO
-{
+{    
     [DataContract]
     public class TemplateDTO
     {
@@ -14,10 +15,8 @@ namespace Traderdata.Server.App.TerminalWeb.DTO
         [DataMember]
         public string Nome { get; set; }
         [DataMember]
-        public int Periodicidade { get; set; }
-        [DataMember]
         public int UsuarioId { get; set; }
         [DataMember]
-        public List<LayoutDTO> Layouts { get; set; }
+        public LayoutDTO Layout { get; set; }        
     }
 }

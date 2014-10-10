@@ -1,5 +1,5 @@
-﻿<xapCache source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\..\WEB\WebStartup\ClientBin\TerminalWeb.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="09/10/2014 17:04:16">
-  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.dll" archivePath="TerminalWeb.dll" lastWriteTime="09/10/2014 17:04:14" />
+﻿<xapCache source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\..\WEB\WebStartup\ClientBin\TerminalWeb.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="10/10/2014 14:53:43">
+  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.dll" archivePath="TerminalWeb.dll" lastWriteTime="10/10/2014 14:53:41" />
   <file source="C:\Backup\GITHUB\CORE-SERVICES\API-SL\Bin\Debug\API-SL.dll" archivePath="API-SL.dll" lastWriteTime="08/10/2014 16:02:03" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\C1.Silverlight.dll" archivePath="C1.Silverlight.dll" lastWriteTime="15/07/2011 17:15:12" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\C1.Silverlight.Extended.dll" archivePath="C1.Silverlight.Extended.dll" lastWriteTime="15/07/2011 17:15:12" />
@@ -20,5 +20,5 @@
   <file source="C:\Backup\GITHUB\COMPONENTES\Modulus-SLWPF\SL3\Library\Bin\Debug\System.Xml.Linq.dll" archivePath="System.Xml.Linq.dll" lastWriteTime="26/08/2010 02:17:48" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\System.Windows.Controls.Toolkit.Internals.dll" archivePath="System.Windows.Controls.Toolkit.Internals.dll" lastWriteTime="13/04/2010 19:59:48" />
   <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\SL\ServiceReferences.ClientConfig" archivePath="ServiceReferences.ClientConfig" lastWriteTime="09/10/2014 14:36:58" />
-  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="08/10/2014 17:06:02" />
+  <file source="C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\ClientBin\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="10/10/2014 11:25:08" />
 </xapCache>

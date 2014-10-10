@@ -24,8 +24,16 @@ namespace Traderdata.Server.App.TerminalWeb
         #endregion
 
         #region Templates
+
         [OperationContract]
-        TemplateDTO GetTemplateFake();
+        List<TemplateDTO> GetTemplatesByUser(int user);
+
+        [OperationContract]
+        TemplateDTO SaveTemplate(TemplateDTO template);
+
+        #endregion
+
+        #region Fake
 
         [OperationContract]
         GraficoDTO GetGraficoFake();
@@ -35,6 +43,9 @@ namespace Traderdata.Server.App.TerminalWeb
 
         [OperationContract]
         IndicadorDTO GetIndicatorFake();
+
+        [OperationContract]
+        LayoutDTO GetLIndicatorFake();
 
         #endregion
 

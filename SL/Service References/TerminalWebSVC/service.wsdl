@@ -38,11 +38,17 @@
   <wsdl:message name="ITerminalWeb_LoginOrInsertUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:LoginOrInsertUserResponse" />
   </wsdl:message>
-  <wsdl:message name="ITerminalWeb_GetTemplateFake_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTemplateFake" />
+  <wsdl:message name="ITerminalWeb_GetTemplatesByUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTemplatesByUser" />
   </wsdl:message>
-  <wsdl:message name="ITerminalWeb_GetTemplateFake_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTemplateFakeResponse" />
+  <wsdl:message name="ITerminalWeb_GetTemplatesByUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTemplatesByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveTemplate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTemplate" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveTemplate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveTemplateResponse" />
   </wsdl:message>
   <wsdl:message name="ITerminalWeb_GetGraficoFake_InputMessage">
     <wsdl:part name="parameters" element="tns:GetGraficoFake" />
@@ -62,14 +68,24 @@
   <wsdl:message name="ITerminalWeb_GetIndicatorFake_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetIndicatorFakeResponse" />
   </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetLIndicatorFake_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLIndicatorFake" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_GetLIndicatorFake_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLIndicatorFakeResponse" />
+  </wsdl:message>
   <wsdl:portType name="ITerminalWeb">
     <wsdl:operation name="LoginOrInsertUser">
       <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/LoginOrInsertUser" message="tns:ITerminalWeb_LoginOrInsertUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/LoginOrInsertUserResponse" message="tns:ITerminalWeb_LoginOrInsertUser_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetTemplateFake">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetTemplateFake" message="tns:ITerminalWeb_GetTemplateFake_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetTemplateFakeResponse" message="tns:ITerminalWeb_GetTemplateFake_OutputMessage" />
+    <wsdl:operation name="GetTemplatesByUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetTemplatesByUser" message="tns:ITerminalWeb_GetTemplatesByUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetTemplatesByUserResponse" message="tns:ITerminalWeb_GetTemplatesByUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveTemplate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/SaveTemplate" message="tns:ITerminalWeb_SaveTemplate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/SaveTemplateResponse" message="tns:ITerminalWeb_SaveTemplate_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetGraficoFake">
       <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetGraficoFake" message="tns:ITerminalWeb_GetGraficoFake_InputMessage" />
@@ -82,6 +98,10 @@
     <wsdl:operation name="GetIndicatorFake">
       <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetIndicatorFake" message="tns:ITerminalWeb_GetIndicatorFake_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetIndicatorFakeResponse" message="tns:ITerminalWeb_GetIndicatorFake_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLIndicatorFake">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetLIndicatorFake" message="tns:ITerminalWeb_GetLIndicatorFake_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetLIndicatorFakeResponse" message="tns:ITerminalWeb_GetLIndicatorFake_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITerminalWeb" type="tns:ITerminalWeb">
@@ -96,8 +116,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTemplateFake">
-      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetTemplateFake" style="document" />
+    <wsdl:operation name="GetTemplatesByUser">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetTemplatesByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTemplate">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveTemplate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -125,6 +154,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIndicatorFake">
       <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetIndicatorFake" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLIndicatorFake">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetLIndicatorFake" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -144,8 +182,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTemplateFake">
-      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetTemplateFake" style="document" />
+    <wsdl:operation name="GetTemplatesByUser">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetTemplatesByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTemplate">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveTemplate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -173,6 +220,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIndicatorFake">
       <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetIndicatorFake" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLIndicatorFake">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetLIndicatorFake" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

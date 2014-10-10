@@ -111,10 +111,6 @@
             <Border Name="borderCommand" Visibility="Collapsed" Background="Blue" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="40">
                 <TextBox Width="200" Name="txtComando" AcceptsReturn="False" KeyDown="txtComando_KeyDown"/>
             </Border>
-            <MediaElement x:Name="mediaAlert" Source="/TerminalWeb;component/sounds/alert.mp3" AutoPlay="True"></MediaElement>    
-            
-            <!--<localdialog:InfoPanel x:Name="infoPanel" Width="150"  Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" MouseEnter="infoPanel_MouseEnter" Visibility="Collapsed"/>-->
-            <!--<Image x:Name="customCursor" Visibility="Visible" IsHitTestVisible="False" Width="16" Height="16" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Cursor="None" />-->
             
             <Canvas Name="canvasAbaixoStockchart" Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="12" Margin="0,0,0,20">
             

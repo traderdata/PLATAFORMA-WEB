@@ -67,11 +67,9 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         
         private int IdField;
         
-        private System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO> LayoutsField;
+        private Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO LayoutField;
         
         private string NomeField;
-        
-        private int PeriodicidadeField;
         
         private int UsuarioIdField;
         
@@ -89,14 +87,14 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO> Layouts {
+        public Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO Layout {
             get {
-                return this.LayoutsField;
+                return this.LayoutField;
             }
             set {
-                if ((object.ReferenceEquals(this.LayoutsField, value) != true)) {
-                    this.LayoutsField = value;
-                    this.RaisePropertyChanged("Layouts");
+                if ((object.ReferenceEquals(this.LayoutField, value) != true)) {
+                    this.LayoutField = value;
+                    this.RaisePropertyChanged("Layout");
                 }
             }
         }
@@ -110,19 +108,6 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
                 if ((object.ReferenceEquals(this.NomeField, value) != true)) {
                     this.NomeField = value;
                     this.RaisePropertyChanged("Nome");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Periodicidade {
-            get {
-                return this.PeriodicidadeField;
-            }
-            set {
-                if ((this.PeriodicidadeField.Equals(value) != true)) {
-                    this.PeriodicidadeField = value;
-                    this.RaisePropertyChanged("Periodicidade");
                 }
             }
         }
@@ -1494,10 +1479,15 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         
         Traderdata.Client.TerminalWEB.TerminalWebSVC.UserDTO EndLoginOrInsertUser(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/GetTemplateFake", ReplyAction="http://tempuri.org/ITerminalWeb/GetTemplateFakeResponse")]
-        System.IAsyncResult BeginGetTemplateFake(System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/GetTemplatesByUser", ReplyAction="http://tempuri.org/ITerminalWeb/GetTemplatesByUserResponse")]
+        System.IAsyncResult BeginGetTemplatesByUser(int user, System.AsyncCallback callback, object asyncState);
         
-        Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO EndGetTemplateFake(System.IAsyncResult result);
+        System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO> EndGetTemplatesByUser(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/SaveTemplate", ReplyAction="http://tempuri.org/ITerminalWeb/SaveTemplateResponse")]
+        System.IAsyncResult BeginSaveTemplate(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template, System.AsyncCallback callback, object asyncState);
+        
+        Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO EndSaveTemplate(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/GetGraficoFake", ReplyAction="http://tempuri.org/ITerminalWeb/GetGraficoFakeResponse")]
         System.IAsyncResult BeginGetGraficoFake(System.AsyncCallback callback, object asyncState);
@@ -1513,6 +1503,11 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         System.IAsyncResult BeginGetIndicatorFake(System.AsyncCallback callback, object asyncState);
         
         Traderdata.Client.TerminalWEB.TerminalWebSVC.IndicadorDTO EndGetIndicatorFake(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/GetLIndicatorFake", ReplyAction="http://tempuri.org/ITerminalWeb/GetLIndicatorFakeResponse")]
+        System.IAsyncResult BeginGetLIndicatorFake(System.AsyncCallback callback, object asyncState);
+        
+        Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO EndGetLIndicatorFake(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1540,11 +1535,30 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GetTemplateFakeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetTemplatesByUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public GetTemplateFakeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public GetTemplatesByUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class SaveTemplateCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public SaveTemplateCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -1616,6 +1630,25 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetLIndicatorFakeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetLIndicatorFakeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class TerminalWebClient : System.ServiceModel.ClientBase<Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb>, Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb {
         
         private BeginOperationDelegate onBeginLoginOrInsertUserDelegate;
@@ -1624,11 +1657,17 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         
         private System.Threading.SendOrPostCallback onLoginOrInsertUserCompletedDelegate;
         
-        private BeginOperationDelegate onBeginGetTemplateFakeDelegate;
+        private BeginOperationDelegate onBeginGetTemplatesByUserDelegate;
         
-        private EndOperationDelegate onEndGetTemplateFakeDelegate;
+        private EndOperationDelegate onEndGetTemplatesByUserDelegate;
         
-        private System.Threading.SendOrPostCallback onGetTemplateFakeCompletedDelegate;
+        private System.Threading.SendOrPostCallback onGetTemplatesByUserCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginSaveTemplateDelegate;
+        
+        private EndOperationDelegate onEndSaveTemplateDelegate;
+        
+        private System.Threading.SendOrPostCallback onSaveTemplateCompletedDelegate;
         
         private BeginOperationDelegate onBeginGetGraficoFakeDelegate;
         
@@ -1647,6 +1686,12 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         private EndOperationDelegate onEndGetIndicatorFakeDelegate;
         
         private System.Threading.SendOrPostCallback onGetIndicatorFakeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetLIndicatorFakeDelegate;
+        
+        private EndOperationDelegate onEndGetLIndicatorFakeDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetLIndicatorFakeCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -1703,13 +1748,17 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         
         public event System.EventHandler<LoginOrInsertUserCompletedEventArgs> LoginOrInsertUserCompleted;
         
-        public event System.EventHandler<GetTemplateFakeCompletedEventArgs> GetTemplateFakeCompleted;
+        public event System.EventHandler<GetTemplatesByUserCompletedEventArgs> GetTemplatesByUserCompleted;
+        
+        public event System.EventHandler<SaveTemplateCompletedEventArgs> SaveTemplateCompleted;
         
         public event System.EventHandler<GetGraficoFakeCompletedEventArgs> GetGraficoFakeCompleted;
         
         public event System.EventHandler<GetObjetoFakeCompletedEventArgs> GetObjetoFakeCompleted;
         
         public event System.EventHandler<GetIndicatorFakeCompletedEventArgs> GetIndicatorFakeCompleted;
+        
+        public event System.EventHandler<GetLIndicatorFakeCompletedEventArgs> GetLIndicatorFakeCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -1762,47 +1811,95 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.BeginGetTemplateFake(System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetTemplateFake(callback, asyncState);
+        System.IAsyncResult Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.BeginGetTemplatesByUser(int user, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTemplatesByUser(user, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.EndGetTemplateFake(System.IAsyncResult result) {
-            return base.Channel.EndGetTemplateFake(result);
+        System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO> Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.EndGetTemplatesByUser(System.IAsyncResult result) {
+            return base.Channel.EndGetTemplatesByUser(result);
         }
         
-        private System.IAsyncResult OnBeginGetTemplateFake(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).BeginGetTemplateFake(callback, asyncState);
+        private System.IAsyncResult OnBeginGetTemplatesByUser(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int user = ((int)(inValues[0]));
+            return ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).BeginGetTemplatesByUser(user, callback, asyncState);
         }
         
-        private object[] OnEndGetTemplateFake(System.IAsyncResult result) {
-            Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO retVal = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).EndGetTemplateFake(result);
+        private object[] OnEndGetTemplatesByUser(System.IAsyncResult result) {
+            System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO> retVal = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).EndGetTemplatesByUser(result);
             return new object[] {
                     retVal};
         }
         
-        private void OnGetTemplateFakeCompleted(object state) {
-            if ((this.GetTemplateFakeCompleted != null)) {
+        private void OnGetTemplatesByUserCompleted(object state) {
+            if ((this.GetTemplatesByUserCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetTemplateFakeCompleted(this, new GetTemplateFakeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.GetTemplatesByUserCompleted(this, new GetTemplatesByUserCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void GetTemplateFakeAsync() {
-            this.GetTemplateFakeAsync(null);
+        public void GetTemplatesByUserAsync(int user) {
+            this.GetTemplatesByUserAsync(user, null);
         }
         
-        public void GetTemplateFakeAsync(object userState) {
-            if ((this.onBeginGetTemplateFakeDelegate == null)) {
-                this.onBeginGetTemplateFakeDelegate = new BeginOperationDelegate(this.OnBeginGetTemplateFake);
+        public void GetTemplatesByUserAsync(int user, object userState) {
+            if ((this.onBeginGetTemplatesByUserDelegate == null)) {
+                this.onBeginGetTemplatesByUserDelegate = new BeginOperationDelegate(this.OnBeginGetTemplatesByUser);
             }
-            if ((this.onEndGetTemplateFakeDelegate == null)) {
-                this.onEndGetTemplateFakeDelegate = new EndOperationDelegate(this.OnEndGetTemplateFake);
+            if ((this.onEndGetTemplatesByUserDelegate == null)) {
+                this.onEndGetTemplatesByUserDelegate = new EndOperationDelegate(this.OnEndGetTemplatesByUser);
             }
-            if ((this.onGetTemplateFakeCompletedDelegate == null)) {
-                this.onGetTemplateFakeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTemplateFakeCompleted);
+            if ((this.onGetTemplatesByUserCompletedDelegate == null)) {
+                this.onGetTemplatesByUserCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTemplatesByUserCompleted);
             }
-            base.InvokeAsync(this.onBeginGetTemplateFakeDelegate, null, this.onEndGetTemplateFakeDelegate, this.onGetTemplateFakeCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginGetTemplatesByUserDelegate, new object[] {
+                        user}, this.onEndGetTemplatesByUserDelegate, this.onGetTemplatesByUserCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.BeginSaveTemplate(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginSaveTemplate(template, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.EndSaveTemplate(System.IAsyncResult result) {
+            return base.Channel.EndSaveTemplate(result);
+        }
+        
+        private System.IAsyncResult OnBeginSaveTemplate(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO)(inValues[0]));
+            return ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).BeginSaveTemplate(template, callback, asyncState);
+        }
+        
+        private object[] OnEndSaveTemplate(System.IAsyncResult result) {
+            Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO retVal = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).EndSaveTemplate(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnSaveTemplateCompleted(object state) {
+            if ((this.SaveTemplateCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.SaveTemplateCompleted(this, new SaveTemplateCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void SaveTemplateAsync(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template) {
+            this.SaveTemplateAsync(template, null);
+        }
+        
+        public void SaveTemplateAsync(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template, object userState) {
+            if ((this.onBeginSaveTemplateDelegate == null)) {
+                this.onBeginSaveTemplateDelegate = new BeginOperationDelegate(this.OnBeginSaveTemplate);
+            }
+            if ((this.onEndSaveTemplateDelegate == null)) {
+                this.onEndSaveTemplateDelegate = new EndOperationDelegate(this.OnEndSaveTemplate);
+            }
+            if ((this.onSaveTemplateCompletedDelegate == null)) {
+                this.onSaveTemplateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnSaveTemplateCompleted);
+            }
+            base.InvokeAsync(this.onBeginSaveTemplateDelegate, new object[] {
+                        template}, this.onEndSaveTemplateDelegate, this.onSaveTemplateCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1937,6 +2034,50 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
             base.InvokeAsync(this.onBeginGetIndicatorFakeDelegate, null, this.onEndGetIndicatorFakeDelegate, this.onGetIndicatorFakeCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.BeginGetLIndicatorFake(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetLIndicatorFake(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.EndGetLIndicatorFake(System.IAsyncResult result) {
+            return base.Channel.EndGetLIndicatorFake(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetLIndicatorFake(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).BeginGetLIndicatorFake(callback, asyncState);
+        }
+        
+        private object[] OnEndGetLIndicatorFake(System.IAsyncResult result) {
+            Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO retVal = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).EndGetLIndicatorFake(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetLIndicatorFakeCompleted(object state) {
+            if ((this.GetLIndicatorFakeCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetLIndicatorFakeCompleted(this, new GetLIndicatorFakeCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetLIndicatorFakeAsync() {
+            this.GetLIndicatorFakeAsync(null);
+        }
+        
+        public void GetLIndicatorFakeAsync(object userState) {
+            if ((this.onBeginGetLIndicatorFakeDelegate == null)) {
+                this.onBeginGetLIndicatorFakeDelegate = new BeginOperationDelegate(this.OnBeginGetLIndicatorFake);
+            }
+            if ((this.onEndGetLIndicatorFakeDelegate == null)) {
+                this.onEndGetLIndicatorFakeDelegate = new EndOperationDelegate(this.OnEndGetLIndicatorFake);
+            }
+            if ((this.onGetLIndicatorFakeCompletedDelegate == null)) {
+                this.onGetLIndicatorFakeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetLIndicatorFakeCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetLIndicatorFakeDelegate, null, this.onEndGetLIndicatorFakeDelegate, this.onGetLIndicatorFakeCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -2026,15 +2167,29 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetTemplateFake(System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[0];
-                System.IAsyncResult _result = base.BeginInvoke("GetTemplateFake", _args, callback, asyncState);
+            public System.IAsyncResult BeginGetTemplatesByUser(int user, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = user;
+                System.IAsyncResult _result = base.BeginInvoke("GetTemplatesByUser", _args, callback, asyncState);
                 return _result;
             }
             
-            public Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO EndGetTemplateFake(System.IAsyncResult result) {
+            public System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO> EndGetTemplatesByUser(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO _result = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO)(base.EndInvoke("GetTemplateFake", _args, result)));
+                System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO> _result = ((System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO>)(base.EndInvoke("GetTemplatesByUser", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginSaveTemplate(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = template;
+                System.IAsyncResult _result = base.BeginInvoke("SaveTemplate", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO EndSaveTemplate(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO _result = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO)(base.EndInvoke("SaveTemplate", _args, result)));
                 return _result;
             }
             
@@ -2071,6 +2226,18 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
             public Traderdata.Client.TerminalWEB.TerminalWebSVC.IndicadorDTO EndGetIndicatorFake(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 Traderdata.Client.TerminalWEB.TerminalWebSVC.IndicadorDTO _result = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.IndicadorDTO)(base.EndInvoke("GetIndicatorFake", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginGetLIndicatorFake(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("GetLIndicatorFake", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO EndGetLIndicatorFake(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO _result = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO)(base.EndInvoke("GetLIndicatorFake", _args, result)));
                 return _result;
             }
         }

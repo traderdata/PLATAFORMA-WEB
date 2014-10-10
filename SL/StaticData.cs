@@ -247,7 +247,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <summary>
         /// Variavel que armazena as configurações locais do usuario
         /// </summary>
-        public static IsolatedStorageSettings userSettings = IsolatedStorageSettings.ApplicationSettings;
+        //public static IsolatedStorageSettings userSettings = IsolatedStorageSettings.ApplicationSettings;
         
         /// <summary>
         /// Variavel que armazena quem é o distribuidor responsável por este cliente

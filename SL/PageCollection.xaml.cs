@@ -40,11 +40,6 @@ namespace Traderdata.Client.TerminalWEB
         private MarketDataDAO marketDataDAO = new MarketDataDAO();
 
         /// <summary>
-        /// Variavel local que armazena os layouts
-        /// </summary>
-        private List<TerminalWebSVC.LayoutDTO> Layouts = new List<TerminalWebSVC.LayoutDTO>();
-
-        /// <summary>
         /// Variavel que armazena o graficoDTO
         /// </summary>
         private TerminalWebSVC.GraficoDTO graficoDTO = new TerminalWebSVC.GraficoDTO();
@@ -63,7 +58,6 @@ namespace Traderdata.Client.TerminalWEB
         /// Variavel que armazena a periodicidade do gráfico
         /// </summary>
         public Periodicidade Periodicidade = Periodicidade.Nenhum;
-
 
         #endregion
 
@@ -88,8 +82,7 @@ namespace Traderdata.Client.TerminalWEB
                 template = new TerminalWebSVC.TemplateDTO();                
                 List<TerminalWebSVC.LayoutDTO> layout = new List<TerminalWebSVC.LayoutDTO>();
                 layout.Add(GeneralUtil.LayoutFake());
-                template.Layouts = layout;
-                template.Periodicidade = GeneralUtil.GetIntPeriodicidade(this.Periodicidade);
+                
             }
 
 
@@ -110,8 +103,7 @@ namespace Traderdata.Client.TerminalWEB
             
             
         }
-
-        
+                
 
         /// <summary>
         /// Construtor padrão
@@ -137,7 +129,7 @@ namespace Traderdata.Client.TerminalWEB
             c1TabControl1.TabItemClosed += new EventHandler<C1.Silverlight.SourcedEventArgs>(c1TabControl1_TabItemClosed);
 
             //setando a lista de layouts local
-            Layouts = grafico.Layouts;
+            //Layouts = grafico.Layouts;
 
             //assinando os eventos de Realtime Data
             RealTimeDAO.TickReceived += new RealTimeDAO.TickHandler(RealTimeDAO_TickReceived);
@@ -148,90 +140,7 @@ namespace Traderdata.Client.TerminalWEB
 
         #region Metodos
 
-        /// <summary>
-        /// Metodo que faz a troca do ativo
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void ChangeAtivo(string ativo)
-        {
-            this.Ativo = ativo;
-            RealTimeDAO.StartTickSubscription(ativo);
-            SetHeaderTitle(Ativo + " (" + GeneralUtil.GetPeriodicidadeFromIntToString(GeneralUtil.GetIntPeriodicidade(this.Periodicidade)) + ") ", null);
-        }
-
-
-        /// <summary>
-        /// Metodo que altera o header do form
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="sourceImagem"></param>
-        private void SetHeaderTitle(string message, Uri sourceImagem)
-        {
-            StackPanel stackHeader = new StackPanel();
-            stackHeader.Orientation = Orientation.Horizontal;
-            stackHeader.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            stackHeader.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-
-            if (sourceImagem != null)
-            {
-                Image imagem = new Image();
-                imagem.Source = new BitmapImage(sourceImagem);
-                imagem.Margin = new Thickness(3, 0, 10, 0);
-                stackHeader.Children.Add(imagem);
-            }
-
-            TextBlock textTitle = new TextBlock();
-            textTitle.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            textTitle.Text = message;
-            textTitle.Margin = new Thickness(0, 0, 20, 0);            
-            stackHeader.Children.Add(textTitle);
-
-            //Button btnTrades = new Button();
-            //btnTrades.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            //btnTrades.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            //btnTrades.Width = 80;
-            //btnTrades.Content = "Trades";
-            //btnTrades.Click += new RoutedEventHandler(btnTrades_Click);
-            //stackHeader.Children.Add(btnTrades);
-
-            //Button btnRastreador = new Button();
-            //btnRastreador.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            //btnRastreador.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            //btnRastreador.Width = 80;
-            //btnRastreador.Content = "Rastreador";
-            //btnRastreador.Click += new RoutedEventHandler(btnRastreador_Click);
-            //stackHeader.Children.Add(btnRastreador);
-
-            //alterando o header
-        //    ((C1Window)this.Parent).Header = stackHeader;
-        }
-
-        /// <summary>
-        /// Metodo que retorna um objeto de template
-        /// </summary>
-        /// <returns></returns>
-        public TerminalWebSVC.TemplateDTO GetTemplate()
-        {
-            List<TerminalWebSVC.LayoutDTO> Layouts = new List<TerminalWebSVC.LayoutDTO>();
-            TerminalWebSVC.TemplateDTO templateDTO = new TerminalWebSVC.TemplateDTO();
-            
-            foreach (C1TabItem tabItem in c1TabControl1.Items)
-            {
-                if (tabItem.Header != "+")
-                {
-                    TerminalWebSVC.LayoutDTO layoutDTO = ((Grafico)tabItem.Content).GetLayoutDTOFromStockchart();
-                    layoutDTO.TemplateId = templateDTO.Id;
-                    Layouts.Add(layoutDTO);
-                }
-                    
-            }
-
-            templateDTO.Layouts = Layouts;
-            templateDTO.UsuarioId = StaticData.User.Id;
-            templateDTO.Periodicidade = GeneralUtil.GetIntPeriodicidade(Periodicidade);
-            return templateDTO;
-        }
-
+        
         /// <summary>
         /// Metodo que retorna os layouts envolvidos no gráficos
         /// </summary>
@@ -307,21 +216,7 @@ namespace Traderdata.Client.TerminalWEB
             c1TabControl1.SelectionChanged += c1TabControl1_SelectionChanged;
         }
 
-        /// <summary>
-        /// Metodo que altera a periodicidade
-        /// </summary>
-        /// <param name="periodicidade"></param>
-        public void ChangePeriodicity(Periodicidade periodicidade)
-        {
-            this.Periodicidade = periodicidade;
-            foreach (C1TabItem tabItem in c1TabControl1.Items)
-            {
-                if ((string)tabItem.Header != "+")
-                    ((Grafico)tabItem.Content).SetPeriodicidade(periodicidade, false);
-            }
-            //setando o header
-            SetHeaderTitle(Ativo + " (" + GeneralUtil.GetPeriodicidadeFromIntToString(GeneralUtil.GetIntPeriodicidade(this.Periodicidade)) + ") ", null);
-        }
+        
 
         /// <summary>
         /// Metodo que salva o grafico 
@@ -385,12 +280,12 @@ namespace Traderdata.Client.TerminalWEB
         {
             if (((TickDTO)Result).Ativo == this.Ativo)
             {
-                if (((TickDTO)Result).Variacao > 0)
-                    SetHeaderTitle(((TickDTO)Result).Ativo + "(" + GeneralUtil.GetPeriodicidadeFromIntToString(GeneralUtil.GetIntPeriodicidade(this.Periodicidade)) + ") [" + ((TickDTO)Result).Hora.Substring(0, 2) + ":" + ((TickDTO)Result).Hora.Substring(2, 2) + "/" + ((TickDTO)Result).Ultimo.ToString("0.00") + "/" +
-                        ((TickDTO)Result).Variacao.ToString("0.00") + "%]", new Uri("/TerminalWeb;component/images/buy.png", UriKind.RelativeOrAbsolute));
-                else
-                    SetHeaderTitle(((TickDTO)Result).Ativo + "(" + GeneralUtil.GetPeriodicidadeFromIntToString(GeneralUtil.GetIntPeriodicidade(this.Periodicidade)) + ") [" + ((TickDTO)Result).Hora.Substring(0, 2) + ":" + ((TickDTO)Result).Hora.Substring(2, 2) + "/" + ((TickDTO)Result).Ultimo.ToString("0.00") + "/" +
-                        ((TickDTO)Result).Variacao.ToString("0.00") + "%]", new Uri("/TerminalWeb;component/images/sell.png", UriKind.RelativeOrAbsolute));
+                //if (((TickDTO)Result).Variacao > 0)
+                    //SetHeaderTitle(((TickDTO)Result).Ativo + "(" + GeneralUtil.GetPeriodicidadeFromIntToString(GeneralUtil.GetIntPeriodicidade(this.Periodicidade)) + ") [" + ((TickDTO)Result).Hora.Substring(0, 2) + ":" + ((TickDTO)Result).Hora.Substring(2, 2) + "/" + ((TickDTO)Result).Ultimo.ToString("0.00") + "/" +
+                    //    ((TickDTO)Result).Variacao.ToString("0.00") + "%]", new Uri("/TerminalWeb;component/images/buy.png", UriKind.RelativeOrAbsolute));
+                //else
+                    //SetHeaderTitle(((TickDTO)Result).Ativo + "(" + GeneralUtil.GetPeriodicidadeFromIntToString(GeneralUtil.GetIntPeriodicidade(this.Periodicidade)) + ") [" + ((TickDTO)Result).Hora.Substring(0, 2) + ":" + ((TickDTO)Result).Hora.Substring(2, 2) + "/" + ((TickDTO)Result).Ultimo.ToString("0.00") + "/" +
+                    //    ((TickDTO)Result).Variacao.ToString("0.00") + "%]", new Uri("/TerminalWeb;component/images/sell.png", UriKind.RelativeOrAbsolute));
             }
         }
 
@@ -454,13 +349,15 @@ namespace Traderdata.Client.TerminalWEB
                 if (this.templateDTO != null)
                 {
                     //associando ao form pai
-                    AplicarTemplate(this.templateDTO.Layouts, this.templateDTO.Periodicidade);
+                    List<TerminalWebSVC.LayoutDTO> list = new List<TerminalWebSVC.LayoutDTO>();
+                    list.Add(GeneralUtil.LayoutFake());
+                    AplicarTemplate(list, 1440);
                 }
                 else
                     AplicarTemplate(this.graficoDTO.Layouts, this.graficoDTO.Periodicidade);
 
                 //setando o header
-                SetHeaderTitle(Ativo + " (" + GeneralUtil.GetPeriodicidadeFromIntToString(GeneralUtil.GetIntPeriodicidade(this.Periodicidade)) + ") ", null);
+                //SetHeaderTitle(Ativo + " (" + GeneralUtil.GetPeriodicidadeFromIntToString(GeneralUtil.GetIntPeriodicidade(this.Periodicidade)) + ") ", null);
 
             }
             else

@@ -57,11 +57,51 @@ namespace Traderdata.Server.App.TerminalWeb
 
         #region Templates
 
-        public TemplateDTO GetTemplateFake()
+        /// <summary>
+        /// Lista de templates
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public List<TemplateDTO> GetTemplatesByUser(int userId)
         {
-            return new TemplateDTO();
-
+            try
+            {
+                using (TemplateBM templateBM = new TemplateBM(true, true))
+                {
+                    return templateBM.GetTemplatesByUser(userId);
+                }
+            }
+            catch (Exception exc)
+            {
+                LogServicoBM.LogaEvento(serviceGroup, serviceName, "GetTemplatesByUser", exc.StackTrace + " || " + exc.ToString(), EventLogEntryType.Error);
+                throw exc;
+            }
         }
+
+        /// <summary>
+        /// Metodo que salva o template
+        /// </summary>
+        /// <param name="template"></param>
+        /// <returns></returns>
+        public TemplateDTO SaveTemplate(TemplateDTO template)
+        {
+            try
+            {
+                using (TemplateBM templateBM = new TemplateBM(true, true))
+                {
+                    return templateBM.SaveTemplate(template);                    
+                }
+            }
+            catch (Exception exc)
+            {
+                LogServicoBM.LogaEvento(serviceGroup, serviceName, "SaveTemplate", exc.StackTrace + " || " + exc.ToString(), EventLogEntryType.Error);
+                throw exc;
+            }
+        }
+
+        #endregion
+
+        #region fake
 
         public GraficoDTO GetGraficoFake()
         {
@@ -73,7 +113,11 @@ namespace Traderdata.Server.App.TerminalWeb
             return new ObjetoEstudoDTO();
         }
 
-        
+        public LayoutDTO GetLIndicatorFake()
+        {
+            return new LayoutDTO();
+        }
+
         public IndicadorDTO GetIndicatorFake()
         {
             return new IndicadorDTO();

@@ -35,6 +35,11 @@ namespace Traderdata.Client.TerminalWEB
         #region Private
 
         /// <summary>
+        /// Grafico
+        /// </summary>
+        private Grafico chart;
+
+        /// <summary>
         /// Variavel que guarda o ativo selecionado
         /// </summary>
         private string ativoSelecionado = "";
@@ -53,11 +58,6 @@ namespace Traderdata.Client.TerminalWEB
         /// variavel de controle de bmf
         /// </summary>
         private bool bmfRTDelayProcessed = false;
-
-        /// <summary>
-        /// variavel de controle de carregamento de portfolio
-        /// </summary>
-        private bool portfolioListProcessed = false;
 
         /// <summary>
         /// Timer que vai chamar a tela de login
@@ -101,18 +101,12 @@ namespace Traderdata.Client.TerminalWEB
             this.login = login;
 
             //assinando eventos de template            
-            //terminalWebClient.GetTemplatesPorUserIdCompleted += terminalWebClient_GetTemplatesPorUserIdCompleted;
-            //terminalWebClient.SalvaTemplateCompleted += terminalWebClient_SalvaTemplateCompleted;
+            terminalWebClient.GetTemplatesByUserCompleted += new EventHandler<TerminalWebSVC.GetTemplatesByUserCompletedEventArgs>(terminalWebClient_GetTemplatesByUserCompleted);
+            terminalWebClient.SaveTemplateCompleted += new EventHandler<TerminalWebSVC.SaveTemplateCompletedEventArgs>(terminalWebClient_SaveTemplateCompleted);
                         
             //assinando eventos de grafico
             //terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeCompleted += terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted;
             
-            //assinando evento de timer para chamar login
-            timerLogin.Interval = new TimeSpan(0,0,StaticData.TempoDemo);
-            
-            timerLogin.Tick += timerLogin_Tick;
-            timerLogin.Start();
-
             //carregando a listagem de indicadores e suas propriedades
             IndicadorDAO.SetTodosIndicadoresInfo();
 
@@ -171,10 +165,13 @@ namespace Traderdata.Client.TerminalWEB
 
         }
 
+        
+
 
         #endregion        
 
         #region Load
+
         /// <summary>
         /// Metodo executado apos terminar de carregar o form
         /// </summary>
@@ -200,24 +197,7 @@ namespace Traderdata.Client.TerminalWEB
         #endregion
 
         #region Login
-
-        /// <summary>
-        /// Evento disparado para se chamar a tela de login
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void timerLogin_Tick(object sender, EventArgs e)
-        {
-            timerLogin.Stop();
-
-            busyIndicator.BusyContent = "Efetuando Login";
-            busyIndicator.IsBusy = true;
-
-            //chamando o metodo de login
-            //terminalWebClient.LoginUserDistribuidorIntegradoAsync(StaticData.User.Login, StaticData.DistribuidorId);
-            
-        }
-
+        
         /// <summary>
         /// Resposta ao evento de login
         /// </summary>
@@ -225,8 +205,16 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         void terminalWebClient_LoginOrInsertUserCompleted(object sender, TerminalWebSVC.LoginOrInsertUserCompletedEventArgs e)
         {
+            StaticData.User = e.Result;
             busyIndicator.IsBusy = false;
+            
+            //conectando nos servidores realtime
             ConnectRTServers();
+
+            //carregando os tempaltes
+            terminalWebClient.GetTemplatesByUserAsync(StaticData.User.Id);
+
+            //abrindo gráficosolicitado
             NovoGraficoAtalho(ativoSelecionado);
         }
         
@@ -239,6 +227,179 @@ namespace Traderdata.Client.TerminalWEB
             RealTimeDAO.ConnectBMFBVSP();
         }
 
+        #endregion
+
+        #region Templates
+
+        /// <summary>
+        /// Salvando templates
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbarSalvarTemplates_Click(object sender, RoutedEventArgs e)
+        {
+            C1PromptBox.Show("Informe o nome do template", "Salvar Template", promptBoxTemplateAction);
+        }
+
+        /// <summary>
+        /// Metodo invocado quando o cliente fecha o prompt box da C1
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="Result"></param>
+        private void promptBoxTemplateAction(string message, MessageBoxResult Result)
+        {
+            if (Result == MessageBoxResult.OK)
+            {
+                TerminalWebSVC.TemplateDTO templateDTO = new TerminalWebSVC.TemplateDTO();
+                TerminalWebSVC.LayoutDTO layoutDTO = chart.GetLayoutDTOFromStockchart();
+                templateDTO.UsuarioId = StaticData.User.Id;
+                templateDTO.Nome = message;
+                templateDTO.Layout = layoutDTO;
+                terminalWebClient.SaveTemplateAsync(templateDTO);
+            }
+        }
+        
+        /// <summary>
+        /// Metodo retorna os templates de um usuario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void terminalWebClient_GetTemplatesByUserCompleted(object sender, TerminalWebSVC.GetTemplatesByUserCompletedEventArgs e)
+        {
+            mnuTemplates.Items.Clear();
+            foreach (TerminalWEB.TerminalWebSVC.TemplateDTO obj in e.Result)
+            {
+                C1MenuItem mnuItemAplicar = new C1MenuItem();
+                mnuItemAplicar.Header = obj.Nome;
+                mnuItemAplicar.Click += mnuItemAplicar_Click;
+                mnuItemAplicar.Tag = obj;
+                mnuItemAplicar.HeaderBackground = new SolidColorBrush(Colors.White);
+                mnuItemAplicar.IsTabStop = false;
+                mnuTemplates.Items.Add(mnuItemAplicar);
+            }
+        }
+
+        /// <summary>
+        /// Metodo de salvamento de template
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void terminalWebClient_SaveTemplateCompleted(object sender, TerminalWebSVC.SaveTemplateCompletedEventArgs e)
+        {
+            terminalWebClient.GetTemplatesByUserAsync(StaticData.User.Id);
+        }
+
+        /// <summary>
+        /// Metodo que aplica um template
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void mnuItemAplicar_Click(object sender, SourcedEventArgs e)
+        {
+            if (MessageBox.Show("Deseja aplicar o template " + ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Nome, "Confirmação", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                //recuperando os layouts
+                TerminalWebSVC.LayoutDTO layout = ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Layout;
+
+                //alterando os lyaouts
+                foreach (TerminalWebSVC.IndicadorDTO indicador in layout.Indicadores)
+                {
+                    //capturando os parametros
+                    string[] parametros = indicador.Parametros.Split(';');
+
+                    //captura o indicador
+                    foreach (IndicatorInfoDTO indicadorObj in StaticData.GetListaIndicadores())
+                    {
+                        if (indicadorObj.TipoStockchart == (IndicatorType)indicador.TipoIndicador.Value)
+                        {
+                            for (int j = 0; j < indicadorObj.Propriedades.Count; j++)
+                            {
+                                if (indicadorObj.Propriedades[j].TipoDoCampo == TipoField.Serie)
+                                {
+                                    if (parametros[j - 1].Contains("."))
+                                        parametros[j - 1] = "." + parametros[j - 1].Split('.')[1];
+
+                                }
+                            }
+                            break;
+                        }
+                    }
+
+                    indicador.Parametros = "";
+                    for (int o = 0; o < parametros.Length; o++)
+                    {
+                        if (parametros[o].Length > 0)
+                            indicador.Parametros += parametros[o] + ";";
+                    }
+
+                }
+        
+                //aplica o template
+                chart.Layout = layout;
+                chart.Refresh(layout);
+            }
+
+        }
+        /// <summary>
+        /// Evento disparado após se excluir um template 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void terminalWebClient_ExcluiTemplateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            //resgatando templates
+            //terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
+
+            //alterando sttausabar
+            StaticData.AddLog("Template excluído com sucesso");
+        }
+                
+       
+
+        /// <summary>
+        /// Evento disparado ao se clicar no menu para excluir um template
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void mnuItemExcluir_Click(object sender, SourcedEventArgs e)
+        {
+            if (MessageBox.Show("Deseja excluir o template " + ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Nome, "Confirmação", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                //terminalWebClient.ExcluiTemplateAsync((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag);
+            }
+        }
+
+        /// <summary>
+        /// Metodo que abre um procura por um gráfico salvo
+        /// </summary>
+        /// <param name="ativo"></param>
+        public void NovoGraficoAtalho(string ativo)
+        {
+            busyIndicator.BusyContent = "Abrindo gráfico...";
+            busyIndicator.IsBusy = true;
+            NovoGrafico(ativo, null, Periodicidade.Diario);
+        }
+
+        /// <summary>
+        /// Buscando grafico ja salvo previamente
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //void terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted(object sender, TerminalWebSVC.RetornaGraficoPorAtivoPeriodicidadeCompletedEventArgs e)
+        //{
+        //    busyIndicator.IsBusy = false;
+        //    if (e.Result == null)
+        //    {
+        //        List<object> args = (List<object>)e.UserState;
+        //        NovoGrafico((string)args[0], null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(args[1])));
+        //    }
+        //    else
+        //    {
+        //        NovoGrafico(e.Result[0]);
+        //    }
+        //}
+
+        
         #endregion
 
         #region Realtime
@@ -311,13 +472,12 @@ namespace Traderdata.Client.TerminalWEB
                     StaticData.tipoAcao = StaticData.TipoAcao.Seta;
                     StaticData.tipoFerramenta = StaticData.TipoFerramenta.Nenhum;
                     DesmarcaToolbarLateral();
-                    //((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).DesabilitaCross();
+                    chart.DesabilitaCross();
                     tbarSeta.IsChecked = true;
                     break;
                 case Key.Delete:
-                    //((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).DeleteObjetosSelecionados();
-                    break;
-                
+                    chart.DeleteObjetosSelecionados();
+                    break;                
                 
             }
         }
@@ -413,9 +573,7 @@ namespace Traderdata.Client.TerminalWEB
             //desmarcando todos
             DesmarcaToolbarLateral();
 
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).ResetZoom();
-
-            
+            chart.ResetZoom();
 
             //marcando a seta
             tbarSeta.IsChecked = true;
@@ -474,30 +632,11 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarSalvarGrafico_Click_1(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).SalvarGrafico();
-        }
-
-        /// <summary>
-        /// Evento do clique no botao Salvar TODOS Graficos
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarSalvarTodosGrafico_Click_1(object sender, RoutedEventArgs e)
-        {
-            foreach (C1Window obj in canvasPrincipal.Children)
-            {
-                if (obj.Content.GetType().ToString().Contains("PageCollection"))
-                {
-                    ((PageCollection)obj.Content).SalvarGrafico();
-                }
-            }
-
+            //canvasPrincipal.SalvarGrafico();
         }
 
         #endregion
 
-        
-        
         #region Janelas
         
         /// <summary>
@@ -514,28 +653,12 @@ namespace Traderdata.Client.TerminalWEB
             //assinando o recebimento de tick
             RealTimeDAO.StartTickSubscription(ativo);
 
-            //Adicionando o conteudo            
-            PageCollection paginas = new PageCollection(ativo, template, periodicidade);
-            paginas.Width = canvasPrincipal.ActualWidth;
-            paginas.Height = canvasPrincipal.ActualHeight;
-
-            canvasPrincipal.Children.Clear();
-            canvasPrincipal.Children.Add(paginas);
-            canvasPrincipal.UpdateLayout();
+            //Adicionando o conteudo                        
+            chart = new Grafico(ativo, GeneralUtil.LayoutFake(), true, Periodicidade.Diario);            
+            gridPrincipal.Children.Add(chart);
             busyIndicator.IsBusy = false;
         }
-                
-
-        /// <summary>
-        /// Botão que vai abrri um novo gráfico
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarNovoGrafico_Click(object sender, RoutedEventArgs e)
-        {
-            AbrirNovoGraficoDialog();
-        }
-
+        
         #endregion
 
         #region Skins
@@ -548,8 +671,7 @@ namespace Traderdata.Client.TerminalWEB
         private void configurationOkClick(object sender, EventArgs e)
         {
             TerminalWebSVC.LayoutDTO layoutTemp = new TerminalWebSVC.LayoutDTO();
-            C1TabItem tabItem = (C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem;
-            layoutTemp = ((Grafico)tabItem.Content).Layout;
+            layoutTemp = chart.Layout;
 
             //motando objeto layout
             layoutTemp.CorEscala = configuration.corEscala.SelectedColor.ToString();
@@ -563,7 +685,7 @@ namespace Traderdata.Client.TerminalWEB
             layoutTemp.UsarCoresAltaBaixaVolume = configuration.chkUsarCoresDiferentesVolume.IsChecked;
 
             //aplicando layout
-            ((Grafico)tabItem.Content).AplicaLayout(layoutTemp, false, false, false);
+            chart.AplicaLayout(layoutTemp, false, false, false);
 
             //mudando o foco
             
@@ -575,12 +697,10 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void configurationOpen(object sender, EventArgs e)
-        {
-            C1TabItem tabItem = (C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem;
-
+        {            
             //RECUPERANDO as configurações de cor do grafico selecionado
             TerminalWebSVC.LayoutDTO layoutTemp = new TerminalWebSVC.LayoutDTO();
-            layoutTemp = ((Grafico)tabItem.Content).GetLayoutDTOFromStockchart();
+            layoutTemp = chart.GetLayoutDTOFromStockchart();
 
             configuration.corFundo.SelectedColor = GeneralUtil.GetColorFromHexa(layoutTemp.CorFundo).Color;
             configuration.corBordaCandleAlta.SelectedColor = GeneralUtil.GetColorFromHexa(layoutTemp.CorBordaCandleAlta).Color;
@@ -599,13 +719,8 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void tbarSkinPreto_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (C1TabItem tabItem in ((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.Items)
-            {
-                if ((string)tabItem.Header != "+")
-                    ((Grafico)tabItem.Content).SetSkinPreto();
-            }
-            
+        {            
+            chart.SetSkinPreto();            
         }
 
         /// <summary>
@@ -615,12 +730,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarSkinBranco_Click(object sender, RoutedEventArgs e)
         {
-            foreach (C1TabItem tabItem in ((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.Items)
-            {
-                if ((string)tabItem.Header != "+")
-                    ((Grafico)tabItem.Content).SetSkinBranco();
-            }
-            
+            chart.SetSkinBranco();
         }
 
         /// <summary>
@@ -630,12 +740,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarSkinPretoEBranco_Click(object sender, RoutedEventArgs e)
         {
-            foreach (C1TabItem tabItem in ((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.Items)
-            {
-                if ((string)tabItem.Header != "+")
-                    ((Grafico)tabItem.Content).SetSkinPretoBranco();
-            }
-            
+            chart.SetSkinPretoBranco();
         }
 
         /// <summary>
@@ -645,12 +750,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarSkinAzulEBranco_Click(object sender, RoutedEventArgs e)
         {
-            foreach (C1TabItem tabItem in ((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.Items)
-            {
-                if ((string)tabItem.Header != "+")
-                    ((Grafico)tabItem.Content).SetSkinAzulBranco();
-            }
-            
+            chart.SetSkinAzulBranco();            
         }
 
         #endregion
@@ -664,8 +764,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarCandle_Click(object sender, RoutedEventArgs e)
         {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[canvasPrincipal.Children.Count - 1]).c1TabControl1.SelectedItem).Content)
-                      .SetTipoBarra(SeriesTypeEnum.stCandleChart);
+            chart.SetTipoBarra(SeriesTypeEnum.stCandleChart);
         }
 
         /// <summary>
@@ -675,8 +774,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>        
         private void tbarBarra_Click(object sender, RoutedEventArgs e)
         {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[canvasPrincipal.Children.Count - 1]).c1TabControl1.SelectedItem).Content)
-                      .SetTipoBarra(SeriesTypeEnum.stStockBarChart);
+            chart.SetTipoBarra(SeriesTypeEnum.stStockBarChart);
         }
 
         /// <summary>
@@ -686,15 +784,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>        
         private void tbarLinha_Click(object sender, RoutedEventArgs e)
         {
-            if ((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem != null)
-            {
-                ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[canvasPrincipal.Children.Count - 1]).c1TabControl1.SelectedItem).Content)
-                        .SetTipoBarra(SeriesTypeEnum.stLineChart);
-
-            }
-
-
-            
+            chart.SetTipoBarra(SeriesTypeEnum.stLineChart);
         }
 
         /// <summary>
@@ -702,28 +792,26 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         private void PressTipoBarraButton()
         {
-            if ((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem != null)
+            //checando qual o tipo de barra do gráfico
+            switch (chart.GetTipoBarra())
             {
-                //checando qual o tipo de barra do gráfico
-                switch (((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).GetTipoBarra())
-                {
-                    case SeriesTypeEnum.stCandleChart:
-                        tbarCandle.IsChecked = true;
-                        tbarLinha.IsChecked = false;
-                        tbarBarra.IsChecked = false;
-                        break;
-                    case SeriesTypeEnum.stLineChart:
-                        tbarCandle.IsChecked = false;
-                        tbarLinha.IsChecked = true;
-                        tbarBarra.IsChecked = false;
-                        break;
-                    case SeriesTypeEnum.stStockBarChart:
-                        tbarCandle.IsChecked = false;
-                        tbarLinha.IsChecked = false;
-                        tbarBarra.IsChecked = true;
-                        break;
-                }
+                case SeriesTypeEnum.stCandleChart:
+                    tbarCandle.IsChecked = true;
+                    tbarLinha.IsChecked = false;
+                    tbarBarra.IsChecked = false;
+                    break;
+                case SeriesTypeEnum.stLineChart:
+                    tbarCandle.IsChecked = false;
+                    tbarLinha.IsChecked = true;
+                    tbarBarra.IsChecked = false;
+                    break;
+                case SeriesTypeEnum.stStockBarChart:
+                    tbarCandle.IsChecked = false;
+                    tbarLinha.IsChecked = false;
+                    tbarBarra.IsChecked = true;
+                    break;
             }
+
         }
 
         #endregion
@@ -735,21 +823,19 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         private void PressTipoEscalaButton()
         {
-            if ((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem != null)
+            //checando qual o tipo de barra do gráfico
+            switch (chart.GetTipoEscala())
             {
-                //checando qual o tipo de barra do gráfico
-                switch (((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).GetTipoEscala())
-                {
-                    case ScalingTypeEnum.Linear:
-                        tbarEscalaNormal.IsChecked = true;
-                        tbarEscalaSemilog.IsChecked = false;
-                        break;
-                    case ScalingTypeEnum.Semilog:
-                        tbarEscalaNormal.IsChecked = false;
-                        tbarEscalaSemilog.IsChecked = true;
-                        break;
-                }
+                case ScalingTypeEnum.Linear:
+                    tbarEscalaNormal.IsChecked = true;
+                    tbarEscalaSemilog.IsChecked = false;
+                    break;
+                case ScalingTypeEnum.Semilog:
+                    tbarEscalaNormal.IsChecked = false;
+                    tbarEscalaSemilog.IsChecked = true;
+                    break;
             }
+
         }
 
         /// <summary>
@@ -759,12 +845,8 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarEscalaNormal_Click(object sender, RoutedEventArgs e)
         {
-            if ((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem != null)
-                //checando qual o tipo de barra do gráfico
-                ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content)
-                    .SetTipoEscala(ScalingTypeEnum.Linear);
-            
-
+            //checando qual o tipo de barra do gráfico
+            chart.SetTipoEscala(ScalingTypeEnum.Linear);
         }
 
         /// <summary>
@@ -774,13 +856,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarEscalaSemilog_Click(object sender, RoutedEventArgs e)
         {
-            if ((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem != null)
-                //checando qual o tipo de barra do gráfico
-                ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content)
-                    .SetTipoEscala(ScalingTypeEnum.Semilog);
-
-            
-
+            chart.SetTipoEscala(ScalingTypeEnum.Semilog);
         }
 
 
@@ -795,12 +871,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarRefreshCotacoes_Click(object sender, RoutedEventArgs e)
         {
-            foreach (C1TabItem tabItem in ((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.Items)
-            {
-                if ((string)tabItem.Header != "+")
-                    ((Grafico)tabItem.Content).Refresh();
-            }
-            
+            chart.Refresh();
         }
 
         /// <summary>
@@ -808,181 +879,167 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         private void PressBotaoPeriodicidade()
         {
-            if ((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem != null)
+            //checando qual o tipo de barra do gráfico
+            switch (chart.GetPeriodicidade())
             {
-                //checando qual o tipo de barra do gráfico
-                switch (((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).GetPeriodicidade())
-                {
-                    case Periodicidade.UmMinuto:
-                        tbar1Minuto.IsChecked = true;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.DoisMinutos:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = true;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.TresMinutos:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = true;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.CincoMinutos:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = true;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.DezMinutos:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = true;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.QuinzeMinutos:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = true;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.TrintaMinutos:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = true;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.SessentaMinutos:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = true;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.CentoeVinteMinutos:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = true;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.Diario:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = true;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.Semanal:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = true;
-                        tbarMensal.IsChecked = false;
-                        break;
-                    case Periodicidade.Mensal:
-                        tbar1Minuto.IsChecked = false;
-                        tbar2Minutos.IsChecked = false;
-                        tbar3Minutos.IsChecked = false;
-                        tbar5Minutos.IsChecked = false;
-                        tbar10Minutos.IsChecked = false;
-                        tbar15Minutos.IsChecked = false;
-                        tbar30Minutos.IsChecked = false;
-                        tbar60Minutos.IsChecked = false;
-                        tbar120Minutos.IsChecked = false;
-                        tbarDiario.IsChecked = false;
-                        tbarSemanal.IsChecked = false;
-                        tbarMensal.IsChecked = true;
-                        break;
+                case Periodicidade.UmMinuto:
+                    tbar1Minuto.IsChecked = true;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.DoisMinutos:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = true;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.TresMinutos:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = true;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.CincoMinutos:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = true;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.DezMinutos:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = true;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.QuinzeMinutos:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = true;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.TrintaMinutos:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = true;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.SessentaMinutos:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = true;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.CentoeVinteMinutos:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.Diario:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = true;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.Semanal:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = true;
+                    tbarMensal.IsChecked = false;
+                    break;
+                case Periodicidade.Mensal:
+                    tbar1Minuto.IsChecked = false;
+                    tbar2Minutos.IsChecked = false;
+                    tbar3Minutos.IsChecked = false;
+                    tbar5Minutos.IsChecked = false;
+                    tbar10Minutos.IsChecked = false;
+                    tbar15Minutos.IsChecked = false;
+                    tbar30Minutos.IsChecked = false;
+                    tbar60Minutos.IsChecked = false;
+                    tbarDiario.IsChecked = false;
+                    tbarSemanal.IsChecked = false;
+                    tbarMensal.IsChecked = true;
+                    break;
 
-                }
+
             }
         }
 
@@ -993,8 +1050,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbar1Minuto_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.UmMinuto);
-            
+            chart.SetPeriodicidade(Periodicidade.UmMinuto, false, null);             
         }
 
         /// <summary>
@@ -1004,8 +1060,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbar2Minutos_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.DoisMinutos);
-            
+            chart.SetPeriodicidade(Periodicidade.DoisMinutos, false, null);             
         }
 
         /// <summary>
@@ -1015,8 +1070,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbar3Minutos_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.TresMinutos);
-            
+            chart.SetPeriodicidade(Periodicidade.TresMinutos, false, null); 
         }
 
         /// <summary>
@@ -1026,8 +1080,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbar5Minutos_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.CincoMinutos);
-            
+            chart.SetPeriodicidade(Periodicidade.CincoMinutos, false, null);             
         }
 
         /// <summary>
@@ -1037,8 +1090,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbar10Minutos_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.DezMinutos);
-            
+            chart.SetPeriodicidade(Periodicidade.DezMinutos, false, null); 
         }
 
         /// <summary>
@@ -1048,8 +1100,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbar15Minutos_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.QuinzeMinutos);
-            
+            chart.SetPeriodicidade(Periodicidade.QuinzeMinutos, false, null); 
         }
 
         /// <summary>
@@ -1059,8 +1110,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbar30Minutos_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.TrintaMinutos);
-            
+            chart.SetPeriodicidade(Periodicidade.TrintaMinutos, false, null); 
         }
 
         /// <summary>
@@ -1070,21 +1120,10 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbar60Minutos_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.SessentaMinutos);
-            
+            chart.SetPeriodicidade(Periodicidade.SessentaMinutos, false, null); 
         }
 
-        /// <summary>
-        /// Evento disparado ao se clicar no botão 120 minutos
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbar120Minutos_Click(object sender, RoutedEventArgs e)
-        {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.CentoeVinteMinutos);
-            
-        }
-
+        
         /// <summary>
         /// Evento disparado ao se clicar no botão Diario
         /// </summary>
@@ -1092,8 +1131,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarDiario_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.Diario);
-            
+            chart.SetPeriodicidade(Periodicidade.Diario, false, null); 
         }
 
         /// <summary>
@@ -1103,8 +1141,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarSemanal_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.Semanal);
-            
+            chart.SetPeriodicidade(Periodicidade.Semanal, false, null); 
         }
 
         /// <summary>
@@ -1114,8 +1151,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void tbarMensal_Click(object sender, RoutedEventArgs e)
         {
-            ((PageCollection)canvasPrincipal.Children[0]).ChangePeriodicity(Periodicidade.Mensal);
-            
+            chart.SetPeriodicidade(Periodicidade.Mensal, false, null); 
         }
         #endregion
 
@@ -1128,7 +1164,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void mnuSalvarGrafico_Click(object sender, SourcedEventArgs e)
         {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content)._stockChartX.SaveToFile(StockChartX.ImageExportType.Png);
+            chart._stockChartX.SaveToFile(StockChartX.ImageExportType.Png);
             
         }
 
@@ -1142,19 +1178,16 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void tbarInsertIndicador_Click(object sender, RoutedEventArgs e)
-        {
-            //pegando qual gráfico está selecionado
-            C1TabItem tabItem = (C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem;
-
+        {                        
             List<string> listaSymbol = new List<string>();
-            listaSymbol.Add(((Grafico)tabItem.Content)._stockChartX.Symbol);
+            listaSymbol.Add(chart._stockChartX.Symbol);
             InsertIndicator insertIndicador = new InsertIndicator(true,
-                ((Grafico)tabItem.Content).GetAllSeries(),
-                ((Grafico)tabItem.Content)._stockChartX.PanelsCollection.ToList<ChartPanel>(),
-                ((Grafico)tabItem.Content)._stockChartX.Symbol + ".CLOSE",
-                ((Grafico)tabItem.Content)._stockChartX.Symbol,
+                (chart).GetAllSeries(),
+                (chart)._stockChartX.PanelsCollection.ToList<ChartPanel>(),
+                (chart)._stockChartX.Symbol + ".CLOSE",
+                (chart)._stockChartX.Symbol,
                 listaSymbol,
-                ((Grafico)tabItem.Content)._stockChartX.RecordCount);
+                (chart)._stockChartX.RecordCount);
 
             insertIndicador.Closing += (sender1, e1) =>
             {
@@ -1162,7 +1195,7 @@ namespace Traderdata.Client.TerminalWEB
                 {
                     if ((insertIndicador.DialogResult != null) && (insertIndicador.DialogResult.Value == true))
                     {
-                        ((Grafico)tabItem.Content).InserirIndicador(insertIndicador.ChartPanel,
+                        (chart).InserirIndicador(insertIndicador.ChartPanel,
                             insertIndicador.listaPropriedades,
                             (IndicatorInfoDTO)insertIndicador.listBoxIndicadores.SelectedItem,
                             null);
@@ -1187,8 +1220,7 @@ namespace Traderdata.Client.TerminalWEB
         void menuItemIndicadores_Click(object sender, SourcedEventArgs e)
         {
             //pegando qual gráfico está selecionado
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).InserirIndicador(((IndicatorInfoDTO)((C1MenuItem)e.Source).Tag));
-            
+            chart.InserirIndicador(((IndicatorInfoDTO)((C1MenuItem)e.Source).Tag));            
         }
 
         #endregion
@@ -1201,7 +1233,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="c"></param>
         private void objectColorPicker_SelectedColorChanged(object sender, PropertyChangedEventArgs<Color> e)
         {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).SetColorObjetoGeralSelecionado(e.NewValue);
+            chart.SetColorObjetoGeralSelecionado(e.NewValue);
             StaticData.corSelecionada = e.NewValue;
             borderColorPicker.Background = new SolidColorBrush(e.NewValue);
             
@@ -1215,7 +1247,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void btnColorPicker_Click_1(object sender, RoutedEventArgs e)
         {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).SetColorObjetoGeralSelecionado(StaticData.corSelecionada);
+            chart.SetColorObjetoGeralSelecionado(StaticData.corSelecionada);
             
         }
 
@@ -1230,7 +1262,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void strokeThicknessPicker_ChangeSelection(object sender, EventArgs e)
         {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).SetStrokeThicknessObjetoGeralSelecionado(Convert.ToInt32(((Border)sender).Tag));
+            chart.SetStrokeThicknessObjetoGeralSelecionado(Convert.ToInt32(((Border)sender).Tag));
 
             StaticData.strokeThickness = Convert.ToInt32(((Border)sender).Tag);
             tbarStrokeSthickness.IsDropDownOpen = false;
@@ -1248,46 +1280,14 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         private void strokeTypePicker_ChangeSelection(object sender, EventArgs e)
         {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).SetStrokeTypeObjetoSelecionado((LinePattern)Convert.ToInt32((((Border)sender).Tag)));
+            chart.SetStrokeTypeObjetoSelecionado((LinePattern)Convert.ToInt32((((Border)sender).Tag)));
             StaticData.estiloLinhaSelecionado = (LinePattern)Convert.ToInt32((((Border)sender).Tag));
             tbarStrokeType.IsDropDownOpen = false;
             
         }
 
         #endregion
-
-        #region InfoPanel
-
-        /// <summary>
-        /// Evento executado ao se clicar sobre o botao de infopanel
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarPainelInformacoes_Click(object sender, RoutedEventArgs e)
-        {
-            //mnuPainelInformacao.IsChecked = tbarPainelInformacoes.IsChecked.Value;
-
-            if ((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem != null)
-            {
-                ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content)
-                    .SetInfoPanelVisibility(System.Windows.Visibility.Collapsed);
-
-            }
-
-            //foreach (C1TabItem tabItem in ((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.Items)
-            //{
-            //    if ((string)tabItem.Header != "+")
-            //        if (tbarPainelInformacoes.IsChecked.Value)
-            //            ((Grafico)tabItem.Content).SetInfoPanelVisibility(System.Windows.Visibility.Visible);
-            //        else
-            //            ((Grafico)tabItem.Content).SetInfoPanelVisibility(System.Windows.Visibility.Collapsed);
-
-            //}
-            //
-        }
-
-        #endregion
-
+        
         #region AfterMarket
 
         /// <summary>
@@ -1353,234 +1353,7 @@ namespace Traderdata.Client.TerminalWEB
 
         #endregion
 
-        #region Templates
-
-        /// <summary>
-        /// Metodo invocado quando o cliente fecha o prompt box da C1
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="Result"></param>
-        private void promptBoxTemplateAction(string message, MessageBoxResult Result)
-        {
-            if (Result == MessageBoxResult.OK)
-            {
-                TerminalWebSVC.TemplateDTO template = ((PageCollection)canvasPrincipal.Children[0]).GetTemplate();
-
-                template.Nome = message;
-                //terminalWebClient.SalvaTemplateAsync(template);
-            }
-        }
-
-        /// <summary>
-        /// Evento disparado ao se clicar em Salvar Template no menu
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuSalvarTemplate_Click(object sender, SourcedEventArgs e)
-        {
-            C1PromptBox.Show("Informe o nome do template", "Salvar Template", promptBoxTemplateAction);
-        }
-
-        /// <summary>
-        /// Evento disparado após se excluir um template 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_ExcluiTemplateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            //resgatando templates
-            //terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
-
-            //alterando sttausabar
-            StaticData.AddLog("Template excluído com sucesso");
-        }
-
-        /// <summary>
-        /// Evento disparado ao se salvar um template
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_SalvaTemplateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            //resgatando templates
-            //terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
-
-            //logando na barra de status
-            StaticData.AddLog("Template salvo com sucesso");
-        }
-
-        /// <summary>
-        /// Evento retornado ao carregar a lista de templates do usuario
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //void terminalWebClient_GetTemplatesPorUserIdCompleted(object sender, TerminalWebSVC.GetTemplatesPorUserIdCompletedEventArgs e)
-        //{            
-        //    //adicionando as entradas de template                
-        //    foreach (TerminalWEB.TerminalWebSVC.TemplateDTO obj in e.Result)
-        //    {                
-        //        C1MenuItem mnuItemExcluir = new C1MenuItem();
-        //        mnuItemExcluir.Header = obj.Nome;
-        //        mnuItemExcluir.Click += mnuItemExcluir_Click;
-        //        mnuItemExcluir.Tag = obj;
-        //        mnuItemExcluir.IsTabStop = false;
-         
-        //        C1MenuItem mnuItemAplicar = new C1MenuItem();
-        //        mnuItemAplicar.Header = obj.Nome;
-        //        mnuItemAplicar.Click += mnuItemAplicar_Click;
-        //        mnuItemAplicar.Tag = obj;
-        //        mnuItemAplicar.IsTabStop = false;
-        //        //mnuAplicarTemplate.Items.Add(mnuItemAplicar);
-        //    }
-        //}
-
-        /// <summary>
-        /// Metodo que aplica um template
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void mnuItemAplicar_Click(object sender, SourcedEventArgs e)
-        {
-            if (MessageBox.Show("Deseja aplicar o template " + ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Nome, "Confirmação", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-            {
-                //recuperando os layouts
-                List<TerminalWebSVC.LayoutDTO> layouts = ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Layouts;
-
-                //alterando os lyaouts
-                foreach (TerminalWebSVC.LayoutDTO obj in layouts)
-                {
-                    if (obj.Indicadores.Count > 0)
-                    {
-                        foreach (TerminalWebSVC.IndicadorDTO indicador in obj.Indicadores)
-                        {
-                            //capturando os parametros
-                            string[] parametros = indicador.Parametros.Split(';');
-
-                            //captura o indicador
-                            foreach (IndicatorInfoDTO indicadorObj in StaticData.GetListaIndicadores())
-                            {
-                                if (indicadorObj.TipoStockchart == (IndicatorType)indicador.TipoIndicador.Value)
-                                {
-                                    for (int j = 0; j < indicadorObj.Propriedades.Count; j++)
-                                    {
-                                        if (indicadorObj.Propriedades[j].TipoDoCampo == TipoField.Serie)
-                                        {
-                                            if (parametros[j - 1].Contains("."))
-                                                parametros[j-1] = "." + parametros[j-1].Split('.')[1];
-                                            
-
-
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-
-                            indicador.Parametros = "";
-                            for(int o = 0; o < parametros.Length; o++)
-                            {
-                                if (parametros[o].Length > 0)
-                                    indicador.Parametros += parametros[o] + ";";
-                            }
-
-                        }
-                    }
-                }
-
-                //aplica o template
-                ((PageCollection)canvasPrincipal.Children[0]).AplicarTemplate(layouts,
-                    ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Periodicidade);
-            }
-        }
-
-        /// <summary>
-        /// Evento disparado ao se clicar no menu para excluir um template
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void mnuItemExcluir_Click(object sender, SourcedEventArgs e)
-        {
-            if (MessageBox.Show("Deseja excluir o template " + ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Nome, "Confirmação", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-            {
-                //terminalWebClient.ExcluiTemplateAsync((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag);
-            }
-        }
-
-        /// <summary>
-        /// Evento disparao ao se clicar no menu Novo Grafico
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuNovoGrafico_Click_1(object sender, SourcedEventArgs e)
-        {
-            AbrirNovoGraficoDialog();
-        }
-
-        /// <summary>
-        /// Evento disparado quando o usuario seleciona a opção Padrão
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AbrirNovoGraficoDialog()
-        {
-            //BuscaAtivoDialog buscaAtivo = new BuscaAtivoDialog();
-            
-            //buscaAtivo.Closing += (sender1, e1) =>
-            //{
-            //    if (buscaAtivo.DialogResult.Value == true)
-            //    {
-            //        foreach (AtivoDTO item in buscaAtivo._flexGridAtivos.SelectedItems)
-            //        {
-            //            //busyIndicator.BusyContent = "Abrindo gráfico...";
-            //            //busyIndicator.IsBusy = true;
-                        
-            //            //List<object> args = new List<object>();
-            //            //args.Add(item.Codigo);
-            //            //args.Add(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag));
-            //            //terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeAsync(item.Codigo,
-            //            //    Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag),
-            //            //    StaticData.User.Id, args);                        
-            //            NovoGrafico(item.Codigo, null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag)));
-            //        }
-
-            //    }
-            //};
-            //buscaAtivo.Show();
-
-        }
-
-        /// <summary>
-        /// Metodo que abre um procura por um gráfico salvo
-        /// </summary>
-        /// <param name="ativo"></param>
-        public void NovoGraficoAtalho(string ativo)
-        {
-            busyIndicator.BusyContent = "Abrindo gráfico...";
-            busyIndicator.IsBusy = true;
-            NovoGrafico(ativo, null, Periodicidade.Diario);
-        }
-
-        /// <summary>
-        /// Buscando grafico ja salvo previamente
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //void terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted(object sender, TerminalWebSVC.RetornaGraficoPorAtivoPeriodicidadeCompletedEventArgs e)
-        //{
-        //    busyIndicator.IsBusy = false;
-        //    if (e.Result == null)
-        //    {
-        //        List<object> args = (List<object>)e.UserState;
-        //        NovoGrafico((string)args[0], null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(args[1])));
-        //    }
-        //    else
-        //    {
-        //        NovoGrafico(e.Result[0]);
-        //    }
-        //}
-
-
-        #endregion
+        
 
         #region Configuração Geral
 
@@ -1616,8 +1389,8 @@ namespace Traderdata.Client.TerminalWEB
         private void configurationGeralOkClick(object sender, EventArgs e)
         {
             TerminalWebSVC.LayoutDTO layoutTemp = new TerminalWebSVC.LayoutDTO();
-            C1TabItem tabItem = (C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem;
-            layoutTemp = ((Grafico)tabItem.Content).Layout;
+
+            layoutTemp = chart.Layout;
 
             //motando objeto layout
             layoutTemp.GradeHorizontal = configurationGeral.chkGridHorizontal.IsChecked;
@@ -1633,7 +1406,7 @@ namespace Traderdata.Client.TerminalWEB
             layoutTemp.VolumeStrokeThickness = Convert.ToInt32(configurationGeral.txtEspessuraVolume.Value());
 
             //aplicando layout
-            ((Grafico)tabItem.Content).AplicaLayout(layoutTemp, false, false, false);
+            chart.AplicaLayout(layoutTemp, false, false, false);
 
             //mudando o foco
             
@@ -1672,119 +1445,14 @@ namespace Traderdata.Client.TerminalWEB
         }
 
 
-        /// <summary>
-        /// Metodo auxiliar que vai popular as corretoras
-        /// </summary>
-        private void PopulaCorretoras()
-        {
-            StaticData.CorretoraBovespa.Add(3, "XP INVESTIMENTOS");
-            StaticData.CorretoraBovespa.Add(114, "ITAÚ");
-            StaticData.CorretoraBovespa.Add(45, "CREDIT SUISSE BRASIL");
-            StaticData.CorretoraBovespa.Add(10, "SPINELLI");
-            StaticData.CorretoraBovespa.Add(90, "TITULO");
-            StaticData.CorretoraBovespa.Add(735, "ICAP DO BRASIL");
-            StaticData.CorretoraBovespa.Add(72, "BRADESCO");
-            StaticData.CorretoraBovespa.Add(76, "INTERBOLSA DO BRASIL");
-            StaticData.CorretoraBovespa.Add(85, "BTG PACTUAL");
-            StaticData.CorretoraBovespa.Add(102, "BANIF");
-            StaticData.CorretoraBovespa.Add(82, "TOV");
-            StaticData.CorretoraBovespa.Add(150, "PROSPER");
-            StaticData.CorretoraBovespa.Add(70, "HSBC");
-            StaticData.CorretoraBovespa.Add(39, "AGORA");
-            StaticData.CorretoraBovespa.Add(14, "CRUZEIRO DO SUL");
-            StaticData.CorretoraBovespa.Add(27, "SATANDER");
-            StaticData.CorretoraBovespa.Add(239, "INTERFLOAT HZ");
-            StaticData.CorretoraBovespa.Add(174, "ELITE");
-            StaticData.CorretoraBovespa.Add(8, "LINK");
-            StaticData.CorretoraBovespa.Add(5, "ISOLDI");
-            StaticData.CorretoraBovespa.Add(75, "TALARICO");
-            StaticData.CorretoraBovespa.Add(63, "NOVINVEST");
-            StaticData.CorretoraBovespa.Add(106, "MERC. DO BRASIL COR.");
-            StaticData.CorretoraBovespa.Add(115, "HENCORP COMMCOR");
-            StaticData.CorretoraBovespa.Add(98, "ALPES");
-            StaticData.CorretoraBovespa.Add(37, "UMUARAMA");
-            StaticData.CorretoraBovespa.Add(16, "J. P. MORGAN");
-            StaticData.CorretoraBovespa.Add(110, "SLW");
-            StaticData.CorretoraBovespa.Add(131, "FATOR");
-            StaticData.CorretoraBovespa.Add(34, "SCHAHIN");
-            StaticData.CorretoraBovespa.Add(35, "PETRA PERSONAL TRADER");
-            StaticData.CorretoraBovespa.Add(47, "SOLIDEZ");
-            StaticData.CorretoraBovespa.Add(147, "ATIVA");
-            StaticData.CorretoraBovespa.Add(33, "ESC. LEROSA");
-            StaticData.CorretoraBovespa.Add(59, "SAFRA");
-            StaticData.CorretoraBovespa.Add(95, "CS HEDGING-GRIFFO");
-            StaticData.CorretoraBovespa.Add(192, "GERALDO CORREA");
-            StaticData.CorretoraBovespa.Add(129, "PLANNER");
-            StaticData.CorretoraBovespa.Add(234, "CODEPE");
-            StaticData.CorretoraBovespa.Add(736, "PAX");
-            StaticData.CorretoraBovespa.Add(190, "PILLA");
-            StaticData.CorretoraBovespa.Add(172, "BANRISUL");
-            StaticData.CorretoraBovespa.Add(58, "SOCOPA SC PAULISTA");
-            StaticData.CorretoraBovespa.Add(40, "MORGAN STANLEY");
-            StaticData.CorretoraBovespa.Add(2, "SOUZA BARROS");
-            StaticData.CorretoraBovespa.Add(227, "GRADUAL");
-            StaticData.CorretoraBovespa.Add(13, "MERRILL LYNCH");
-            StaticData.CorretoraBovespa.Add(23, "CONCORDIA");
-            StaticData.CorretoraBovespa.Add(38, "CORVAL");
-            StaticData.CorretoraBovespa.Add(86, "WALPIRES");
-            StaticData.CorretoraBovespa.Add(177, "SOLIDUS");
-            StaticData.CorretoraBovespa.Add(77, "CITIGROUP GMB");
-            StaticData.CorretoraBovespa.Add(74, "COINVALORES");
-            StaticData.CorretoraBovespa.Add(21, "VOTORANTIM");
-            StaticData.CorretoraBovespa.Add(181, "MUNDINVEST");
-            StaticData.CorretoraBovespa.Add(57, "BRASCAN");
-            StaticData.CorretoraBovespa.Add(238, "GOLDMAN SACHS DO BRASIL");
-            StaticData.CorretoraBovespa.Add(9, "DEUTSCHE BANK");
-            StaticData.CorretoraBovespa.Add(15, "INDUSVAL");
-            StaticData.CorretoraBovespa.Add(189, "PRIME");
-            StaticData.CorretoraBovespa.Add(186, "CORRETORA GERAL DE VC");
-            StaticData.CorretoraBovespa.Add(237, "OLIVEIRA FRANCO");
-            StaticData.CorretoraBovespa.Add(140, "DIFERENCIAL");
-            StaticData.CorretoraBovespa.Add(54, "BES SECURITIES DO BRASIL");
-            StaticData.CorretoraBovespa.Add(187, "SITA");
-            StaticData.CorretoraBovespa.Add(175, "OMAR CAMARGO");
-            StaticData.CorretoraBovespa.Add(173, "GERAÇÃO FUTURO");
-            StaticData.CorretoraBovespa.Add(1, "MAGLIANO");
-            StaticData.CorretoraBovespa.Add(564, "NOVA FUTURA");
-            StaticData.CorretoraBovespa.Add(88, "CM CAPITAL MARKETS");
-            StaticData.CorretoraBovespa.Add(134, "BARCLAYS");
-            StaticData.CorretoraBovespa.Add(83, "MAXIMA");
-            StaticData.CorretoraBovespa.Add(232, "H.H PICCHIONI");
-            StaticData.CorretoraBovespa.Add(191, "SENSO");
-            StaticData.CorretoraBovespa.Add(29, "UNILETRA");
-            StaticData.CorretoraBovespa.Add(226, "AMARIL FRANKLIN");
-            StaticData.CorretoraBovespa.Add(120, "FLOW");
-            StaticData.CorretoraBovespa.Add(4, "ALFA");
-            StaticData.CorretoraBovespa.Add(157, "ESCRITORIO RUY LAGE SCT");
-            StaticData.CorretoraBovespa.Add(99, "TENDENCIA");
-            StaticData.CorretoraBovespa.Add(18, "BBM");
-            StaticData.CorretoraBovespa.Add(51, "CITIGROUP GLOBAL MARKETS BR");
-            StaticData.CorretoraBovespa.Add(228, "UNIBANCO INVESTSHOP");
-            StaticData.CorretoraBovespa.Add(262, "MIRAE");
-            StaticData.CorretoraBovespa.Add(386, "OCTO");
-
-        }
-
         private void mnuManual_Click_1(object sender, SourcedEventArgs e)
         {
             HtmlPage.Window.Navigate(new Uri("https://easytrader.traderdata.com.br/manual.pdf", UriKind.RelativeOrAbsolute), "_new");            
         }
 
-        private void LayoutRoot_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            canvasPrincipal.UpdateLayout();
-        }
-
-        
-
-
-        
-
-                
         
 
         
-
     }
 }
 

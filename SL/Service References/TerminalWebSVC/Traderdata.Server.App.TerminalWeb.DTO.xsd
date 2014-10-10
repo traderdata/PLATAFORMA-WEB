@@ -8,22 +8,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
+  <xs:complexType name="ArrayOfTemplateDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TemplateDTO" nillable="true" type="tns:TemplateDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTemplateDTO" nillable="true" type="tns:ArrayOfTemplateDTO" />
   <xs:complexType name="TemplateDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Layouts" nillable="true" type="tns:ArrayOfLayoutDTO" />
+      <xs:element minOccurs="0" name="Layout" nillable="true" type="tns:LayoutDTO" />
       <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Periodicidade" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TemplateDTO" nillable="true" type="tns:TemplateDTO" />
-  <xs:complexType name="ArrayOfLayoutDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="LayoutDTO" nillable="true" type="tns:LayoutDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfLayoutDTO" nillable="true" type="tns:ArrayOfLayoutDTO" />
   <xs:complexType name="LayoutDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="CorBordaCandleAlta" nillable="true" type="xs:string" />
@@ -153,4 +152,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GraficoDTO" nillable="true" type="tns:GraficoDTO" />
+  <xs:complexType name="ArrayOfLayoutDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LayoutDTO" nillable="true" type="tns:LayoutDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLayoutDTO" nillable="true" type="tns:ArrayOfLayoutDTO" />
 </xs:schema>

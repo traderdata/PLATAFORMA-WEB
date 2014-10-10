@@ -187,4 +187,3 @@ C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.g.resources
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.dll
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.pdb
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\XapCacheFile.xml
-C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.csprojResolveAssemblyReference.cache

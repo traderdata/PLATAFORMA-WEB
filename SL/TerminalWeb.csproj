@@ -328,6 +328,9 @@
     <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.IndicadorDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.LayoutDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\TerminalWebSVC\Traderdata.Client.TerminalWEB.TerminalWebSVC.ObjetoEstudoDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

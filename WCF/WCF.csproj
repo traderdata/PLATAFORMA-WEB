@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Serialization" />
@@ -63,8 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessManager\BaseBM.cs" />
+    <Compile Include="BusinessManager\TemplateBM.cs" />
     <Compile Include="BusinessManager\UserBM.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="DAO\IndicadorDAO.cs" />
+    <Compile Include="DAO\LayoutDAO.cs" />
+    <Compile Include="DAO\PainelDAO.cs" />
+    <Compile Include="DAO\TemplateDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="DTO\GraficoDTO.cs" />
     <Compile Include="DTO\IndicadorDTO.cs" />
