@@ -20,15 +20,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8787/terminal-web" Protocol="http" SourceId="1" />
+    <MetadataSource Address="https://webservice.traderdata.com.br/tweb2/service.svc/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="TerminalWeb.wsdl" MetadataType="Wsdl" ID="5029a3e8-9bf5-49a9-b6d4-1118a3cfd323" SourceId="1" SourceUrl="http://localhost:8787/terminal-web?wsdl" />
-    <MetadataFile FileName="terminal-web3.xsd" MetadataType="Schema" ID="21524f70-c3aa-4ac4-811f-2dba00121ee4" SourceId="1" SourceUrl="http://localhost:8787/terminal-web?xsd=xsd3" />
-    <MetadataFile FileName="terminal-web.xsd" MetadataType="Schema" ID="11c95a90-2cc4-4ee6-bf33-b3c5b2c0761e" SourceId="1" SourceUrl="http://localhost:8787/terminal-web?xsd=xsd2" />
-    <MetadataFile FileName="terminal-web.disco" MetadataType="Disco" ID="ada88ef0-4b07-4f07-afc7-21ec655fa84e" SourceId="1" SourceUrl="http://localhost:8787/terminal-web?disco" />
-    <MetadataFile FileName="terminal-web1.xsd" MetadataType="Schema" ID="e705ec7b-1d7e-44ad-bfa2-32f8d57e8774" SourceId="1" SourceUrl="http://localhost:8787/terminal-web?xsd=xsd0" />
-    <MetadataFile FileName="terminal-web2.xsd" MetadataType="Schema" ID="adef8677-2fdc-4b46-b98d-37ab1b9d8381" SourceId="1" SourceUrl="http://localhost:8787/terminal-web?xsd=xsd1" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="e717feb1-34eb-4416-9906-6d167096b251" SourceId="1" SourceUrl="https://webservice.traderdata.com.br/tweb2/service.svc/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="722877c5-e0e8-48d6-86ea-876fd1f5dd79" SourceId="1" SourceUrl="https://webservice.traderdata.com.br/tweb2/service.svc/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="5bff6d75-7978-489f-952a-42fb3f88799f" SourceId="1" SourceUrl="https://webservice.traderdata.com.br/tweb2/service.svc/mex" />
+    <MetadataFile FileName="Traderdata.Server.App.TerminalWeb.DTO.xsd" MetadataType="Schema" ID="08da0e11-fcf6-42ba-b232-78e3a2213935" SourceId="1" SourceUrl="https://webservice.traderdata.com.br/tweb2/service.svc/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

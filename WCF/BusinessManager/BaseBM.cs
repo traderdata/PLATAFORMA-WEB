@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using Traderdata.Server.App.TerminalWeb.DAO;
 
 namespace Traderdata.Server.App.TerminalWeb.BusinessManager
 {
@@ -14,7 +15,6 @@ namespace Traderdata.Server.App.TerminalWeb.BusinessManager
         protected MySqlConnection readConnection = new MySqlConnection();
         protected MySqlConnection writeConnection = new MySqlConnection();
         protected MySqlTransaction transaction;
-        protected string nomeServico = "";
 
         #endregion
 
@@ -24,23 +24,82 @@ namespace Traderdata.Server.App.TerminalWeb.BusinessManager
         /// Construtor padrão
         /// </summary>
         /// <param name="transacionado"></param>
-        public BaseBM(bool leitura, bool escrita, string nomeServico)
+        public BaseBM(bool leitura, bool escrita, BMType readType)
         {
             try
             {
                 if (leitura)
                 {
-                    readConnection = new MySqlConnection(ConfigurationSettings.AppSettings["CONNECTION-READ"]);
+                    switch (readType)
+                    {
+                        case BMType.Security:
+                            readConnection = new MySqlConnection(ConfigurationSettings.AppSettings["CONNECTION-SECURITY-READ"]);
+                            break;
+                        case BMType.Default:
+                            readConnection = new MySqlConnection(ConfigurationSettings.AppSettings["CONNECTION-READ"]);
+                            break;
+                    }
+
                     readConnection.Open();
                 }
 
                 if (escrita)
                 {
-                    writeConnection = new MySqlConnection(ConfigurationSettings.AppSettings["CONNECTION-SAVE"]);
+                    switch (readType)
+                    {
+                        case BMType.Security:
+                            writeConnection = new MySqlConnection(ConfigurationSettings.AppSettings["CONNECTION-SECURITY-SAVE"]);
+                            break;
+                        case BMType.Default:
+                            writeConnection = new MySqlConnection(ConfigurationSettings.AppSettings["CONNECTION-SAVE"]);
+                            break;
+                    }
+
                     writeConnection.Open();
-                    transaction = writeConnection.BeginTransaction();
                 }
-                
+
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+        }
+
+        /// <summary>
+        /// Construtor padrão
+        /// </summary>
+        /// <param name="transacionado"></param>
+        public BaseBM()
+        {
+            try
+            {
+                readConnection = new MySqlConnection(ConfigurationSettings.AppSettings["CONNECTION-READ"]);
+                readConnection.Open();
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+        }
+
+        /// <summary>
+        /// Construtor padrão
+        /// </summary>
+        /// <param name="transacionado"></param>
+        public BaseBM(string connRead, string connWrite)
+        {
+            try
+            {
+                if (connRead != "")
+                {
+                    readConnection = new MySqlConnection(connRead);
+                    readConnection.Open();
+                }
+                if (connWrite != "")
+                {
+                    writeConnection = new MySqlConnection(connWrite);
+                    writeConnection.Open();
+                }
             }
             catch (Exception exc)
             {
@@ -58,17 +117,42 @@ namespace Traderdata.Server.App.TerminalWeb.BusinessManager
         public void Dispose()
         {
             if (writeConnection.State == System.Data.ConnectionState.Open)
-            {                    
+            {
                 //fechando e liberando recursos
                 writeConnection.Close();
                 writeConnection.Dispose();
             }
-            
+
             if (readConnection.State == System.Data.ConnectionState.Open)
             {
                 //fechando e liberando recursos
                 readConnection.Close();
                 readConnection.Dispose();
+            }
+        }
+
+        #endregion
+
+        public enum BMType { Security, Default }
+
+        #region Metodos
+
+        /// <summary>
+        /// Metodo que executa uma query generica no banco
+        /// </summary>
+        /// <param name="query"></param>
+        public void ExecuteExternalQuery(string query)
+        {
+            try
+            {
+                using (BaseDAO baseDAO = new BaseDAO(this.readConnection, this.writeConnection))
+                {
+                    baseDAO.ExecuteExternalQuery(query);
+                }
+            }
+            catch (Exception exc)
+            {
+                throw exc;
             }
         }
 

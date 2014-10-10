@@ -43,11 +43,11 @@
     <Reference Include="AWSSDK">
       <HintPath>..\..\..\..\Program Files (x86)\AWS SDK for .NET\bin\Net35\AWSSDK.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\..\CORE\CLASS\CLASS\bin\Debug\MySql.Data.dll</HintPath>
+    <Reference Include="CORE">
+      <HintPath>..\..\CORE-SERVICES\CORE\bin\Debug\CORE.dll</HintPath>
     </Reference>
-    <Reference Include="SprightlySoftAWS">
-      <HintPath>..\..\..\..\..\Traderdata\Tecnologia\SprightlySoft AWS Component .NET\SprightlySoft AWS Component .NET\SprightlySoftAWS.dll</HintPath>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\CORE-SERVICES\CORE\bin\Debug\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,70 +60,19 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TASDK">
-      <HintPath>..\..\SCANNER\ScannerDiario\bin\Debug\TASDK.exe</HintPath>
-    </Reference>
-    <Reference Include="TD.CORE">
-      <HintPath>..\..\..\CORE\CLASS\CLASS\bin\Debug\TD.CORE.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessManager\AnaliseCompartilhadaBM.cs" />
-    <Compile Include="BusinessManager\BackTestBM.cs" />
     <Compile Include="BusinessManager\BaseBM.cs" />
-    <Compile Include="BusinessManager\CalculoEstatisticoBacktestBM.cs" />
-    <Compile Include="BusinessManager\CalculoEstatisticoScannerBM.cs" />
-    <Compile Include="BusinessManager\GraficoBM.cs" />
-    <Compile Include="BusinessManager\PortfolioBM.cs" />
-    <Compile Include="BusinessManager\ScannerBM.cs" />
-    <Compile Include="BusinessManager\SegurancaBM.cs" />
-    <Compile Include="BusinessManager\SocialBM.cs" />
-    <Compile Include="BusinessManager\TemplateBM.cs" />
-    <Compile Include="BusinessManager\UtilBM.cs" />
-    <Compile Include="BusinessManager\WorkspaceBM.cs" />
-    <Compile Include="DAO\BacktestDAO.cs" />
+    <Compile Include="BusinessManager\UserBM.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
-    <Compile Include="DAO\CondicaoDAO.cs" />
-    <Compile Include="DAO\CondicaoParcelaDAO.cs" />
-    <Compile Include="DAO\CondicaoValorBacktestDAO.cs" />
-    <Compile Include="DAO\GraficoDAO.cs" />
-    <Compile Include="DAO\IndicadorDAO.cs" />
-    <Compile Include="DAO\LayoutDAO.cs" />
-    <Compile Include="DAO\MensagemDAO.cs" />
-    <Compile Include="DAO\ObjetoEstudoDAO.cs" />
-    <Compile Include="DAO\PainelDAO.cs" />
-    <Compile Include="DAO\PortfolioDAO.cs" />
-    <Compile Include="DAO\ResultadoBacktestDAO.cs" />
-    <Compile Include="DAO\ResultadoScannerDAO.cs" />
-    <Compile Include="DAO\ScannerCondicaoValorDAO.cs" />
-    <Compile Include="DAO\ScannerDAO.cs" />
-    <Compile Include="DAO\TemplateBacktestDAO.cs" />
-    <Compile Include="DAO\TemplateDAO.cs" />
-    <Compile Include="DAO\UsuarioDAO.cs" />
-    <Compile Include="DAO\UsuarioLogadoDAO.cs" />
-    <Compile Include="DAO\WorkspaceDAO.cs" />
-    <Compile Include="DTO\AnaliseCompartilhadaDTO.cs" />
-    <Compile Include="DTO\BacktestDTO.cs" />
-    <Compile Include="DTO\CondicaoDTO.cs" />
-    <Compile Include="DTO\CondicaoParcelaDTO.cs" />
-    <Compile Include="DTO\CondicaoValorBackTestDTO.cs" />
+    <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="DTO\GraficoDTO.cs" />
     <Compile Include="DTO\IndicadorDTO.cs" />
     <Compile Include="DTO\LayoutDTO.cs" />
-    <Compile Include="DTO\MensagemDTO.cs" />
     <Compile Include="DTO\ObjetoEstudoDTO.cs" />
     <Compile Include="DTO\PainelDTO.cs" />
-    <Compile Include="DTO\PortfolioDTO.cs" />
-    <Compile Include="DTO\ResultadoBacktestDTO.cs" />
-    <Compile Include="DTO\ResultadoScannerDTO.cs" />
-    <Compile Include="DTO\ScannerCondicaoValorDTO.cs" />
-    <Compile Include="DTO\ScannerDTO.cs" />
-    <Compile Include="DTO\SumarioDTO.cs" />
-    <Compile Include="DTO\TemplateBacktestDTO.cs" />
     <Compile Include="DTO\TemplateDTO.cs" />
-    <Compile Include="DTO\UsuarioDTO.cs" />
-    <Compile Include="DTO\UsuarioLogadoDTO.cs" />
-    <Compile Include="DTO\WorkspaceDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="ITerminalWeb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TerminalWeb.cs" />

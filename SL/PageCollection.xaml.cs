@@ -32,7 +32,7 @@ namespace Traderdata.Client.TerminalWEB
         /// Variavel de acesso aos webservices
         /// </summary>
         private TerminalWebSVC.TerminalWebClient terminalWebClient =
-            new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
+            new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.ClientDataEndpoint());
 
         /// <summary>
         /// Variavel de acesso ao marketdata
@@ -81,7 +81,7 @@ namespace Traderdata.Client.TerminalWEB
             this.Periodicidade = periodicidade;
 
             //assinando eventos
-            terminalWebClient.SaveGraficoCompleted += terminalWebClient_SaveGraficoCompleted;
+            //terminalWebClient.SaveGraficoCompleted += terminalWebClient_SaveGraficoCompleted;
                         
             if (template == null)
             {
@@ -122,7 +122,7 @@ namespace Traderdata.Client.TerminalWEB
             InitializeComponent();
 
             //assinando eventos
-            terminalWebClient.SaveGraficoCompleted += terminalWebClient_SaveGraficoCompleted;
+            //terminalWebClient.SaveGraficoCompleted += terminalWebClient_SaveGraficoCompleted;
 
             this.templateDTO = null;
             this.Ativo = grafico.Ativo;
@@ -339,7 +339,7 @@ namespace Traderdata.Client.TerminalWEB
             graficoDTO.UsuarioId = StaticData.User.Id;
 
             //enviando para servidor
-            terminalWebClient.SaveGraficoAsync(graficoDTO);            
+            //terminalWebClient.SaveGraficoAsync(graficoDTO);            
         }
 
         #endregion

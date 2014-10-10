@@ -63,17 +63,7 @@ namespace Traderdata.Client.TerminalWEB
         /// Timer que vai chamar a tela de login
         /// </summary>
         private DispatcherTimer timerLogin = new DispatcherTimer();
-
-        /// <summary>
-        /// Lista de forms abertos
-        /// </summary>
-        private List<C1Window> listaForms = new List<C1Window>();
-
-        /// <summary>
-        /// Form selecionado
-        /// </summary>
-        private C1TabItem formSelecionado = null;
-
+        
         /// <summary>
         /// Timer que vai pressionar ou desmarcar os botoes e controlar aparição dos forms
         /// </summary>
@@ -90,6 +80,11 @@ namespace Traderdata.Client.TerminalWEB
         private TerminalWebSVC.TerminalWebClient terminalWebClient =
             new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.ClientDataEndpoint());
 
+        /// <summary>
+        /// Login passado
+        /// </summary>
+        private string login = "";
+
         #endregion
 
         #region Construtor
@@ -97,29 +92,20 @@ namespace Traderdata.Client.TerminalWEB
         /// <summary>
         /// Contrutor padrão
         /// </summary>
-        public ChartOnlyMainPage()
+        public ChartOnlyMainPage(string login, string ativo)
         {
             InitializeComponent();
-                        
-            //assinando eventos de marketdata
-            marketDataDAO.SetCacheSegmentosCompleted += new MarketDataDAO.SetCacheSegmentosHandler(marketDataDAO_SetCacheSegmentosCompleted);
-            marketDataDAO.SetCacheAtivosBMFTodosCompleted += new MarketDataDAO.SetCacheAtivosBMFTodosHandler(marketDataDAO_SetCacheAtivosBMFTodosCompleted);
-            marketDataDAO.SetCotacaoIntradayCacheCompleted += new MarketDataDAO.SetCotacaoIntradayCacheHandler(marketDataDAO_SetCotacaoIntradayCacheCompleted);
+
+            //setando variaveis privadas
+            this.ativoSelecionado = ativo;
+            this.login = login;
 
             //assinando eventos de template            
-            terminalWebClient.GetTemplatesPorUserIdCompleted += terminalWebClient_GetTemplatesPorUserIdCompleted;
-            terminalWebClient.SalvaTemplateCompleted += terminalWebClient_SalvaTemplateCompleted;
-            terminalWebClient.ExcluiTemplateCompleted += terminalWebClient_ExcluiTemplateCompleted;
-
-            //assinando eventois de login
-            terminalWebClient.LoginUserDistribuidorIntegradoCompleted += new EventHandler<TerminalWebSVC.LoginUserDistribuidorIntegradoCompletedEventArgs>(terminalWebClient_LoginUserDistribuidorIntegradoCompleted);
-
-            //assinando eventos de worskapce
-            terminalWebClient.GetWorkspaceDefaultPorDistribuidorCompleted += terminalWebClient_GetWorkspaceDefaultPorDistribuidorCompleted;
-            terminalWebClient.SaveWorkspaceCompleted += terminalWebClient_SaveWorkspaceCompleted;
-            
+            //terminalWebClient.GetTemplatesPorUserIdCompleted += terminalWebClient_GetTemplatesPorUserIdCompleted;
+            //terminalWebClient.SalvaTemplateCompleted += terminalWebClient_SalvaTemplateCompleted;
+                        
             //assinando eventos de grafico
-            terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeCompleted += terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted;
+            //terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeCompleted += terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted;
             
             //assinando evento de timer para chamar login
             timerLogin.Interval = new TimeSpan(0,0,StaticData.TempoDemo);
@@ -151,9 +137,6 @@ namespace Traderdata.Client.TerminalWEB
 
             //Reecbimento de tick
             RealTimeDAO.TickReceived += new RealTimeDAO.TickHandler(RealTimeDAO_TickReceived);
-
-            //Conectando canal de tick
-            RealTimeDAO.ConnectBMFBVSP();
 
             #endregion
 
@@ -207,7 +190,13 @@ namespace Traderdata.Client.TerminalWEB
             //setando o formulario como busy
             busyIndicator.BusyContent = "Autorizando...";
             busyIndicator.IsBusy = true;
+
+            //Executando LoginOrInsert no login
+            terminalWebClient.LoginOrInsertUserCompleted += new EventHandler<TerminalWebSVC.LoginOrInsertUserCompletedEventArgs>(terminalWebClient_LoginOrInsertUserCompleted);
+            terminalWebClient.LoginOrInsertUserAsync(login);
         }
+
+        
         #endregion
 
         #region Login
@@ -225,106 +214,29 @@ namespace Traderdata.Client.TerminalWEB
             busyIndicator.IsBusy = true;
 
             //chamando o metodo de login
-            terminalWebClient.LoginUserDistribuidorIntegradoAsync(StaticData.User.Login, StaticData.DistribuidorId);
+            //terminalWebClient.LoginUserDistribuidorIntegradoAsync(StaticData.User.Login, StaticData.DistribuidorId);
             
         }
 
         /// <summary>
-        /// Evento disparado ao terminar o metodo de conexao integrada
+        /// Resposta ao evento de login
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void terminalWebClient_LoginUserDistribuidorIntegradoCompleted(object sender, TerminalWebSVC.LoginUserDistribuidorIntegradoCompletedEventArgs e)
+        void terminalWebClient_LoginOrInsertUserCompleted(object sender, TerminalWebSVC.LoginOrInsertUserCompletedEventArgs e)
         {
-            //Esse bloco será rodado no caso de corretoras e parceiros integrados
-            StaticData.User = e.Result;
-            busyIndicator.BusyContent = "Carregando Grafico...";
             busyIndicator.IsBusy = false;
-
-            //carregando a lista de portfolios
-            portfolioListProcessed = true;
-
-            //carregamento de segurança
-            //CarregaSeguranca();
-
-            //conectando nos servidores de RT
             ConnectRTServers();
-
-            if (StaticData.SymbolSolicitadonoDistribuidor.Length > 0)
-            {
-                //carrega gráfico solicitado
-                NovoGraficoAtalho(StaticData.SymbolSolicitadonoDistribuidor);
-            }
+            NovoGraficoAtalho(ativoSelecionado);
         }
-
-
-        /// <summary>
-        /// Metodo que vai bloquear algumas opções que o cliente não tem permissão
-        /// </summary>
-        private void CarregaSeguranca()
-        {
-            if ((StaticData.User.HasSnapshotBMFDiario) || (StaticData.User.HasSnapshotBovespaDiario))
-            {
-                tbarDiario.IsEnabled = true;
-                tbarSemanal.IsEnabled = true;
-                tbarMensal.IsEnabled = true;
-            }
-            else
-            {
-                tbarDiario.IsEnabled = false;
-                tbarSemanal.IsEnabled = false;
-                tbarMensal.IsEnabled = false;
-            }
-
-            if ((StaticData.User.HasSnapshotBMFIntraday) || (StaticData.User.HasSnapshotBovespaIntraday))
-            {
-                tbar10Minutos.IsEnabled = true;
-                tbar120Minutos.IsEnabled = true;
-                tbar15Minutos.IsEnabled = true;
-                tbar1Minuto.IsEnabled = true;
-                tbar2Minutos.IsEnabled = true;
-                tbar30Minutos.IsEnabled = true;
-                tbar3Minutos.IsEnabled = true;
-                tbar5Minutos.IsEnabled = true;
-                tbar60Minutos.IsEnabled = true;                
-            }
-            else
-            {
-                tbar10Minutos.IsEnabled = false;
-                tbar120Minutos.IsEnabled = false;
-                tbar15Minutos.IsEnabled = false;
-                tbar1Minuto.IsEnabled = false;
-                tbar2Minutos.IsEnabled = false;
-                tbar30Minutos.IsEnabled = false;
-                tbar3Minutos.IsEnabled = false;
-                tbar5Minutos.IsEnabled = false;
-                tbar60Minutos.IsEnabled = false;                
-
-            }
-
-             
-        }
-
-        /// <summary>
-        /// Metodo que faz o carregamento basico do cliente
-        /// metodo deve ser logado somente após o usuario ter se logado
-        /// </summary>
-        private void CarregamentoBasicoCliente()
-        {
-            //abrindo o workspace do cliente
-            terminalWebClient.GetWorkspaceDefaultAsync(StaticData.User);
-                        
-            //carregando os templates do usuario
-            terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
-
-        }
-
+        
         /// <summary>
         /// Metodo que conecta nos servidores de dados continuos
         /// </summary>
         private void ConnectRTServers()
         {
-            
+            //Conectando canal de tick
+            RealTimeDAO.ConnectBMFBVSP();
         }
 
         #endregion
@@ -385,42 +297,6 @@ namespace Traderdata.Client.TerminalWEB
 
         #endregion
 
-        #region Cache
-
-
-        
-        /// <summary>
-        /// Evento disparado após encerrar o cache de um ativo intraday
-        /// </summary>
-        /// <param name="Result"></param>
-        void marketDataDAO_SetCotacaoIntradayCacheCompleted(string Result)
-        {
-            StaticData.AddLog("Historico Intraday de " + Result + " carregado com sucesso...");
-        }
-
-        /// <summary>
-        /// Evento disparado apos carregar os ativos BMF
-        /// </summary>
-        /// <param name="Result"></param>
-        void marketDataDAO_SetCacheAtivosBMFTodosCompleted(List<AtivoDTO> Result)
-        {
-            StaticData.AddLog("Lista de ativos BMF carregada com sucesso");
-        }
-
-        /// <summary>
-        /// Evento disparado apos carregar os segmentos
-        /// </summary>
-        /// <param name="Result"></param>
-        void marketDataDAO_SetCacheSegmentosCompleted(List<string> Result)
-        {
-            StaticData.AddLog("Lista de segmentos carregada com sucesso");
-        }
-
-
-        
-
-        #endregion
-
         #region Execução de comandos
         
         /// <summary>
@@ -431,19 +307,6 @@ namespace Traderdata.Client.TerminalWEB
         {
             switch (e)
             {
-                case Key.Add:
-                    break;
-                case Key.F1:
-                    break;
-                case Key.B:
-                    //((PageCollection)((C1Window)formSelecionado).Content).AbrirBook();
-                    break;
-                case Key.S:
-                    //((PageCollection)((C1Window)formSelecionado).Content).AbrirScannerIntraday();
-                    break;
-                case Key.T:
-                    //((PageCollection)((C1Window)formSelecionado).Content).AbrirTrades();
-                    break;
                 case Key.Escape:
                     StaticData.tipoAcao = StaticData.TipoAcao.Seta;
                     StaticData.tipoFerramenta = StaticData.TipoFerramenta.Nenhum;
@@ -633,207 +496,8 @@ namespace Traderdata.Client.TerminalWEB
 
         #endregion
 
-        #region Abrir Grafico
-
-        /// <summary>
-        /// Evenbto disparado ao se selecionar a opção abrir grafico no menu
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuAbrirGrafico_Click(object sender, SourcedEventArgs e)
-        {
-            AbrirGraficoExistente();
-        }
-
-        /// <summary>
-        /// Evento disparado ao clicar sobre o obtao Abrir na toolbar superior
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarAbrirGrafico_Click(object sender, RoutedEventArgs e)
-        {
-            AbrirGraficoExistente();
-        }
-
-        /// <summary>
-        /// Metodo que vai apresentar a tela de abertura de gráficos
-        /// </summary>
-        private void AbrirGraficoExistente()
-        {
-            //BuscaAtivoDialog buscaAtivo = new BuscaAtivoDialog();
-            //buscaAtivo.Title = "Abrir Grafico Existente";
-            //buscaAtivo.Closing += (sender1, e1) =>
-            //{
-            //    if (buscaAtivo.DialogResult.Value == true)
-            //    {
-            //        foreach (AtivoDTO item in buscaAtivo._flexGridAtivos.SelectedItems)
-            //        {
-            //            busyIndicator.BusyContent = "Abrindo gráfico...";
-            //            busyIndicator.IsBusy = true;
-
-            //            List<object> args = new List<object>();
-            //            args.Add(item.Codigo);
-            //            args.Add(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag));
-            //            terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeAsync(item.Codigo,
-            //                Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag),
-            //                StaticData.User.Id, args);                        
-            //            //NovoGrafico(item.Codigo, null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(((ComboBoxItem)buscaAtivo.cmbPeriodicidade.SelectedItem).Tag)));
-            //        }
-
-            //    }
-            //};
-            //buscaAtivo.Show();
-        }
-
-        #endregion
-
-        #region Compartilhamento
-
-        /// <summary>
-        /// Evento responsavel por fazer a publicação de determinada analise
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarPublicarTraderdata_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        /// <summary>
-        /// Evento disparado quando se clica no item de menu para abrir um grafico que foi salvo na zona de compartilhamento
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuAbrirGrafico_Click_1(object sender, SourcedEventArgs e)
-        {
-
-        }
-
-        #endregion
-
-        #region Facebook
-
-        /// <summary>
-        /// Clicando nesse item o gráfico selecionado será publicado
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuPublicarFacebook_Click_1(object sender, SourcedEventArgs e)
-        {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).PublishFacebook();
-        }
-
-        private void InviteFacebookFriends_Click_1(object sender, SourcedEventArgs e)
-        {
-            List<object> listaParametros = new List<object>();
-            HtmlPage.Window.Invoke("sendRequestToRecipients", listaParametros.ToArray());
-        }
-
-        private void LikeFacebook_Click_1(object sender, SourcedEventArgs e)
-        {
-
-        }
-
-        private void RecommendBuy_Click_1(object sender, SourcedEventArgs e)
-        {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).RecommendBuyingFacebook();
-        }
-
-        /// <summary>
-        /// Clicando nesse link voce fará uma recomendação de Venda do ativo aberto
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RecommendSell_Click_1(object sender, SourcedEventArgs e)
-        {
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).RecommendSellingFacebook();
-        }
-
-        #endregion
-
-        #region Workspace
-
-        /// <summary>
-        /// Evento disparado apos salvar o workspace
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_SaveWorkspaceCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            StaticData.AddLog("Workspace salvo com sucesso");
-        }
-
-        /// <summary>
-        /// Metodo que retorna o workspace default de um distribuidor
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void terminalWebClient_GetWorkspaceDefaultPorDistribuidorCompleted(object sender, TerminalWebSVC.GetWorkspaceDefaultPorDistribuidorCompletedEventArgs e)
-        {
-            StaticData.Workspace = e.Result;
-
-            //limpando a area de travalho
-            canvasPrincipal.Children.Clear();
-            listaForms.Clear();
-
-            //carregando forms
-            foreach (TerminalWebSVC.GraficoDTO grafico in e.Result.Graficos)
-            {
-                NovoGrafico(grafico);
-            }
-
-            //arrumando como tile
-            ArrumarJanelasTile();
-
-            //Quando encerrar desfaz o busy
-            busyIndicator.IsBusy = false;
-        }
-
-
-        public void SalvarWorkspaceFromOutside()
-        {
-            TerminalWebSVC.WorkspaceDTO workspace = new TerminalWebSVC.WorkspaceDTO();
-            workspace.Nome = "DEFAULT";
-            workspace.UsuarioId = StaticData.User.Id;
-            workspace.Graficos = GetGraficos();
-
-            //chamando o metodo que vai salvar
-            terminalWebClient.SaveWorkspaceAsync(workspace);
-        }
-
-        /// <summary>
-        /// Metodo que retorna uma lista de graficos
-        /// </summary>
-        /// <returns></returns>
-        public List<TerminalWebSVC.GraficoDTO> GetGraficos()
-        {
-            List<TerminalWebSVC.GraficoDTO> listaGraficos = new List<TerminalWebSVC.GraficoDTO>();
-
-            foreach (C1Window obj in canvasPrincipal.Children)
-            {
-                if (obj.Content.GetType().ToString().Contains("PageCollection"))
-                {
-                    TerminalWebSVC.GraficoDTO grafico = new TerminalWebSVC.GraficoDTO();
-                    grafico.Ativo = ((PageCollection)obj.Content).Ativo;
-                    grafico.Height = (int)obj.ActualHeight;
-                    grafico.Layouts = ((PageCollection)obj.Content).GetLayouts();
-                    grafico.Left = (int)obj.Left;
-                    grafico.Periodicidade = GeneralUtil.GetIntPeriodicidade(((PageCollection)obj.Content).Periodicidade);
-                    grafico.Top = (int)obj.Top;
-                    grafico.Width = (int)obj.ActualWidth;
-                    grafico.UsuarioId = StaticData.User.Id;
-
-                    listaGraficos.Add(grafico);
-                }
-            }
-
-            //retorna a lista de graficos
-            return listaGraficos;
-        }
-
-        #endregion
-
+        
+        
         #region Janelas
         
         /// <summary>
@@ -860,64 +524,7 @@ namespace Traderdata.Client.TerminalWEB
             canvasPrincipal.UpdateLayout();
             busyIndicator.IsBusy = false;
         }
-
-        
-
-        /// <summary>
-        /// Metodo que faz a criação de uma nova janela
-        /// </summary>
-        private void NovoGrafico(TerminalWebSVC.GraficoDTO grafico)
-        {
-            //int count = 0;
-            //foreach (C1Window obj in listaForms)
-            //{
-            //    if (obj.Tag != null)
-            //        if (obj.Tag.ToString() == grafico.Ativo)
-            //            count++;
-            //}
-
-            //PageCollection paginas = new PageCollection(grafico);
-            //C1Window win = new C1Window();
-
-            //win.MinHeight = 200;
-            //win.Width = 600;
-            //win.Height = 400;
-            //win.Content = paginas;
-            ////win.ShowMaximizeButton = false;
-            //win.ShowMinimizeButton = false;
-            //win.Canvas = canvasPrincipal;
-            //win.Left = listaForms.Count * 20;
-            //win.Top = listaForms.Count * 20;
-            //if (count > 0)
-            //    win.Tag = grafico.Ativo + count.ToString();
-            //else
-            //    win.Tag = grafico.Ativo;
-
-            //win.GotFocus += new RoutedEventHandler(win_GotFocus);
-            //win.Closed += new EventHandler(win_Closed);
-
-
-            //win.Show();
-            //win.Focus();
-            //listaForms.Add(win);
-
-            ////Desmarcando os itens de menu
-            //DesmarcarMenuItemsGraficos();
-            //C1MenuItem menuItem = new C1MenuItem();            
-            //menuItem.Header = grafico.Ativo + " -  " + GeneralUtil.GetPeriodicidadeFromIntToString(grafico.Periodicidade);
-            //menuItem.Click += new EventHandler<SourcedEventArgs>(menuItem_Click);
-            //menuItem.IsChecked = true;
-            //menuItem.Tag = win;
-            //menuItem.IsCheckable = true;
-            //mnuGraficos.Items.Add(menuItem);
-
-            ////setando o ultimo form como form selecionado
-            //formSelecionado = win;
-
-            //foreach (C1Window obj in listaForms)
-            //    obj.BringToFront();
-
-        }
+                
 
         /// <summary>
         /// Botão que vai abrri um novo gráfico
@@ -929,148 +536,6 @@ namespace Traderdata.Client.TerminalWEB
             AbrirNovoGraficoDialog();
         }
 
-        #endregion
-
-        #region Window
-        private void mnuArrumarHorizontalmente_Click(object sender, SourcedEventArgs e)
-        {
-            ArrumarJanelasHorizontalmente();
-        }
-
-        private void mnhuArrumarVerticalmente_Click(object sender, SourcedEventArgs e)
-        {
-            ArrumarJanelasVerticalmente();
-        }
-
-        private void mnuTile_Click(object sender, SourcedEventArgs e)
-        {
-            ArrumarJanelasTile();
-        }
-
-        /// <summary>
-        /// Botão que vai organizar as janelas horizontalmente
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarArrumarJanelaHorizontalmente_Click(object sender, RoutedEventArgs e)
-        {
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).row1.Height = new GridLength(0);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).row0.Height = new GridLength(50, GridUnitType.Star);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).column0.Width = new GridLength(50, GridUnitType.Star);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).column1.Width = new GridLength(0);
-            ArrumarJanelasHorizontalmente();
-        }
-
-        /// <summary>
-        /// Metodo que vai organizar as janelas verticalmente
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarArrumarJanelasVeticalmente_Click(object sender, RoutedEventArgs e)
-        {
-            ArrumarJanelasVerticalmente();
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).row1.Height = new GridLength(0);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).row0.Height = new GridLength(1, GridUnitType.Star);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).column0.Width = new GridLength(50, GridUnitType.Star);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).column1.Width = new GridLength(50, GridUnitType.Star);
-        }
-
-        /// <summary>
-        /// Botão que vai colocar as janelas em formato Tile
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarTile_Click(object sender, RoutedEventArgs e)
-        {
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).row1.Height = new GridLength(50, GridUnitType.Star);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).row0.Height = new GridLength(50, GridUnitType.Star);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).column0.Width = new GridLength(50, GridUnitType.Star);
-            //((PageCollectionContainer)((C1TabItem)tabPrincipal.SelectedItem).Content).column1.Width = new GridLength(50, GridUnitType.Star);
-            ArrumarJanelasTile();
-        }
-
-        /// <summary>
-        /// Metodo que faz a arrumação das janelas horizontalmente
-        /// </summary>
-        private void ArrumarJanelasHorizontalmente()
-        {
-            double i = 0;
-            double altura = canvasPrincipal.ActualHeight / listaForms.Count;
-            foreach (C1Window obj in listaForms)
-            {
-                obj.Left = 0;
-                obj.Height = altura;
-                obj.Top = i;
-                obj.Width = canvasPrincipal.ActualWidth;
-                i += altura;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que faz a arrumação das janelas verticalmente
-        /// </summary>
-        private void ArrumarJanelasVerticalmente()
-        {
-            double i = 0;
-            double largura = canvasPrincipal.ActualWidth / listaForms.Count;
-            foreach (C1Window obj in listaForms)
-            {
-                obj.Left = i;
-                obj.Height = canvasPrincipal.ActualHeight;
-                obj.Top = 0;
-                obj.Width = largura;
-                i += largura;
-            }
-        }
-
-        /// <summary>
-        /// Metodo que faz a arrumação das janelas em formato Tile
-        /// </summary>
-        private void ArrumarJanelasTile()
-        {
-            int linhas = 0;
-            int colunas = 0;
-            if (listaForms.Count == 1)
-                colunas = 1;
-            else if (listaForms.Count == 2)
-                colunas = 2;
-            else if (listaForms.Count == 3)
-                colunas = 3;
-            else colunas = 4;
-
-            if (listaForms.Count % colunas == 0)
-                linhas = listaForms.Count / colunas;
-            else
-                linhas = (listaForms.Count / colunas) + 1;
-
-            double altura = canvasPrincipal.ActualHeight / linhas;
-            double largura = canvasPrincipal.ActualWidth / colunas;
-
-            int countX = 0;
-            int count = 1;
-            int countY = 0;
-
-            foreach (C1Window obj in listaForms)
-            {
-                obj.Height = altura;
-                if (count < listaForms.Count)
-                    obj.Width = largura;
-                else
-                {
-                    obj.Width = canvasPrincipal.ActualWidth - (countX * largura);
-                }
-                obj.Top = altura * countY;
-                obj.Left = largura * countX;
-                countX++;
-                if (countX == colunas)
-                {
-                    countX = 0;
-                    countY++;
-                }
-                count++;
-
-            }
-        }
         #endregion
 
         #region Skins
@@ -1654,11 +1119,6 @@ namespace Traderdata.Client.TerminalWEB
         }
         #endregion
 
-        #region Cache
-
-       
-        #endregion
-
         #region Salvar Imagem Grafico
 
         /// <summary>
@@ -1670,63 +1130,6 @@ namespace Traderdata.Client.TerminalWEB
         {
             ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content)._stockChartX.SaveToFile(StockChartX.ImageExportType.Png);
             
-        }
-
-        /// <summary>
-        /// Evento disparao ao se tentar salvar todos os arquivos de uma so vez
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuSalvarTodosGraficos_Click_1(object sender, SourcedEventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
-            sfd.FilterIndex = 1;
-
-            if (sfd.ShowDialog() == false)
-                return;
-
-            MemoryStream outputMemStream = new MemoryStream();
-            ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
-
-            zipStream.SetLevel(3); //0-9, 9 being the highest level of compression
-
-            //percorrendo todos os gráficos para salvar um a um
-            foreach (C1Window obj in canvasPrincipal.Children)
-            {
-                C1TabItem tabItem = (C1TabItem)((PageCollection)obj.Content).c1TabControl1.SelectedItem;
-
-                if ((string)tabItem.Header != "+")
-                {
-                    //determinando o nome do arquivo
-                    string fileName = ((Grafico)tabItem.Content)._stockChartX.Symbol + "-" + obj.Tag.ToString() + ".png";
-                    ZipEntry newEntry = new ZipEntry(fileName);
-                    newEntry.DateTime = DateTime.Now;
-                    zipStream.PutNextEntry(newEntry);
-
-                    byte[] byteFile = ((Grafico)tabItem.Content)._stockChartX.GetBytes(StockChartX.ImageExportType.Png);
-
-                    MemoryStream memStreamIn = new MemoryStream();
-                    memStreamIn.Write(byteFile, 0, byteFile.Length);
-                    memStreamIn.Position = 0;
-                    StreamUtils.Copy(memStreamIn, zipStream, new byte[4096]);
-
-                    zipStream.CloseEntry();
-                    zipStream.IsStreamOwner = false;
-                }
-
-            }
-
-            //deve fechar o zipStream antes
-            zipStream.Close();
-
-
-            using (Stream stream = sfd.OpenFile())
-            {
-                stream.Write(outputMemStream.ToArray(), 0, outputMemStream.ToArray().Length);
-                stream.Close();
-            }
-
         }
 
         #endregion
@@ -1964,7 +1367,7 @@ namespace Traderdata.Client.TerminalWEB
                 TerminalWebSVC.TemplateDTO template = ((PageCollection)canvasPrincipal.Children[0]).GetTemplate();
 
                 template.Nome = message;
-                terminalWebClient.SalvaTemplateAsync(template);
+                //terminalWebClient.SalvaTemplateAsync(template);
             }
         }
 
@@ -1986,7 +1389,7 @@ namespace Traderdata.Client.TerminalWEB
         void terminalWebClient_ExcluiTemplateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             //resgatando templates
-            terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
+            //terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
 
             //alterando sttausabar
             StaticData.AddLog("Template excluído com sucesso");
@@ -2000,7 +1403,7 @@ namespace Traderdata.Client.TerminalWEB
         void terminalWebClient_SalvaTemplateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             //resgatando templates
-            terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
+            //terminalWebClient.GetTemplatesPorUserIdAsync(StaticData.User.Id);
 
             //logando na barra de status
             StaticData.AddLog("Template salvo com sucesso");
@@ -2011,25 +1414,25 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void terminalWebClient_GetTemplatesPorUserIdCompleted(object sender, TerminalWebSVC.GetTemplatesPorUserIdCompletedEventArgs e)
-        {            
-            //adicionando as entradas de template                
-            foreach (TerminalWEB.TerminalWebSVC.TemplateDTO obj in e.Result)
-            {                
-                C1MenuItem mnuItemExcluir = new C1MenuItem();
-                mnuItemExcluir.Header = obj.Nome;
-                mnuItemExcluir.Click += mnuItemExcluir_Click;
-                mnuItemExcluir.Tag = obj;
-                mnuItemExcluir.IsTabStop = false;
+        //void terminalWebClient_GetTemplatesPorUserIdCompleted(object sender, TerminalWebSVC.GetTemplatesPorUserIdCompletedEventArgs e)
+        //{            
+        //    //adicionando as entradas de template                
+        //    foreach (TerminalWEB.TerminalWebSVC.TemplateDTO obj in e.Result)
+        //    {                
+        //        C1MenuItem mnuItemExcluir = new C1MenuItem();
+        //        mnuItemExcluir.Header = obj.Nome;
+        //        mnuItemExcluir.Click += mnuItemExcluir_Click;
+        //        mnuItemExcluir.Tag = obj;
+        //        mnuItemExcluir.IsTabStop = false;
          
-                C1MenuItem mnuItemAplicar = new C1MenuItem();
-                mnuItemAplicar.Header = obj.Nome;
-                mnuItemAplicar.Click += mnuItemAplicar_Click;
-                mnuItemAplicar.Tag = obj;
-                mnuItemAplicar.IsTabStop = false;
-                //mnuAplicarTemplate.Items.Add(mnuItemAplicar);
-            }
-        }
+        //        C1MenuItem mnuItemAplicar = new C1MenuItem();
+        //        mnuItemAplicar.Header = obj.Nome;
+        //        mnuItemAplicar.Click += mnuItemAplicar_Click;
+        //        mnuItemAplicar.Tag = obj;
+        //        mnuItemAplicar.IsTabStop = false;
+        //        //mnuAplicarTemplate.Items.Add(mnuItemAplicar);
+        //    }
+        //}
 
         /// <summary>
         /// Metodo que aplica um template
@@ -2099,7 +1502,7 @@ namespace Traderdata.Client.TerminalWEB
         {
             if (MessageBox.Show("Deseja excluir o template " + ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Nome, "Confirmação", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
-                terminalWebClient.ExcluiTemplateAsync((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag);
+                //terminalWebClient.ExcluiTemplateAsync((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag);
             }
         }
 
@@ -2162,19 +1565,19 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted(object sender, TerminalWebSVC.RetornaGraficoPorAtivoPeriodicidadeCompletedEventArgs e)
-        {
-            busyIndicator.IsBusy = false;
-            if (e.Result == null)
-            {
-                List<object> args = (List<object>)e.UserState;
-                NovoGrafico((string)args[0], null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(args[1])));
-            }
-            else
-            {
-                NovoGrafico(e.Result[0]);
-            }
-        }
+        //void terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted(object sender, TerminalWebSVC.RetornaGraficoPorAtivoPeriodicidadeCompletedEventArgs e)
+        //{
+        //    busyIndicator.IsBusy = false;
+        //    if (e.Result == null)
+        //    {
+        //        List<object> args = (List<object>)e.UserState;
+        //        NovoGrafico((string)args[0], null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(args[1])));
+        //    }
+        //    else
+        //    {
+        //        NovoGrafico(e.Result[0]);
+        //    }
+        //}
 
 
         #endregion
@@ -2238,89 +1641,24 @@ namespace Traderdata.Client.TerminalWEB
 
 
         #endregion
-
-        #region Suporte
-
-        private void mnuSuporteChatClick(object sender, SourcedEventArgs e)
-        {
-            HtmlPage.PopupWindow(new Uri("http://messenger.providesupport.com/messenger/traderdata.html"), "_blank", new HtmlPopupWindowOptions());
-        }
-
-        private void mnuSuporteEmailClick(object sender, SourcedEventArgs e)
-        {
-            HtmlPage.Window.Navigate(new Uri("mailto:suporte@traderdata.com.br"));
-        }
-
-        #endregion
-
-        #region Tela Cheia
-
-        /// <summary>
-        /// Metodo que coloca a tela em modo de tela cheia
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mnuTelaCheia_Click(object sender, SourcedEventArgs e)
-        {
-            Application.Current.Host.Content.IsFullScreen = true;
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Area Propaganda
-
-        /// <summary>
-        /// Clique do botao de link para pagamento
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
-        {
-            HtmlPopupWindowOptions options = new HtmlPopupWindowOptions();
-            options.Resizeable = true;
-            options.Status = true;
-            options.Toolbar = true;
-            options.Width = 900;
-            options.Height = 500;
-
-            HtmlPage.PopupWindow(new Uri("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LWMRNWP99Z3CQ"), "_blank", options);
-        }
-
-        #endregion
-
-        private void mnuPainlAquecimento_Click(object sender, SourcedEventArgs e)
-        {
-            foreach (ChartPanel obj in ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).
-                _stockChartX.PanelsCollection.ToList<ChartPanel>())
-            {
-                if (obj.IsHeatMap)
-                    return;
-            }
-            ((Grafico)((C1TabItem)((PageCollection)canvasPrincipal.Children[0]).c1TabControl1.SelectedItem).Content).
-                _stockChartX.AddHeatMapPanel();
-        }
-
         
+        #endregion
 
         void timerPressButtons_Tick(object sender, EventArgs e)
         {
-            if (formSelecionado != null)
+            try
             {
-                try
-                {
-                    //setando o tipo de barra
-                    PressTipoBarraButton();
+                //setando o tipo de barra
+                PressTipoBarraButton();
 
-                    //setando o tipo de escala
-                    PressTipoEscalaButton();
+                //setando o tipo de escala
+                PressTipoEscalaButton();
 
-                    //setando a periodicidade
-                    PressBotaoPeriodicidade();
-                }
-                catch { }
+                //setando a periodicidade
+                PressBotaoPeriodicidade();
             }
+            catch { }
+
         }
 
 
@@ -2333,11 +1671,6 @@ namespace Traderdata.Client.TerminalWEB
             ExecutaKeyPress(e.Key);
         }
 
-        private void mnuStatus_Click_1(object sender, SourcedEventArgs e)
-        {
-            Status status = new Status();
-            status.Show();
-        }
 
         /// <summary>
         /// Metodo auxiliar que vai popular as corretoras
@@ -2435,11 +1768,6 @@ namespace Traderdata.Client.TerminalWEB
         private void mnuManual_Click_1(object sender, SourcedEventArgs e)
         {
             HtmlPage.Window.Navigate(new Uri("https://easytrader.traderdata.com.br/manual.pdf", UriKind.RelativeOrAbsolute), "_new");            
-        }
-
-        private void tabPrincipal_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            formSelecionado = (C1TabItem)e.AddedItems[0];
         }
 
         private void LayoutRoot_SizeChanged(object sender, SizeChangedEventArgs e)

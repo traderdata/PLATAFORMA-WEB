@@ -51,8 +51,9 @@
                 </Grid.ColumnDefinitions>                
             
                 <c1:C1ToolbarStrip Name="c1ToolbarSuperior" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Horizontal" Height="36" Grid.Column="0" Background="LightGray">
-            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/salvar.png" ToolTipService.ToolTip="Salvar Gráfico Selecionado" Name="tbarSalvarGrafico"  Click="tbarSalvarGrafico_Click_1"/>
-            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/novo-documento.png" ToolTipService.ToolTip="Novo Gráfico" Name="tbarNovoGrafico"  Click="tbarNovoGrafico_Click"/>
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/salvar.png" ToolTipService.ToolTip="Salvar Gráfico" Name="tbarSalvarGrafico"  Click="tbarSalvarGrafico_Click_1"/>
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/novo-documento.png" ToolTipService.ToolTip="Novo Gráfico" Name="tbarNovoGrafico"  Click="tbarNovoGrafico_Click" Visibility="Collapsed"/>
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/application_x_desktop.png" ToolTipService.ToolTip="Configurações" Name="tbarConfig"  />
                 <!--<c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarAbrirGrafico"  Click="tbarAbrirGrafico_Click"/>                -->
                 <TextBox Name="txtAtivo" Width="55" KeyDown="txtAtivo_KeyDown_1" Text="[ATIVO]" GotFocus="txtAtivo_GotFocus" />
             <!--<c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarAbrirGrafico"  Click="tbarAbrirGrafico_Click_1"/>-->
@@ -119,40 +120,40 @@
                 </c1:C1ToolbarDropDown.Content>
             </c1:C1ToolbarDropDown>
             <c1:C1Separator/>
-            <c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 1 Minuto" Name="tbar1Minuto"  GroupName="Periodicidade"  Width="24" Height="24" Click="tbar1Minuto_Click" IsEnabled="False">
+                    <c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 1 Minuto" Name="tbar1Minuto"  GroupName="Periodicidade"  Width="24" Height="24" Click="tbar1Minuto_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock1.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 2 Minutos" Name="tbar2Minutos" GroupName="Periodicidade"  Width="24" Height="24" Click="tbar2Minutos_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 2 Minutos" Name="tbar2Minutos" GroupName="Periodicidade"  Width="24" Height="24" Click="tbar2Minutos_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock2.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 3 Minutos" Name="tbar3Minutos" GroupName="Periodicidade" Width="24" Height="24" Click="tbar3Minutos_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 3 Minutos" Name="tbar3Minutos" GroupName="Periodicidade" Width="24" Height="24" Click="tbar3Minutos_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock3.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 5 Minutos" Name="tbar5Minutos"  GroupName="Periodicidade" Width="24" Height="24" Click="tbar5Minutos_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 5 Minutos" Name="tbar5Minutos"  GroupName="Periodicidade" Width="24" Height="24" Click="tbar5Minutos_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock5.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 10 Minutos" Name="tbar10Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar10Minutos_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 10 Minutos" Name="tbar10Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar10Minutos_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock10.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 15 Minutos" Name="tbar15Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar15Minutos_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 15 Minutos" Name="tbar15Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar15Minutos_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock15.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 30 Minutos" Name="tbar30Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar30Minutos_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 30 Minutos" Name="tbar30Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar30Minutos_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock30.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 1 Hora" Name="tbar60Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar60Minutos_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 1 Hora" Name="tbar60Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar60Minutos_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock1h.png"/>
             </c1:C1ToolbarToggleButton>
 <c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Intraday de 2 Horas" Name="tbar120Minutos"  GroupName="Periodicidade" Width="26" Height="24" Click="tbar120Minutos_Click" IsEnabled="False" Visibility="Collapsed">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clock2h.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Diario" Name="tbarDiario"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarDiario_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Diario" Name="tbarDiario"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarDiario_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clockD.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Semanal" Name="tbarSemanal"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarSemanal_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Semanal" Name="tbarSemanal"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarSemanal_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clockS.png"/>
             </c1:C1ToolbarToggleButton>
-<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Mensal" Name="tbarMensal"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarMensal_Click" IsEnabled="False">
+<c1:C1ToolbarToggleButton ToolTipService.ToolTip="Gráfico Mensal" Name="tbarMensal"  GroupName="Periodicidade" Width="24" Height="24" Click="tbarMensal_Click" IsEnabled="True">
                 <Image Style="{StaticResource tbIconToolbar}" Source="/TerminalWeb;component/images/clockM.png"/>
             </c1:C1ToolbarToggleButton>
             <c1:C1Separator />

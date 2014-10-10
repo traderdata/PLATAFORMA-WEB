@@ -31,36 +31,14 @@ namespace Traderdata.Client.TerminalWEB.DAO
         public TemplateDAO()
         {
             //assinando eventos WCF
-            terminalWebClient.GetTemplatePorIdCompleted += terminalWebClient_GetTemplatePorIdCompleted;
-            terminalWebClient.GetTemplatesPorUserIdCompleted += terminalWebClient_GetTemplatesPorUserIdCompleted;
-            terminalWebClient.SalvaTemplateCompleted += terminalWebClient_SalvaTemplateCompleted;
-            terminalWebClient.ExcluiTemplateCompleted += terminalWebClient_ExcluiTemplateCompleted;
+            
         }
 
         #endregion
 
         #region Eventos WCF
 
-        void terminalWebClient_ExcluiTemplateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void terminalWebClient_SalvaTemplateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void terminalWebClient_GetTemplatesPorUserIdCompleted(object sender, TerminalWebSVC.GetTemplatesPorUserIdCompletedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        void terminalWebClient_GetTemplatePorIdCompleted(object sender, TerminalWebSVC.GetTemplatePorIdCompletedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+               
 
         #endregion
     }

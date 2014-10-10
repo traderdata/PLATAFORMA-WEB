@@ -20,6 +20,6 @@ namespace Traderdata.Server.App.TerminalWeb.DTO
         [DataMember]
         public string Status { get; set; }
         [DataMember]
-        public int  Index { get; set; }
+        public int Index { get; set; }
     }
 }

@@ -37,13 +37,13 @@ namespace Traderdata.Client.TerminalWEB
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            StaticData.ClientWebservice = "https://webservice.traderdata.com.br/tw20/service.svc";
+            StaticData.ClientWebservice = "https://webservice.traderdata.com.br/tweb2/service.svc";
             StaticData.MDWebservice = "https://app-ext.traderdata.com.br/md-api/mdapi.svc";
             StaticData.TickServer = "https://app-ext.traderdata.com.br/tw10.tick.bmfbovespa.rt/request.ashx";
             
             //parametros globais
             StaticData.CacheHabilitado = false;
-            StaticData.User = new TerminalWebSVC.UsuarioDTO();
+            StaticData.User = new TerminalWebSVC.UserDTO();
             
             //configurações
             if (e.InitParams.ContainsKey("broker"))
@@ -57,11 +57,22 @@ namespace Traderdata.Client.TerminalWEB
                 StaticData.Distribuidor = "DEMO";
             }
 
+            //pegando o codigo do cliente
+            string login = "";
+            if (e.InitParams.ContainsKey("USR"))
+            {
+                login = StaticData.Distribuidor + "#" + e.InitParams["USR"];
+            }
+            else
+            {
+                login = StaticData.Distribuidor + "#DEMO";
+            }
+
             StaticData.DelayedVersion = false;            
             StaticData.DistribuidorId = 8;
             
             //abrindo o main page
-            this.RootVisual = new ChartOnlyMainPage();
+            this.RootVisual = new ChartOnlyMainPage(login, "PETR4");
             
         }
 

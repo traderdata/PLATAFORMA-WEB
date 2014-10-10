@@ -215,12 +215,6 @@ namespace Traderdata.Client.TerminalWEB
             }
         }
 
-        
-        
-
-
-        
-
         void RealTimeDAO_TickReceived(object Result)
         {
             try
@@ -229,33 +223,7 @@ namespace Traderdata.Client.TerminalWEB
                 if (((TickDTO)Result).Ativo == this.ativo)
                 {
                     TickDTO tick = (TickDTO)Result;
-
-                    //#region alerta
-                    //double valorUltimo = _stockChartX.GetValue(_stockChartX.Symbol + ".close", _stockChartX.RecordCount - 1).Value;
-                    //foreach(HorizontalLine obj in listaAlertas)
-                    //{
-                    //    MediaElement mediaElement = new MediaElement();
-                    //    mediaElement.Source = new Uri("/TerminalWeb;component/sounds/alert.mp3");
-                    //    mediaElement.Play();  
-                    //    if (valorUltimo < obj.Y1Value)
-                    //    {
-                    //        if (tick.Ultimo >= obj.Y1Value)
-                    //        {
-                    //            //MediaElement mediaElement = new MediaElement();
-                    //            //mediaElement.Source = new Uri("/TerminalWeb;component/sounds/alert.mp3");
-                    //            //mediaElement.Play();                                
-                    //        }
-                    //            MessageBox.Show("Alerta!!");
-                    //    }
-                    //    else
-                    //    {
-                    //        if (tick.Ultimo <= obj.Y1Value)
-                    //            MessageBox.Show("Alerta!!");
-                    //    }
-                    //}
-                    //#endregion
-
-
+                    
 
                     #region atualização do grafico
                     //checando se a ultima barra
@@ -2440,139 +2408,6 @@ namespace Traderdata.Client.TerminalWEB
         }
 
         #endregion              
-
-        #region Facebook
-
-        /// <summary>
-        /// Metodo qye vai fazer a recomendação de venda de determinado ativo
-        /// </summary>
-        public void RecommendSellingFacebook()
-        {
-            RecomendarCompraVenda recommend = new RecomendarCompraVenda(false,
-                this.LastPrice(), this.ativo);
-
-            recommend.Closing += (sender1, e1) =>
-            {
-                if (recommend.DialogResult.Value == true)
-                {
-                    if (recommend.chkPostarGrafico.IsChecked.Value)
-                        PublishFacebook();
-                }
-            };
-            recommend.Show();
-        }
-
-        /// <summary>
-        /// Metodo qye vai fazer a recomendação de compra de determinado ativo
-        /// </summary>
-        public void RecommendBuyingFacebook()
-        {
-            RecomendarCompraVenda recommend = new RecomendarCompraVenda(true,
-                this.LastPrice(), this.ativo);
-
-            recommend.Closing += (sender1, e1) =>
-            {
-                if (recommend.DialogResult.Value == true)
-                {
-                    if (recommend.chkPostarGrafico.IsChecked.Value)
-                        PublishFacebook();
-                }
-            };
-            recommend.Show();
-        }
-
-        /// <summary>
-        /// Metodo que gera os bytes no formato Png a partir do componente
-        /// </summary>
-        /// <param name="element"></param>
-        /// <returns></returns>
-        private byte[] GetBytesInternalPng(UIElement element)
-        {
-            WriteableBitmap w = new WriteableBitmap(element, new TranslateTransform());
-            EditableImage imageData = new EditableImage(w.PixelWidth, w.PixelHeight);
-
-            try
-            {
-                for (int y = 0; y < w.PixelHeight; ++y)
-                {
-                    for (int x = 0; x < w.PixelWidth; ++x)
-                    {
-                        int pixel = w.Pixels[w.PixelWidth * y + x];
-                        imageData.SetPixel(x, y,
-
-                                           (byte)((pixel >> 16) & 0xFF),
-                                           (byte)((pixel >> 8) & 0xFF),
-                                           (byte)(pixel & 0xFF), (byte)((pixel >> 24) & 0xFF)
-                          );
-                    }
-                }
-            }
-            catch (System.Security.SecurityException)
-            {
-                MessageBox.Show("Cannot print images from other domains");
-                return null;
-            }
-
-            Stream pngStream = imageData.GetStream();
-            StreamReader sr = new StreamReader(pngStream);
-            byte[] binaryData = new Byte[pngStream.Length];
-            pngStream.Read(binaryData, 0, (int)pngStream.Length);
-
-            return binaryData;
-        }
-
-        /// <summary>
-        /// Metodo quer vai publicar gráfico no mural do usuairo que se conectar
-        /// </summary>
-        public void PublishFacebook()
-        {
-            PromptTexto promptComentario = new PromptTexto("Comentario", "", 10, true);
-
-            promptComentario.Closing += (sender1, e1) =>
-            {
-                if (promptComentario.DialogResult.Value == true)
-                {
-
-                    busyIndicator.BusyContent = "Publicando no Facebook";
-                    busyIndicator.IsBusy = true;
-
-                    //fazendo upload da imagem para um compartilhamento temporario na S3
-                    string bucketName = "traderdata-temp";
-                    byte[] imagem = GetBytesInternalPng(_stockChartX);
-                    string fileName = Guid.NewGuid().ToString() + ".png";
-                    TerminalWebSVC.TerminalWebClient client = new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.MarketDataEndpoint());
-                    client.UploadFileS3Completed += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(client_UploadFileS3Completed);
-                    client.UploadFileS3Async(bucketName, fileName, imagem, StaticData.S3Endpoint + bucketName + "/" + fileName + "@" + promptComentario.Texto);
-
-                }
-            };
-            promptComentario.Show();            
-            
-        }
-
-        /// <summary>
-        /// Evento executado ao terminal de fazer o upload
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void client_UploadFileS3Completed(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            busyIndicator.IsBusy = false;
-            //publicando no facebook
-            List<object> listaParametros = new List<object>();
-
-            string mensagem = ((string)e.UserState).Split('@')[1];
-            string arquivo = ((string)e.UserState).Split('@')[0];
-
-
-            listaParametros.Add(mensagem + " - Powered by Traderdata");
-            listaParametros.Add(arquivo);
-
-            HtmlPage.Window.Invoke("postPhoto", listaParametros.ToArray());
-
-        }
-
-        #endregion
 
         #region Zoom
         

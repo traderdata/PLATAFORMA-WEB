@@ -11,18 +11,25 @@
                     maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
+                <binding name="BasicHttpBinding_ITerminalWeb1" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
             </basicHttpBinding>
         </bindings>
         <client>
-            <endpoint address="http://localhost:8787/terminal-web" binding="basicHttpBinding"
-                bindingConfiguration="BasicHttpBinding_ITerminalWeb" contract="TerminalWebSVC.ITerminalWeb"
-                name="BasicHttpBinding_ITerminalWeb" />
             <endpoint address="https://app-ext.traderdata.com.br/md-api/MDAPI.svc"
                 binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IMarketDataWCF"
                 contract="MDApiSVC.IMarketDataWCF" name="BasicHttpBinding_IMarketDataWCF" />
             <endpoint address="http://win-bhfev05ht8l/md-api/MDAPI.svc" binding="basicHttpBinding"
                 bindingConfiguration="BasicHttpBinding_IMarketDataWCF1" contract="MDApiSVC.IMarketDataWCF"
                 name="BasicHttpBinding_IMarketDataWCF1" />
+            <endpoint address="https://webservice.traderdata.com.br/tweb2/service.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_ITerminalWeb"
+                contract="TerminalWebSVC.ITerminalWeb" name="BasicHttpBinding_ITerminalWeb" />
+            <endpoint address="http://win-fcb6tivvodr/tweb2/service.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_ITerminalWeb1"
+                contract="TerminalWebSVC.ITerminalWeb" name="BasicHttpBinding_ITerminalWeb1" />
         </client>
     </system.serviceModel>
 </configuration>

@@ -257,12 +257,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <summary>
         /// Variavel que armazena o codigo do usuario dentro da Traderdata
         /// </summary>
-        public static TerminalWebSVC.UsuarioDTO User;
-
-        /// <summary>
-        /// Variavel que controla qual o workspace
-        /// </summary>
-        public static TerminalWebSVC.WorkspaceDTO Workspace = new TerminalWebSVC.WorkspaceDTO();
+        public static TerminalWebSVC.UserDTO User;
 
         /// <summary>
         /// Variavel que controla o perfil do usuario localmente
@@ -300,10 +295,6 @@ namespace Traderdata.Client.TerminalWEB
         public static bool FerramentasAuxiliaresVisiveis = true;
 
         public static Dictionary<int, string> CorretoraBovespa = new Dictionary<int, string>();
-
-        public static List<TerminalWebSVC.PortfolioDTO> Portfolios = new List<TerminalWebSVC.PortfolioDTO>();
-
-        public static int RefId = 0;
 
         public static int TempoDemo = 0;
 

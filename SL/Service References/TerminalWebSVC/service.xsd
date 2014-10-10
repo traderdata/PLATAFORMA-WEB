@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" />
+  <xs:element name="LoginOrInsertUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoginOrInsertUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="LoginOrInsertUserResult" nillable="true" type="q1:UserDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTemplateFake">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTemplateFakeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetTemplateFakeResult" nillable="true" type="q2:TemplateDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGraficoFake">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGraficoFakeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetGraficoFakeResult" nillable="true" type="q3:GraficoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetObjetoFake">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetObjetoFakeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetObjetoFakeResult" nillable="true" type="q4:ObjetoEstudoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetIndicatorFake">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetIndicatorFakeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetIndicatorFakeResult" nillable="true" type="q5:IndicadorDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
