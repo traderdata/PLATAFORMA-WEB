@@ -101,13 +101,59 @@ namespace Traderdata.Server.App.TerminalWeb
 
         #endregion
 
-        #region fake
+        #region Grafico
 
-        public GraficoDTO GetGraficoFake()
+        /// <summary>
+        /// Metodo que retorna um grafico
+        /// </summary>
+        /// <param name="ativo"></param>
+        /// <param name="userId"></param>
+        /// <param name="periodicidade"></param>
+        /// <returns></returns>
+        public GraficoDTO GetGrafico(string ativo, int userId, int periodicidade)
         {
-            return new GraficoDTO();
+            try
+            {
+                using (GraficoBM graficoBM = new GraficoBM(true, true))
+                {
+                    return graficoBM.GetGrafico(ativo, userId, periodicidade);                        
+                }
+            }
+            catch (Exception exc)
+            {
+                LogServicoBM.LogaEvento(serviceGroup, serviceName, "SaveGrafico", exc.StackTrace + " || " + exc.ToString(), EventLogEntryType.Error);
+                throw exc;
+            }
         }
 
+
+        /// <summary>
+        /// Metodo que salva o template
+        /// </summary>
+        /// <param name="template"></param>
+        /// <returns></returns>
+        public GraficoDTO SaveGrafico(GraficoDTO grafico)
+        {
+            try
+            {
+                using (GraficoBM graficoBM = new GraficoBM(true, true))
+                {
+                    return graficoBM.SaveGrafico(grafico);
+                }
+            }
+            catch (Exception exc)
+            {
+                LogServicoBM.LogaEvento(serviceGroup, serviceName, "SaveGrafico", exc.StackTrace + " || " + exc.ToString(), EventLogEntryType.Error);
+                throw exc;
+            }
+        }
+
+        #endregion
+        
+        
+        #region fake
+
+        
         public ObjetoEstudoDTO GetObjetoFake()
         {
             return new ObjetoEstudoDTO();

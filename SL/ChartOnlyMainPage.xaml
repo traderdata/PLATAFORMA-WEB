@@ -50,21 +50,15 @@
                 </Grid.ColumnDefinitions>                
             
                 <c1:C1ToolbarStrip Name="c1ToolbarSuperior" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Horizontal" Height="36" Grid.Column="0" Background="LightGray">
-                    <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarOpenGrafico"  />
+                    <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarOpenGrafico" Visibility="Visible"  />
                     <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/salvar.png" ToolTipService.ToolTip="Salvar Gráfico" Name="tbarSalvarGrafico"  Click="tbarSalvarGrafico_Click_1"/>
-            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/application_x_desktop.png" ToolTipService.ToolTip="Configurações" Name="tbarConfig"  />
-                <!--<c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarAbrirGrafico"  Click="tbarAbrirGrafico_Click"/>                -->
+            <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/application_x_desktop.png" ToolTipService.ToolTip="Configurações" Name="tbarConfig" Click="tbarConfig_Click"  />
                 <TextBox Name="txtAtivo" Width="55" KeyDown="txtAtivo_KeyDown_1" Text="[ATIVO]" GotFocus="txtAtivo_GotFocus" />
-            <!--<c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarAbrirGrafico"  Click="tbarAbrirGrafico_Click_1"/>-->
-            <!--<c1:C1Separator/>
-            <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/info-icon.png" ToolTipService.ToolTip="Painel de Informações" Name="tbarPainelInformacoes" IsChecked="True" Click="tbarPainelInformacoes_Click"/>-->
+            
             <c1:C1Separator />
             <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/refresh-icon.png" ToolTipService.ToolTip="Refresh" Name="tbarRefreshCotacoes"  Click="tbarRefreshCotacoes_Click"/>
             <c1:C1Separator />
-            <!--<c1:C1ToolbarToggleButton ToolTipService.ToolTip="After-Market" Name="tbarAfterMarket"  Click="tbarAfterMarket_Click" IsEnabled="False">
-                <Image Style="{StaticResource tbIcon2Toolbar}" Source="/TerminalWeb;component/images/aftermarket-icon.png" />
-            </c1:C1ToolbarToggleButton>
-            <c1:C1Separator />-->
+            
             <c1:C1ToolbarButton ToolTipService.ToolTip="Adicionar Indicador" HorizontalAlignment="Right" Height="24" Name="tbarInsertIndicador" Click="tbarInsertIndicador_Click">
                 <StackPanel Orientation="Horizontal" >
                     <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/add-icon.png"/>
@@ -79,7 +73,7 @@
                     </ScrollViewer>
                 </c1:C1ToolbarDropDown.Content>
             </c1:C1ToolbarDropDown>
-            <c1:C1ToolbarButton ToolTipService.ToolTip="Excluir Indicadores" HorizontalAlignment="Right" Height="24" Name="tbarLimparIndicadores" >
+            <c1:C1ToolbarButton ToolTipService.ToolTip="Excluir Indicadores" HorizontalAlignment="Right" Height="24" Name="tbarLimparIndicadores" Click="tbarLimparIndicadores_Click">
                 <StackPanel Orientation="Horizontal" >
                     <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/delete-icon.png"/>                   
                 </StackPanel>

@@ -123,11 +123,6 @@ namespace Traderdata.Client.TerminalWEB
         private bool CarregandoPrimeiraVez = true;
 
         /// <summary>
-        /// variavel que controla se este é o grafico do primeiro layout, poois este tem configurações especiais
-        /// </summary>
-        private bool LayoutUm = false;
-
-        /// <summary>
         /// Lista de objetos colocados no gráfico
         /// </summary>
         private List<LineStudy> ListaLineStudy = new List<LineStudy>();
@@ -177,7 +172,7 @@ namespace Traderdata.Client.TerminalWEB
         /// Construtor padrão do gráfico
         /// </summary>
         /// <param name="ativo"></param>
-        public Grafico(string ativo, TerminalWebSVC.LayoutDTO layout, bool layout1, Periodicidade periodicidade)
+        public Grafico(string ativo, TerminalWebSVC.LayoutDTO layout, Periodicidade periodicidade)
         {
             InitializeComponent();
             
@@ -195,43 +190,27 @@ namespace Traderdata.Client.TerminalWEB
             
             //setando o layout do gráfico
             this.Layout = CloneLayout(layout, true, true);
-            this.LayoutUm = layout1;
-
+            
             //setando estado do gráfico para carregando
             this.CurrentState = EstadoGrafio.Carregando;
 
             //acionando timer
-            timerUpdate.Interval = new TimeSpan(0, 0, 2);
+            timerUpdate.Interval = new TimeSpan(0, 0, 1);
             timerUpdate.Tick += new EventHandler(timerUpdate_Tick);
             timerUpdate.Start();
 
-            //TODO:RETIRAR
-            if (this.Layout == null)
-            {
-                throw new Exception("Layout Null");
-
-                this.Layout = GeneralUtil.LayoutFake();
-            }
-
             if (CarregandoPrimeiraVez)
             {
-                //associando ao form pai
-                //mainPage = ((ChartOnlyMainPage)((BusyIndicator)((Grid)((Grid)((Canvas)((PageCollection)((Grid)((Canvas)((C1TabControl)((C1TabItem)this.Parent).Parent).Parent).Parent).Parent).Parent)
-                //        .Parent).Parent).Parent).Parent);
-
                 //setando o busy para on
                 busyIndicator.IsBusy = true;
                 lockStartRT = true;
 
                 if (!this.Intraday())
                 {
-                    marketDataDAO.GetCotacaoDiariaAsync(ativo);
-                    //marketDataDAO.SetCacheCotacaoIntradayAsync(ativo);
-
+                    marketDataDAO.GetCotacaoDiariaAsync(ativo);             
                 }
                 else
                 {
-                    //marketDataDAO.SetCacheCotacaoDiarioAsync(ativo);
                     marketDataDAO.GetCotacaoIntradayAsync(ativo, true, false);
                 }
 
@@ -255,67 +234,71 @@ namespace Traderdata.Client.TerminalWEB
 
         void timerUpdate_Tick(object sender, EventArgs e)
         {            
-            //_stockChartX.RecalculateIndicators();
+            _stockChartX.RecalculateIndicators();
+            foreach (Series obj in _stockChartX.SeriesCollection)
+            {
+                if (obj.TickBox == TickBoxPosition.Right)
+                {
+                    obj.TickBox = TickBoxPosition.None;
+                    obj.TickBox = TickBoxPosition.Right;
+                }
+            }
             _stockChartX.Update();
         }
 
         void RealTimeDAO_TickReceived(object Result)
         {
-            //try
-            //{
-            //    //se for de outro ativo devemos ignorar o tick
-            //    if (((TickDTO)Result).Ativo == this.ativo)
-            //    {
-            //        TickDTO tick = (TickDTO)Result;
-                    
+            try
+            {
+                //se for de outro ativo devemos ignorar o tick
+                if (((TickDTO)Result).Ativo == this.ativo)
+                {
+                    TickDTO tick = (TickDTO)Result;
 
-            //        #region atualização do grafico
-            //        //checando se a ultima barra
-            //        DateTime ultimaBarra = _stockChartX.GetTimestampByIndex(_stockChartX.RecordCount - 1).Value;
 
-            //        //checando qual o tipo de atualização
-            //        switch (this.Periodicidade)
-            //        {
-            //            case TerminalWEB.Periodicidade.Diario:
-            //                AtualizaGraficoDiario(ultimaBarra, tick);
-            //                break;
-            //            case TerminalWEB.Periodicidade.Semanal:
-            //                AtualizaGraficoSemanal(ultimaBarra, tick);
-            //                break;
-            //            case TerminalWEB.Periodicidade.Mensal:
-            //                AtualizaGraficoMensal(ultimaBarra, tick);
-            //                break;
-            //            case TerminalWEB.Periodicidade.UmMinuto:
-            //            case TerminalWEB.Periodicidade.DoisMinutos:
-            //            case TerminalWEB.Periodicidade.TresMinutos:
-            //            case TerminalWEB.Periodicidade.CincoMinutos:
-            //            case TerminalWEB.Periodicidade.DezMinutos:
-            //            case TerminalWEB.Periodicidade.QuinzeMinutos:
-            //            case TerminalWEB.Periodicidade.TrintaMinutos:
-            //            case TerminalWEB.Periodicidade.SessentaMinutos:
-            //            case TerminalWEB.Periodicidade.CentoeVinteMinutos:
-            //                AtualizaGraficoIntraday(ultimaBarra, tick, GeneralUtil.GetIntPeriodicidade(this.Periodicidade));
-            //                break;
-            //        }
+                    #region atualização do grafico
+                    //checando se a ultima barra
+                    DateTime ultimaBarra = _stockChartX.GetTimestampByIndex(_stockChartX.RecordCount - 1).Value;
 
-            //        //_stockChartX.RecalculateIndicators();
-            //        //_stockChartX.Update();
+                    //checando qual o tipo de atualização
+                    switch (this.Periodicidade)
+                    {
+                        case TerminalWEB.Periodicidade.Diario:
+                            AtualizaGraficoDiario(ultimaBarra, tick);
+                            break;
+                        case TerminalWEB.Periodicidade.Semanal:
+                            AtualizaGraficoSemanal(ultimaBarra, tick);
+                            break;
+                        case TerminalWEB.Periodicidade.Mensal:
+                            AtualizaGraficoMensal(ultimaBarra, tick);
+                            break;
+                        case TerminalWEB.Periodicidade.UmMinuto:
+                        case TerminalWEB.Periodicidade.DoisMinutos:
+                        case TerminalWEB.Periodicidade.TresMinutos:
+                        case TerminalWEB.Periodicidade.CincoMinutos:
+                        case TerminalWEB.Periodicidade.DezMinutos:
+                        case TerminalWEB.Periodicidade.QuinzeMinutos:
+                        case TerminalWEB.Periodicidade.TrintaMinutos:
+                        case TerminalWEB.Periodicidade.SessentaMinutos:
+                        case TerminalWEB.Periodicidade.CentoeVinteMinutos:
+                            AtualizaGraficoIntraday(ultimaBarra, tick, GeneralUtil.GetIntPeriodicidade(this.Periodicidade));
+                            break;
+                    }
 
-            //        //atualizando o infpanel
-            //        AtualizaInfoPanel();
-            //        #endregion
+        
+                    //atualizando o infpanel
+                    AtualizaInfoPanel();
+                    #endregion
 
-            //    }
-            //}
-            //catch
-            //{
-            //}
+                }
+            }
+            catch(Exception exc)
+            {
+            }
 
         }
 
-        public Grafico()
-        {
-        }
+        
         
 
         #endregion
@@ -1416,8 +1399,6 @@ namespace Traderdata.Client.TerminalWEB
                     obj.TickBox = TickBoxPosition.Right;
                 }
             }
-
-            _stockChartX.Update();
         }
 
         /// <summary>
@@ -1600,19 +1581,20 @@ namespace Traderdata.Client.TerminalWEB
                 //setando o estado do gráfico para aguardando alguma operação
                 this.CurrentState = EstadoGrafio.Nenhum;
 
-                //TextBlock lbl = _stockChartX.GetPanelByIndex(0).ChartPanelLabel;
-                //lbl.FontSize = 30;
-                //lbl.Foreground = Brushes.Black;
-                //lbl.Foreground.Opacity = 0.3;
-                //lbl.Text = StaticData.WaterMark;
-                //lbl.Visibility = System.Windows.Visibility.Visible;
+                TextBlock lbl = _stockChartX.GetPanelByIndex(0).ChartPanelLabel;
+                lbl.FontSize = 30;
+                lbl.Foreground = Brushes.Black;
+                lbl.Foreground.Opacity = 0.3;
+                lbl.Text = StaticData.WaterMark;
+                lbl.Visibility = System.Windows.Visibility.Visible;
 
 
-                //_stockChartX.GetPanelByIndex(0).ChartPanelLabel.Margin = new Thickness((_stockChartX.ActualWidth / 2) - (_stockChartX.GetPanelByIndex(0).ChartPanelLabel.ActualWidth / 2)
-                //    , 0, 0, 0);
+                _stockChartX.GetPanelByIndex(0).ChartPanelLabel.Margin = new Thickness((_stockChartX.ActualWidth / 2) - (_stockChartX.GetPanelByIndex(0).ChartPanelLabel.ActualWidth / 2)
+                    , 0, 0, 0);
 
 
-                _stockChartX.Update();
+                timerUpdate.Start();
+                busyIndicator.IsBusy = false;
             }
             catch (Exception exc)
             {
@@ -1655,16 +1637,17 @@ namespace Traderdata.Client.TerminalWEB
         {
             if (ultimaBarra.Date == tick.Data.Date)
             {
+                int record = _stockChartX.RecordCount - 1;
                 _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".open",
-                    _stockChartX.RecordCount - 1, tick.Abertura);
+                    record, tick.Abertura);
                 _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".high",
-                    _stockChartX.RecordCount - 1, tick.Maximo);
+                    record, tick.Maximo);
                 _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".low",
-                    _stockChartX.RecordCount - 1, tick.Minimo);
+                    record, tick.Minimo);
                 _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".close",
-                    _stockChartX.RecordCount - 1, tick.Ultimo);
+                    record, tick.Ultimo);
                 _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".volume",
-                    _stockChartX.RecordCount - 1, tick.Volume);
+                    record, tick.Volume);
             }
             else
             {
@@ -1766,23 +1749,20 @@ namespace Traderdata.Client.TerminalWEB
             else
 
             {
-                int index = _stockChartX.GetReverseX(ultimaBarra, false);
+                //int index = _stockChartX.GetReverseX(ultimaBarra, false);
+                int record = _stockChartX.RecordCount - 1;
 
                 //maximo                
-                _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".high",
-                    _stockChartX.RecordCount - 1, Math.Max(tick.Ultimo, _stockChartX.GetValue(_stockChartX.Symbol + ".high", _stockChartX.RecordCount - 1).Value));
+                _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".high", record, Math.Max(tick.Ultimo, _stockChartX.GetValue(_stockChartX.Symbol + ".high", record).Value));
 
                 //minimo
-                _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".low",
-                    _stockChartX.RecordCount - 1, Math.Min(tick.Ultimo, _stockChartX.GetValue(_stockChartX.Symbol + ".low", _stockChartX.RecordCount - 1).Value));
+                _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".low", record, Math.Min(tick.Ultimo, _stockChartX.GetValue(_stockChartX.Symbol + ".low", record).Value));
 
-                _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".close",
-                    index, tick.Ultimo);
+                _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".close", record, tick.Ultimo);
 
                 if (periodicidade == 1)
                 {
-                    _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".volume",
-                        index, tick.VolumeUltimoMinuto);
+                    _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".volume", record, tick.VolumeUltimoMinuto);
                 }
                 else
                 {
@@ -1797,14 +1777,12 @@ namespace Traderdata.Client.TerminalWEB
 
                     }
 
-                    _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".volume",
-                     index, volume);
+                    _stockChartX.EditValueByRecord(_stockChartX.Symbol + ".volume", record,  volume);
 
                     
                 }
             }
             
-            //this.RefreshLayout();
         }
 
         #endregion
@@ -1904,6 +1882,7 @@ namespace Traderdata.Client.TerminalWEB
         /// </summary>
         public void Refresh(TerminalWebSVC.LayoutDTO layout)
         {
+            timerUpdate.Stop();
             SetPeriodicidade(this.Periodicidade, true, layout);
         }
 

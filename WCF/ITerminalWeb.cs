@@ -33,10 +33,19 @@ namespace Traderdata.Server.App.TerminalWeb
 
         #endregion
 
-        #region Fake
+        #region Grafico
 
         [OperationContract]
-        GraficoDTO GetGraficoFake();
+        GraficoDTO GetGrafico(string ativo, int userId, int periodicidade);
+
+        [OperationContract]
+        GraficoDTO SaveGrafico(GraficoDTO grafico);
+
+        #endregion
+
+        #region Fake
+
+        
 
         [OperationContract]
         ObjetoEstudoDTO GetObjetoFake();

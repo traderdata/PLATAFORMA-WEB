@@ -64,11 +64,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessManager\BaseBM.cs" />
+    <Compile Include="BusinessManager\GraficoBM.cs" />
     <Compile Include="BusinessManager\TemplateBM.cs" />
     <Compile Include="BusinessManager\UserBM.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="DAO\GraficoDAO.cs" />
     <Compile Include="DAO\IndicadorDAO.cs" />
     <Compile Include="DAO\LayoutDAO.cs" />
+    <Compile Include="DAO\ObjetoEstudoDAO.cs" />
     <Compile Include="DAO\PainelDAO.cs" />
     <Compile Include="DAO\TemplateDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />

@@ -50,20 +50,10 @@ namespace Traderdata.Client.TerminalWEB
         private DispatcherTimer timerCarregamentoInicial = new DispatcherTimer();
 
         /// <summary>
-        /// variavel de controle de bovespa RT/delay
+        /// Lista de templares desse usuario
         /// </summary>
-        private bool bovespaRTDelayProcessed = false;
+        private List<TerminalWebSVC.TemplateDTO> Templates = new List<TerminalWebSVC.TemplateDTO>();
 
-        /// <summary>
-        /// variavel de controle de bmf
-        /// </summary>
-        private bool bmfRTDelayProcessed = false;
-
-        /// <summary>
-        /// Timer que vai chamar a tela de login
-        /// </summary>
-        private DispatcherTimer timerLogin = new DispatcherTimer();
-        
         /// <summary>
         /// Timer que vai pressionar ou desmarcar os botoes e controlar aparição dos forms
         /// </summary>
@@ -105,8 +95,8 @@ namespace Traderdata.Client.TerminalWEB
             terminalWebClient.SaveTemplateCompleted += new EventHandler<TerminalWebSVC.SaveTemplateCompletedEventArgs>(terminalWebClient_SaveTemplateCompleted);
                         
             //assinando eventos de grafico
-            //terminalWebClient.RetornaGraficoPorAtivoPeriodicidadeCompleted += terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted;
-            
+            terminalWebClient.GetGraficoCompleted += new EventHandler<TerminalWebSVC.GetGraficoCompletedEventArgs>(terminalWebClient_GetGraficoCompleted);
+                        
             //carregando a listagem de indicadores e suas propriedades
             IndicadorDAO.SetTodosIndicadoresInfo();
 
@@ -126,8 +116,8 @@ namespace Traderdata.Client.TerminalWEB
             #region Realtime
 
             //eventos de Realtime BMF&BVSP
-            RealTimeDAO.OnConnectErrorTick += RealTimeDAO_OnConnectErrorBVSP;
-            RealTimeDAO.OnConnectSuccessTick += RealTimeDAO_OnConnectSuccessBVSP;
+            //RealTimeDAO.OnConnectErrorTick += RealTimeDAO_OnConnectErrorBVSP;
+            //RealTimeDAO.OnConnectSuccessTick += RealTimeDAO_OnConnectSuccessBVSP;
 
             //Reecbimento de tick
             RealTimeDAO.TickReceived += new RealTimeDAO.TickHandler(RealTimeDAO_TickReceived);
@@ -164,6 +154,8 @@ namespace Traderdata.Client.TerminalWEB
             #endregion
 
         }
+
+        
 
         
 
@@ -215,7 +207,7 @@ namespace Traderdata.Client.TerminalWEB
             terminalWebClient.GetTemplatesByUserAsync(StaticData.User.Id);
 
             //abrindo gráficosolicitado
-            NovoGraficoAtalho(ativoSelecionado);
+            NovoGrafico(ativoSelecionado);
         }
         
         /// <summary>
@@ -266,6 +258,7 @@ namespace Traderdata.Client.TerminalWEB
         /// <param name="e"></param>
         void terminalWebClient_GetTemplatesByUserCompleted(object sender, TerminalWebSVC.GetTemplatesByUserCompletedEventArgs e)
         {
+            Templates = e.Result;
             mnuTemplates.Items.Clear();
             foreach (TerminalWEB.TerminalWebSVC.TemplateDTO obj in e.Result)
             {
@@ -340,6 +333,7 @@ namespace Traderdata.Client.TerminalWEB
             }
 
         }
+        
         /// <summary>
         /// Evento disparado após se excluir um template 
         /// </summary>
@@ -352,92 +346,72 @@ namespace Traderdata.Client.TerminalWEB
 
             //alterando sttausabar
             StaticData.AddLog("Template excluído com sucesso");
-        }
-                
-       
+        }                       
 
+        #endregion
+
+
+        #region Abrindo & Salvando
+                
         /// <summary>
-        /// Evento disparado ao se clicar no menu para excluir um template
+        /// Evento do clique no botao salvar grafico
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void mnuItemExcluir_Click(object sender, SourcedEventArgs e)
+        private void tbarSalvarGrafico_Click_1(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Deseja excluir o template " + ((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag).Nome, "Confirmação", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-            {
-                //terminalWebClient.ExcluiTemplateAsync((TerminalWebSVC.TemplateDTO)((C1MenuItem)sender).Tag);
-            }
+            TerminalWebSVC.GraficoDTO graficoDTO = new TerminalWebSVC.GraficoDTO();
+            TerminalWebSVC.LayoutDTO layoutDTO = chart.GetLayoutDTOFromStockchart();
+            graficoDTO.UsuarioId = StaticData.User.Id;
+            graficoDTO.Ativo = chart._stockChartX.Symbol;
+            graficoDTO.DataCadastro = DateTime.UtcNow;
+            graficoDTO.Layout = layoutDTO;
+            graficoDTO.Periodicidade = GeneralUtil.GetIntPeriodicidade(chart.GetPeriodicidade());
+            terminalWebClient.SaveGraficoAsync(graficoDTO);
         }
-
+        
         /// <summary>
         /// Metodo que abre um procura por um gráfico salvo
         /// </summary>
         /// <param name="ativo"></param>
-        public void NovoGraficoAtalho(string ativo)
+        public void NovoGrafico(string ativo)
         {
             busyIndicator.BusyContent = "Abrindo gráfico...";
             busyIndicator.IsBusy = true;
-            NovoGrafico(ativo, null, Periodicidade.Diario);
+            List<object> args = new List<object>();
+            args.Add(ativo);
+            args.Add(GeneralUtil.GetIntPeriodicidade(Periodicidade.Diario));
+            terminalWebClient.GetGraficoAsync(ativo, StaticData.User.Id, GeneralUtil.GetIntPeriodicidade(Periodicidade.Diario), args);            
         }
 
-        /// <summary>
-        /// Buscando grafico ja salvo previamente
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //void terminalWebClient_RetornaGraficoPorAtivoPeriodicidadeCompleted(object sender, TerminalWebSVC.RetornaGraficoPorAtivoPeriodicidadeCompletedEventArgs e)
-        //{
-        //    busyIndicator.IsBusy = false;
-        //    if (e.Result == null)
-        //    {
-        //        List<object> args = (List<object>)e.UserState;
-        //        NovoGrafico((string)args[0], null, GeneralUtil.GetPeriodicidadeFromInt(Convert.ToInt32(args[1])));
-        //    }
-        //    else
-        //    {
-        //        NovoGrafico(e.Result[0]);
-        //    }
-        //}
+        void terminalWebClient_GetGraficoCompleted(object sender, TerminalWebSVC.GetGraficoCompletedEventArgs e)
+        {            
+            List<object> args = (List<object>)e.UserState;
+            string ativo = Convert.ToString(args[0]);
+            int periodicidade = Convert.ToInt32(args[1]);
+            //setando o header
+            txtAtivoVariacao.Text = ativo;
+            //setando o ativo selecionado
+            this.ativoSelecionado = ativo;
+            //assinando o recebimento de tick
+            RealTimeDAO.StartTickSubscription(ativo);
+            
+            if (e.Result == null)           
+                chart = new Grafico(ativo, GeneralUtil.LayoutFake(), GeneralUtil.GetPeriodicidadeFromInt(periodicidade));            
+            else
+                chart = new Grafico(ativo, e.Result.Layout, GeneralUtil.GetPeriodicidadeFromInt(e.Result.Periodicidade));
+
+            gridPrincipal.Children.Clear();
+            gridPrincipal.Children.Add(chart);
+            busyIndicator.IsBusy = false;
+        }
 
         
+
         #endregion
 
         #region Realtime
-
-        /// <summary>
-        /// Evento disparado ao obter sucesso na conexao RT/Delay BVSP
-        /// </summary>
-        void RealTimeDAO_OnConnectSuccessBVSP()
-        {
-            StaticData.AddLog("Conectado com sucesso no servidor BVSP RT");
-            bovespaRTDelayProcessed = true;            
-        }
-
-        /// <summary>
-        /// Evento disparado ao se obter erro na conexao RT/Delay BVSP
-        /// </summary>
-        void RealTimeDAO_OnConnectErrorBVSP()
-        {
-            StaticData.AddLog("Erro ao conectar no servidor BVSP RT");
-            bovespaRTDelayProcessed = true;            
-        }
-
-        /// <summary>
-        /// Evento disparado ao se obter erro na conexao RT/Delay BMF
-        /// </summary>
-        void RealTimeDAO_OnConnectSuccessBMF()
-        {
-            bmfRTDelayProcessed = true;
-        }
-
-        /// <summary>
-        /// Evento disparado ao se obter erro na conexao RT/Delay BMF
-        /// </summary>
-        void RealTimeDAO_OnConnectErrorBMF()
-        {
-            bmfRTDelayProcessed = true;
-        }
-
+                
         /// <summary>
         /// Evento disparado quando se recebe um novo tick do ativo
         /// </summary>
@@ -623,41 +597,11 @@ namespace Traderdata.Client.TerminalWEB
 
         #region Toolbar Superior & Menu Superior
 
-        #region Salvar Grafico
-
-        /// <summary>
-        /// Evento do clique no botao salvar grafico
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbarSalvarGrafico_Click_1(object sender, RoutedEventArgs e)
-        {
-            //canvasPrincipal.SalvarGrafico();
-        }
-
-        #endregion
+        
 
         #region Janelas
         
-        /// <summary>
-        /// Metodo que faz a criação de uma nova janela
-        /// </summary>
-        private void NovoGrafico(string ativo, TerminalWebSVC.TemplateDTO template, Periodicidade periodicidade)
-        {         
-            //setando o header
-            txtAtivoVariacao.Text = ativo;
-
-            //setando o ativo selecionado
-            this.ativoSelecionado = ativo;
-            
-            //assinando o recebimento de tick
-            RealTimeDAO.StartTickSubscription(ativo);
-
-            //Adicionando o conteudo                        
-            chart = new Grafico(ativo, GeneralUtil.LayoutFake(), true, Periodicidade.Diario);            
-            gridPrincipal.Children.Add(chart);
-            busyIndicator.IsBusy = false;
-        }
+        
         
         #endregion
 
@@ -1335,7 +1279,7 @@ namespace Traderdata.Client.TerminalWEB
         {
             if (e.Key == Key.Enter)
             {
-                NovoGraficoAtalho(txtAtivo.Text);
+                NovoGrafico(txtAtivo.Text);
                 return;
             }
             e.Handled = MakeUpperCase((TextBox)sender, e);
@@ -1448,6 +1392,27 @@ namespace Traderdata.Client.TerminalWEB
         private void mnuManual_Click_1(object sender, SourcedEventArgs e)
         {
             HtmlPage.Window.Navigate(new Uri("https://easytrader.traderdata.com.br/manual.pdf", UriKind.RelativeOrAbsolute), "_new");            
+        }
+
+        private void tbarLimparIndicadores_Click(object sender, RoutedEventArgs e)
+        {
+            chart.Layout.Indicadores.Clear();
+            chart.Refresh(chart.Layout);
+        }
+
+        private void tbarConfig_Click(object sender, RoutedEventArgs e)
+        {
+            ConfiguracaoGeral configDialog = new ConfiguracaoGeral(Templates);
+            
+            configDialog.Closing += (sender1, e1) =>
+            {
+                if (configDialog.DialogResult.Value == true)
+                {
+                    
+                }
+            };
+            configDialog.Show();
+            
         }
 
         

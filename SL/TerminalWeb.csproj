@@ -141,6 +141,9 @@
     <Compile Include="Dialogs\ColorConfiguration.xaml.cs">
       <DependentUpon>ColorConfiguration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ConfiguracaoGeral.xaml.cs">
+      <DependentUpon>ConfiguracaoGeral.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\HorizontalLineEdit.xaml.cs">
       <DependentUpon>HorizontalLineEdit.xaml</DependentUpon>
     </Compile>
@@ -159,9 +162,6 @@
     <Compile Include="Dialogs\NumericUpDownUC.xaml.cs">
       <DependentUpon>NumericUpDownUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\RecomendarCompraVenda.xaml.cs">
-      <DependentUpon>RecomendarCompraVenda.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\StrokeTypePicker.xaml.cs">
       <DependentUpon>StrokeTypePicker.xaml</DependentUpon>
     </Compile>
@@ -171,14 +171,8 @@
     <Compile Include="Dialogs\PromptTexto.xaml.cs">
       <DependentUpon>PromptTexto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\SearchBox.xaml.cs">
-      <DependentUpon>SearchBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\StrokeThicknessPicker.xaml.cs">
       <DependentUpon>StrokeThicknessPicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Videos.xaml.cs">
-      <DependentUpon>Videos.xaml</DependentUpon>
     </Compile>
     <Compile Include="DTO\AtivoDTO.cs" />
     <Compile Include="DTO\BookDTO.cs" />
@@ -193,9 +187,6 @@
     <Compile Include="DTO\TradeDTO.cs" />
     <Compile Include="Grafico.xaml.cs">
       <DependentUpon>Grafico.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageCollection.xaml.cs">
-      <DependentUpon>PageCollection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\MDApiSVC\Reference.cs">
@@ -240,6 +231,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\ConfiguracaoGeral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\HorizontalLineEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -264,10 +259,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\RecomendarCompraVenda.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\StrokeTypePicker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -280,23 +271,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Dialogs\SearchBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\StrokeThicknessPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\Videos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Grafico.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageCollection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -109,15 +109,15 @@ namespace Traderdata.Server.App.TerminalWeb.DAO
                     }
                 }
 
-                ////inserir os objetos do layout
-                //foreach (ObjetoEstudoDTO objeto in layout.Objetos)
-                //{
-                //    using (ObjetoEstudoDAO objetoDAO = new ObjetoEstudoDAO(readConnection, writeConnection))
-                //    {
-                //        objeto.LayoutId = layout.Id;
-                //        objetoDAO.SalvarObjetoEstudo(objeto);
-                //    }
-                //}
+                //inserir os objetos do layout
+                foreach (ObjetoEstudoDTO objeto in layout.Objetos)
+                {
+                    using (ObjetoEstudoDAO objetoDAO = new ObjetoEstudoDAO(readConnection, writeConnection))
+                    {
+                        objeto.LayoutId = layout.Id;
+                        objetoDAO.SalvarObjetoEstudo(objeto);
+                    }
+                }
             }
             catch (Exception exc)
             {

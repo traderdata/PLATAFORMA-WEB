@@ -50,11 +50,17 @@
   <wsdl:message name="ITerminalWeb_SaveTemplate_OutputMessage">
     <wsdl:part name="parameters" element="tns:SaveTemplateResponse" />
   </wsdl:message>
-  <wsdl:message name="ITerminalWeb_GetGraficoFake_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetGraficoFake" />
+  <wsdl:message name="ITerminalWeb_GetGrafico_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGrafico" />
   </wsdl:message>
-  <wsdl:message name="ITerminalWeb_GetGraficoFake_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetGraficoFakeResponse" />
+  <wsdl:message name="ITerminalWeb_GetGrafico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGraficoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveGrafico_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveGrafico" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_SaveGrafico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveGraficoResponse" />
   </wsdl:message>
   <wsdl:message name="ITerminalWeb_GetObjetoFake_InputMessage">
     <wsdl:part name="parameters" element="tns:GetObjetoFake" />
@@ -87,9 +93,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/SaveTemplate" message="tns:ITerminalWeb_SaveTemplate_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/SaveTemplateResponse" message="tns:ITerminalWeb_SaveTemplate_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetGraficoFake">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetGraficoFake" message="tns:ITerminalWeb_GetGraficoFake_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetGraficoFakeResponse" message="tns:ITerminalWeb_GetGraficoFake_OutputMessage" />
+    <wsdl:operation name="GetGrafico">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetGrafico" message="tns:ITerminalWeb_GetGrafico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/GetGraficoResponse" message="tns:ITerminalWeb_GetGrafico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveGrafico">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/SaveGrafico" message="tns:ITerminalWeb_SaveGrafico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/SaveGraficoResponse" message="tns:ITerminalWeb_SaveGrafico_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetObjetoFake">
       <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetObjetoFake" message="tns:ITerminalWeb_GetObjetoFake_InputMessage" />
@@ -134,8 +144,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetGraficoFake">
-      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetGraficoFake" style="document" />
+    <wsdl:operation name="GetGrafico">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetGrafico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveGrafico">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveGrafico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -200,8 +219,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetGraficoFake">
-      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetGraficoFake" style="document" />
+    <wsdl:operation name="GetGrafico">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/GetGrafico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveGrafico">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveGrafico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -140,22 +140,11 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Ativo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DataCadastro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Height" type="xs:int" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Layouts" nillable="true" type="tns:ArrayOfLayoutDTO" />
-      <xs:element minOccurs="0" name="Left" type="xs:int" />
+      <xs:element minOccurs="0" name="Layout" nillable="true" type="tns:LayoutDTO" />
       <xs:element minOccurs="0" name="Periodicidade" type="xs:int" />
-      <xs:element minOccurs="0" name="Top" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioId" type="xs:int" />
-      <xs:element minOccurs="0" name="Width" type="xs:int" />
-      <xs:element minOccurs="0" name="WorkspaceId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GraficoDTO" nillable="true" type="tns:GraficoDTO" />
-  <xs:complexType name="ArrayOfLayoutDTO">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="LayoutDTO" nillable="true" type="tns:LayoutDTO" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfLayoutDTO" nillable="true" type="tns:ArrayOfLayoutDTO" />
 </xs:schema>

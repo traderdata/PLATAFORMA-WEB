@@ -382,7 +382,7 @@ namespace Traderdata.Client.TerminalWEB.DAO
 
                 if (!StaticData.cacheCotacaoIntraday.ContainsKey(ativo))
                 {
-                    mdWebClient.GetCotacaoAsync(ativo, MDApiSVC.CotacaoDTOBasePeriodicity.Minute, 1, null, null, StaticData.DelayedVersion, 1000, false, false, args);                
+                    mdWebClient.GetCotacaoAsync(ativo, MDApiSVC.CotacaoDTOBasePeriodicity.Minute, 1, null, null, StaticData.DelayedVersion, 10000, false, false, args);                
                 }
                 else
                 {
