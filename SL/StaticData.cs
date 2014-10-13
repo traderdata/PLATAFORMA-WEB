@@ -292,15 +292,8 @@ namespace Traderdata.Client.TerminalWEB
 
         #region Outros
 
-        public static bool FerramentasAuxiliaresVisiveis = true;
-
-        public static Dictionary<int, string> CorretoraBovespa = new Dictionary<int, string>();
-
-        public static int TempoDemo = 0;
-
+        
         public static string WaterMark = "";
-
-        public static bool WorkspaceSalvo { get; set; }
 
         #endregion
 

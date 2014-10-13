@@ -99,6 +99,26 @@ namespace Traderdata.Server.App.TerminalWeb
             }
         }
 
+        /// <summary>
+        /// Metodo que apaga o template
+        /// </summary>
+        /// <param name="template"></param>
+        public void DeleteTemplate(TemplateDTO template)
+        {
+            try
+            {
+                using (TemplateBM templateBM = new TemplateBM(true, true))
+                {
+                    templateBM.DeleteTemplate(template);
+                }
+            }
+            catch (Exception exc)
+            {
+                LogServicoBM.LogaEvento(serviceGroup, serviceName, "DeleteTemplate", exc.StackTrace + " || " + exc.ToString(), EventLogEntryType.Error);
+                throw exc;
+            }
+        }
+
         #endregion
 
         #region Grafico

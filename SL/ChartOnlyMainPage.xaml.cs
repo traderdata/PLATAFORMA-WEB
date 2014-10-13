@@ -182,7 +182,8 @@ namespace Traderdata.Client.TerminalWEB
 
             //Executando LoginOrInsert no login
             terminalWebClient.LoginOrInsertUserCompleted += new EventHandler<TerminalWebSVC.LoginOrInsertUserCompletedEventArgs>(terminalWebClient_LoginOrInsertUserCompleted);
-            terminalWebClient.LoginOrInsertUserAsync(login);
+            
+            terminalWebClient.LoginOrInsertUserAsync(this.login);
         }
 
         
@@ -1408,7 +1409,7 @@ namespace Traderdata.Client.TerminalWEB
             {
                 if (configDialog.DialogResult.Value == true)
                 {
-                    
+                    terminalWebClient.GetTemplatesByUserAsync(StaticData.User.Id);
                 }
             };
             configDialog.Show();

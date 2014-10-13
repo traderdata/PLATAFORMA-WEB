@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebStartup.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DefaultTWeb2.aspx.cs" Inherits="WebStartup.Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -148,11 +148,11 @@
     <form id="form1" runat="server" style="height:100%">
     <div id="silverlightControlHost">
         <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%" id="silverlightControl">
-		  <param name="source" value="ClientBin/TerminalWeb.xap"/>
+		  <param name="source" value="https://tweb2.traderdata.com.br/ClientBin/TerminalWeb.xap"/>
 		  <param name="onError" value="onSilverlightError" />
           <param name="onLoad" value="pluginLoaded" />
           <param name="windowless" value="true" />
-          <param name="initParams" value="broker=<%=Request["broker"]%>,usr=<%=Request["usr"] %>,token=<%=Request["token"]%>,symbol=<%=Request["symbol"]%>" />
+          <param name="initParams" value="broker=<%=ConfigurationSettings.AppSettings["broker"]%>,usr=<%=Request["usr"] %>,token=<%=Request["token"]%>,symbol=<%=Request["symbol"]%>" />
 		  <param name="background" value="white" />
 		  <param name="minRuntimeVersion" value="4.0.50826.0" />
 		  <param name="autoUpgrade" value="true" />

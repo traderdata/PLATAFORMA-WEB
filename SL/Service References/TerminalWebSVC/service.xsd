@@ -43,6 +43,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteTemplate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="template" nillable="true" type="q5:TemplateDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteTemplateResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetGrafico">
     <xs:complexType>
       <xs:sequence>
@@ -55,21 +67,21 @@
   <xs:element name="GetGraficoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetGraficoResult" nillable="true" type="q5:GraficoDTO" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetGraficoResult" nillable="true" type="q6:GraficoDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SaveGrafico">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="grafico" nillable="true" type="q6:GraficoDTO" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="grafico" nillable="true" type="q7:GraficoDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SaveGraficoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="SaveGraficoResult" nillable="true" type="q7:GraficoDTO" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="SaveGraficoResult" nillable="true" type="q8:GraficoDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -81,7 +93,7 @@
   <xs:element name="GetObjetoFakeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetObjetoFakeResult" nillable="true" type="q8:ObjetoEstudoDTO" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetObjetoFakeResult" nillable="true" type="q9:ObjetoEstudoDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -93,7 +105,7 @@
   <xs:element name="GetIndicatorFakeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetIndicatorFakeResult" nillable="true" type="q9:IndicadorDTO" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetIndicatorFakeResult" nillable="true" type="q10:IndicadorDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -105,7 +117,7 @@
   <xs:element name="GetLIndicatorFakeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetLIndicatorFakeResult" nillable="true" type="q10:LayoutDTO" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetLIndicatorFakeResult" nillable="true" type="q11:LayoutDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

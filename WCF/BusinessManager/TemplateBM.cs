@@ -92,6 +92,32 @@ namespace Traderdata.Server.App.TerminalWeb.BusinessManager
             }
         }
 
+        /// <summary>
+        /// Delete template
+        /// </summary>
+        /// <param name="template"></param>
+        public void DeleteTemplate(TemplateDTO template)
+        {
+            try
+            {
+                transaction = writeConnection.BeginTransaction();
+
+                //inserindo o template
+                using (TemplateDAO templateDAO = new TemplateDAO(readConnection, writeConnection))
+                {
+                    templateDAO.DeleteTemplate(template);
+                }
+
+                transaction.Commit();
+
+            }
+            catch (Exception exc)
+            {
+                transaction.Rollback();
+                throw exc;
+            }
+        }
+
         #endregion
     }
 }

@@ -233,7 +233,7 @@ namespace Traderdata.Client.TerminalWEB
         }
 
         void timerUpdate_Tick(object sender, EventArgs e)
-        {            
+        {
             _stockChartX.RecalculateIndicators();
             foreach (Series obj in _stockChartX.SeriesCollection)
             {
@@ -1585,7 +1585,7 @@ namespace Traderdata.Client.TerminalWEB
                 lbl.FontSize = 30;
                 lbl.Foreground = Brushes.Black;
                 lbl.Foreground.Opacity = 0.3;
-                lbl.Text = StaticData.WaterMark;
+                lbl.Text = StaticData.WaterMark + " - " + this._stockChartX.Symbol.ToUpper();
                 lbl.Visibility = System.Windows.Visibility.Visible;
 
 

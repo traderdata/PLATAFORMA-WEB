@@ -63,7 +63,7 @@
   <ItemGroup>
     <Content Include="Default2.aspx" />
     <Content Include="DefaultSave.aspx" />
-    <Content Include="Default.aspx" />
+    <Content Include="DefaultTWeb2.aspx" />
     <Content Include="FBChat.aspx" />
     <Content Include="FBook.js" />
     <Content Include="Silverlight.js" />
@@ -90,12 +90,12 @@
     <Compile Include="DefaultSave.aspx.designer.cs">
       <DependentUpon>DefaultSave.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="DefaultTWeb2.aspx.cs">
+      <DependentUpon>DefaultTWeb2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="DefaultTWeb2.aspx.designer.cs">
+      <DependentUpon>DefaultTWeb2.aspx</DependentUpon>
     </Compile>
     <Compile Include="FBChat.aspx.cs">
       <DependentUpon>FBChat.aspx</DependentUpon>

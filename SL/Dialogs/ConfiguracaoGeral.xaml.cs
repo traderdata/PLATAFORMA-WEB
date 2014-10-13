@@ -14,12 +14,38 @@ namespace Traderdata.Client.TerminalWEB.Dialogs
 {
     public partial class ConfiguracaoGeral : ChildWindow
     {
+
+        #region Variables
+
+        /// <summary>
+        /// Variavel de acesso aos webservices
+        /// </summary>
+        private TerminalWebSVC.TerminalWebClient terminalWebClient =
+            new TerminalWebSVC.TerminalWebClient(StaticData.BasicHttpBind(), StaticData.ClientDataEndpoint());
+
+        #endregion
+
+
+
         public ConfiguracaoGeral(List<TerminalWebSVC.TemplateDTO> listTemplates)
         {
             InitializeComponent();
 
-            
+            //eventos
+            terminalWebClient.DeleteTemplateCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(terminalWebClient_DeleteTemplateCompleted);
+            terminalWebClient.GetTemplatesByUserCompleted += new EventHandler<TerminalWebSVC.GetTemplatesByUserCompletedEventArgs>(terminalWebClient_GetTemplatesByUserCompleted);
             gridTemplate.ItemsSource = listTemplates;
+        }
+
+        void terminalWebClient_GetTemplatesByUserCompleted(object sender, TerminalWebSVC.GetTemplatesByUserCompletedEventArgs e)
+        {
+            gridTemplate.ItemsSource = null;
+            gridTemplate.ItemsSource = e.Result;
+        }
+
+        void terminalWebClient_DeleteTemplateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            terminalWebClient.GetTemplatesByUserAsync(StaticData.User.Id);
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
@@ -34,7 +60,7 @@ namespace Traderdata.Client.TerminalWEB.Dialogs
 
         private void btnRemoverTemplates_Click(object sender, RoutedEventArgs e)
         {
-
+            terminalWebClient.DeleteTemplateAsync((TerminalWebSVC.TemplateDTO)gridTemplate.SelectedItem);
         }
 
        

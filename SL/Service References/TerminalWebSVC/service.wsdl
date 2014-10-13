@@ -50,6 +50,12 @@
   <wsdl:message name="ITerminalWeb_SaveTemplate_OutputMessage">
     <wsdl:part name="parameters" element="tns:SaveTemplateResponse" />
   </wsdl:message>
+  <wsdl:message name="ITerminalWeb_DeleteTemplate_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTemplate" />
+  </wsdl:message>
+  <wsdl:message name="ITerminalWeb_DeleteTemplate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTemplateResponse" />
+  </wsdl:message>
   <wsdl:message name="ITerminalWeb_GetGrafico_InputMessage">
     <wsdl:part name="parameters" element="tns:GetGrafico" />
   </wsdl:message>
@@ -92,6 +98,10 @@
     <wsdl:operation name="SaveTemplate">
       <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/SaveTemplate" message="tns:ITerminalWeb_SaveTemplate_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/SaveTemplateResponse" message="tns:ITerminalWeb_SaveTemplate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTemplate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/DeleteTemplate" message="tns:ITerminalWeb_DeleteTemplate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITerminalWeb/DeleteTemplateResponse" message="tns:ITerminalWeb_DeleteTemplate_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetGrafico">
       <wsdl:input wsaw:Action="http://tempuri.org/ITerminalWeb/GetGrafico" message="tns:ITerminalWeb_GetGrafico_InputMessage" />
@@ -137,6 +147,15 @@
     </wsdl:operation>
     <wsdl:operation name="SaveTemplate">
       <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTemplate">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/DeleteTemplate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -212,6 +231,15 @@
     </wsdl:operation>
     <wsdl:operation name="SaveTemplate">
       <soap:operation soapAction="http://tempuri.org/ITerminalWeb/SaveTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTemplate">
+      <soap:operation soapAction="http://tempuri.org/ITerminalWeb/DeleteTemplate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

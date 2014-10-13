@@ -1414,6 +1414,11 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         
         Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO EndSaveTemplate(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/DeleteTemplate", ReplyAction="http://tempuri.org/ITerminalWeb/DeleteTemplateResponse")]
+        System.IAsyncResult BeginDeleteTemplate(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template, System.AsyncCallback callback, object asyncState);
+        
+        void EndDeleteTemplate(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/GetGrafico", ReplyAction="http://tempuri.org/ITerminalWeb/GetGraficoResponse")]
         System.IAsyncResult BeginGetGrafico(string ativo, int userId, int periodicidade, System.AsyncCallback callback, object asyncState);
         
@@ -1618,6 +1623,12 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         
         private System.Threading.SendOrPostCallback onSaveTemplateCompletedDelegate;
         
+        private BeginOperationDelegate onBeginDeleteTemplateDelegate;
+        
+        private EndOperationDelegate onEndDeleteTemplateDelegate;
+        
+        private System.Threading.SendOrPostCallback onDeleteTemplateCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetGraficoDelegate;
         
         private EndOperationDelegate onEndGetGraficoDelegate;
@@ -1706,6 +1717,8 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         public event System.EventHandler<GetTemplatesByUserCompletedEventArgs> GetTemplatesByUserCompleted;
         
         public event System.EventHandler<SaveTemplateCompletedEventArgs> SaveTemplateCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DeleteTemplateCompleted;
         
         public event System.EventHandler<GetGraficoCompletedEventArgs> GetGraficoCompleted;
         
@@ -1857,6 +1870,51 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
             }
             base.InvokeAsync(this.onBeginSaveTemplateDelegate, new object[] {
                         template}, this.onEndSaveTemplateDelegate, this.onSaveTemplateCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.BeginDeleteTemplate(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDeleteTemplate(template, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.EndDeleteTemplate(System.IAsyncResult result) {
+            base.Channel.EndDeleteTemplate(result);
+        }
+        
+        private System.IAsyncResult OnBeginDeleteTemplate(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO)(inValues[0]));
+            return ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).BeginDeleteTemplate(template, callback, asyncState);
+        }
+        
+        private object[] OnEndDeleteTemplate(System.IAsyncResult result) {
+            ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).EndDeleteTemplate(result);
+            return null;
+        }
+        
+        private void OnDeleteTemplateCompleted(object state) {
+            if ((this.DeleteTemplateCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.DeleteTemplateCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void DeleteTemplateAsync(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template) {
+            this.DeleteTemplateAsync(template, null);
+        }
+        
+        public void DeleteTemplateAsync(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template, object userState) {
+            if ((this.onBeginDeleteTemplateDelegate == null)) {
+                this.onBeginDeleteTemplateDelegate = new BeginOperationDelegate(this.OnBeginDeleteTemplate);
+            }
+            if ((this.onEndDeleteTemplateDelegate == null)) {
+                this.onEndDeleteTemplateDelegate = new EndOperationDelegate(this.OnEndDeleteTemplate);
+            }
+            if ((this.onDeleteTemplateCompletedDelegate == null)) {
+                this.onDeleteTemplateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteTemplateCompleted);
+            }
+            base.InvokeAsync(this.onBeginDeleteTemplateDelegate, new object[] {
+                        template}, this.onEndDeleteTemplateDelegate, this.onDeleteTemplateCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -2200,6 +2258,18 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
                 object[] _args = new object[0];
                 Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO _result = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO)(base.EndInvoke("SaveTemplate", _args, result)));
                 return _result;
+            }
+            
+            public System.IAsyncResult BeginDeleteTemplate(Traderdata.Client.TerminalWEB.TerminalWebSVC.TemplateDTO template, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = template;
+                System.IAsyncResult _result = base.BeginInvoke("DeleteTemplate", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndDeleteTemplate(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("DeleteTemplate", _args, result);
             }
             
             public System.IAsyncResult BeginGetGrafico(string ativo, int userId, int periodicidade, System.AsyncCallback callback, object asyncState) {

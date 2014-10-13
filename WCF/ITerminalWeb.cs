@@ -31,6 +31,9 @@ namespace Traderdata.Server.App.TerminalWeb
         [OperationContract]
         TemplateDTO SaveTemplate(TemplateDTO template);
 
+        [OperationContract]
+        void DeleteTemplate(TemplateDTO template);
+
         #endregion
 
         #region Grafico

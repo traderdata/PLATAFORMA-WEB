@@ -287,6 +287,37 @@ namespace Traderdata.Server.App.TerminalWeb.DAO
             }
         }
 
+        /// <summary>
+        /// Insert new user
+        /// </summary>
+        /// <param name="cotacao"></param>
+        public void DeleteTemplate(TemplateDTO template)
+        {
+            StringBuilder sql = new StringBuilder();
+
+            try
+            {
+
+
+                sql.Append("DELETE FROM TEMPLATE WHERE TEMP_CD_TEMPLATE = ?template ");
+                
+
+
+                //Executando a query
+                using (MySql.Data.MySqlClient.MySqlCommand command = new MySql.Data.MySqlClient.MySqlCommand(sql.ToString(), writeConnection))
+                {
+                    //adicionando parametros
+                    command.Parameters.AddWithValue("?template", template.Id);
+                    command.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+        }
+
         #endregion
     }
 }

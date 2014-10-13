@@ -15,9 +15,9 @@
             <controls:TabItem Header="Templates" Name="tabItem1">
                 <Grid>
                     <Button Content="Remover" Height="23" HorizontalAlignment="Right" Margin="0,207,6,6" Name="btnRemoverTemplates" Width="75" Click="btnRemoverTemplates_Click" />
-                    <sdk:DataGrid AutoGenerateColumns="False" Height="179" HorizontalAlignment="Left" Margin="6,6,0,0" Name="gridTemplate" VerticalAlignment="Top" Width="505" >
+                    <sdk:DataGrid AutoGenerateColumns="False" Height="179" HorizontalAlignment="Left" Margin="6,6,0,0" Name="gridTemplate" VerticalAlignment="Top" Width="505" SelectionMode="Single">
                         <sdk:DataGrid.Columns>
-                            <sdk:DataGridTextColumn Header="Nome" Width="470" Binding="{Binding Nome}" />                            
+                            <sdk:DataGridTextColumn Header="Nome" Width="470" Binding="{Binding Nome}" IsReadOnly="True" />                            
                         </sdk:DataGrid.Columns>
                     </sdk:DataGrid>
                 </Grid>

@@ -5,6 +5,5 @@ C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\obj\Debug\WebStar
 C:\Backup\Projetos2012\CLIENT\TERMINAL-WEB-2012\WEB\WebStartup\obj\Debug\WebStartup.csprojResolveAssemblyReference.cache
 C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\bin\WebStartup.dll
 C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\bin\WebStartup.pdb
-C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\obj\Debug\WebStartup.csprojResolveAssemblyReference.cache
 C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\obj\Debug\WebStartup.dll
 C:\Backup\GITHUB\PLATAFORMA-WEB\WEB\WebStartup\obj\Debug\WebStartup.pdb

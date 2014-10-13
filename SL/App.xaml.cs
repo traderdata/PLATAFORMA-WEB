@@ -59,20 +59,31 @@ namespace Traderdata.Client.TerminalWEB
 
             //pegando o codigo do cliente
             string login = "";
-            if (e.InitParams.ContainsKey("USR"))
+            if (e.InitParams.ContainsKey("usr"))
             {
-                login = StaticData.Distribuidor + "#" + e.InitParams["USR"];
+                login = StaticData.Distribuidor + "#" + e.InitParams["usr"];
             }
             else
             {
                 login = StaticData.Distribuidor + "#DEMO";
             }
 
+            //pegando o symbol
+            string symbol = "";
+            if (e.InitParams.ContainsKey("symbol"))
+            {
+                symbol = e.InitParams["symbol"].ToUpper();
+            }
+            else
+            {
+                symbol = "IBOV";
+            }
+
             StaticData.DelayedVersion = false;            
             StaticData.DistribuidorId = 8;
             
             //abrindo o main page
-            this.RootVisual = new ChartOnlyMainPage(login, "PETR4");
+            this.RootVisual = new ChartOnlyMainPage(login, symbol);
             
         }
 
