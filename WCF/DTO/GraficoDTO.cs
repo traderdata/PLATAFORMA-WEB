@@ -18,6 +18,8 @@ namespace Traderdata.Server.App.TerminalWeb.DTO
         [DataMember]
         public int Periodicidade { get; set; }
         [DataMember]
+        public string PeriodicidadeStr { get; set; }
+        [DataMember]
         public int UsuarioId { get; set; }
         [DataMember]
         public DateTime DataCadastro { get; set; }

@@ -50,38 +50,59 @@ namespace Traderdata.Client.TerminalWEB
             {
                 StaticData.WaterMark = e.InitParams["broker"];
                 StaticData.Distribuidor = e.InitParams["broker"];
+
+                if (e.InitParams["broker"] == "TRADERDATA")
+                    StaticData.DelayedVersion = true;        
+                else
+                    StaticData.DelayedVersion = false;        
             }
             else
             {
                 StaticData.WaterMark = "TRADERDATA";
-                StaticData.Distribuidor = "DEMO";
+                StaticData.Distribuidor = "TRADERDATA";
+                StaticData.DelayedVersion = true;        
             }
 
             //pegando o codigo do cliente
             string login = "";
-            if (e.InitParams.ContainsKey("usr"))
+            if ((e.InitParams.ContainsKey("usr")) && (e.InitParams["usr"] != null) && (e.InitParams["usr"] != ""))
             {
                 login = StaticData.Distribuidor + "#" + e.InitParams["usr"];
             }
             else
             {
+                StaticData.DelayedVersion = true;
                 login = StaticData.Distribuidor + "#DEMO";
             }
 
             //pegando o symbol
             string symbol = "";
-            if (e.InitParams.ContainsKey("symbol"))
+            
+            if ((e.InitParams.ContainsKey("symbol")) && (e.InitParams["symbol"] != null) && (e.InitParams["symbol"] != ""))
             {
                 symbol = e.InitParams["symbol"].ToUpper();
             }
             else
             {
                 symbol = "IBOV";
+                
             }
 
-            StaticData.DelayedVersion = false;            
-            StaticData.DistribuidorId = 8;
-            
+            if ((e.InitParams.ContainsKey("token")) && (e.InitParams["token"] != null) && (e.InitParams["token"] != ""))
+            {
+                StaticData.Token = e.InitParams["token"];
+            }
+            else
+            {
+                StaticData.DelayedVersion = true;
+                StaticData.Token = "";
+            }
+
+            if ((e.InitParams.ContainsKey("ga")) && (e.InitParams["ga"] != null) && (e.InitParams["ga"] != ""))
+            {
+                StaticData.GoogleAnalytics = e.InitParams["ga"];
+            }
+
             //abrindo o main page
             this.RootVisual = new ChartOnlyMainPage(login, symbol);
             

@@ -245,5 +245,16 @@ namespace Traderdata.Client.TerminalWEB.Util
                     return TerminalWEB.Periodicidade.Nenhum;
             }
         }
+
+        /// <summary>
+        /// Valida sestring tem formato de email
+        /// </summary>
+        /// <param name="strIn"></param>
+        /// <returns></returns>
+        public static bool IsValidEmail(string strIn)
+        {
+            System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+            return r.IsMatch(strIn);
+        }
     }
 }

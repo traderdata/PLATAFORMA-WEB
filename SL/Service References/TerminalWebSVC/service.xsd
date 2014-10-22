@@ -85,6 +85,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetGraficosByUserId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGraficosByUserIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetGraficosByUserIdResult" nillable="true" type="q9:ArrayOfGraficoDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetObjetoFake">
     <xs:complexType>
       <xs:sequence />
@@ -93,7 +107,7 @@
   <xs:element name="GetObjetoFakeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetObjetoFakeResult" nillable="true" type="q9:ObjetoEstudoDTO" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetObjetoFakeResult" nillable="true" type="q10:ObjetoEstudoDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -105,7 +119,7 @@
   <xs:element name="GetIndicatorFakeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetIndicatorFakeResult" nillable="true" type="q10:IndicadorDTO" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetIndicatorFakeResult" nillable="true" type="q11:IndicadorDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -117,7 +131,7 @@
   <xs:element name="GetLIndicatorFakeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetLIndicatorFakeResult" nillable="true" type="q11:LayoutDTO" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Traderdata.Server.App.TerminalWeb.DTO" minOccurs="0" name="GetLIndicatorFakeResult" nillable="true" type="q12:LayoutDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

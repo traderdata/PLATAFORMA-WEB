@@ -55,6 +55,28 @@ namespace Traderdata.Server.App.TerminalWeb.BusinessManager
             }
         }
 
+        /// <summary>
+        /// Metodo que retorna periodicidade
+        /// </summary>
+        /// <param name="ativo"></param>
+        /// <param name="userId"></param>
+        /// <param name="periodicidade"></param>
+        /// <returns></returns>
+        public List<GraficoDTO> GetGraficoByUserId(int userId)
+        {
+            try
+            {
+                using (GraficoDAO graficoDAO = new GraficoDAO(readConnection, writeConnection))
+                {
+                    return graficoDAO.GetGraficoByUserId(userId);
+                }
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+        }
+
         #endregion
 
         #region Write

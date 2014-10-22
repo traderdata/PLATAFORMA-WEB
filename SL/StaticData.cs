@@ -207,6 +207,12 @@ namespace Traderdata.Client.TerminalWEB
         #endregion
 
         #region RealTime
+        
+        /// <summary>
+        /// Google analytics ID
+        /// </summary>
+        public static string GoogleAnalytics = "";
+        
 
         /// <summary>
         /// String de conexao ao servidor RT Bovespa
@@ -258,6 +264,8 @@ namespace Traderdata.Client.TerminalWEB
         /// Variavel que armazena o codigo do usuario dentro da Traderdata
         /// </summary>
         public static TerminalWebSVC.UserDTO User;
+
+        public static string Token = "";
 
         /// <summary>
         /// Variavel que controla o perfil do usuario localmente

@@ -180,6 +180,12 @@ namespace Traderdata.Client.TerminalWEB
             this.Periodicidade = periodicidade;
             this.PeriodicidadeAnterior = periodicidade;
 
+            //checando se esta em realtime
+            if (StaticData.DelayedVersion)
+                txtSinal.Visibility = System.Windows.Visibility.Visible;
+            else
+                txtSinal.Visibility = System.Windows.Visibility.Collapsed;
+
             //Assinando os eventos de comunicazação WCF
             marketDataDAO.GetCotacaoDiariaCompleted += new MarketDataDAO.CotacaoDiarioHandler(marketDataDAO_GetCotacaoDiariaCompleted);
             marketDataDAO.GetCotacaoIntradayCompleted += new MarketDataDAO.CotacaoIntradayHandler(marketDataDAO_GetCotacaoIntradayCompleted);
@@ -3632,6 +3638,28 @@ namespace Traderdata.Client.TerminalWEB
         }
 
         #endregion
+
+        private void txtSinal_Click(object sender, RoutedEventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Os dados apresentados estão com delay de 15 minutos.");
+            sb.AppendLine("O acesso em tempo real será gratuito através das corretoreas parceiras.");
+            sb.AppendLine("Se a sua corretora ainda não é parceira, solicite isso ao seu atendimento.");
+            sb.AppendLine("");
+            sb.AppendLine("Lista de corretoras parceiras:");
+            sb.AppendLine("- Agora");
+            sb.AppendLine("- XP");
+            sb.AppendLine("- HSBC");
+            sb.AppendLine("- InvestHb");
+            sb.AppendLine("- Walpires");
+            sb.AppendLine("- TOV");
+            sb.AppendLine("- Titulo");
+            sb.AppendLine("- Votorantim");
+            sb.AppendLine("- Ativa");
+            sb.AppendLine("- Gradual");
+            sb.AppendLine("- Fator");
+            MessageBox.Show(sb.ToString());
+        }
 
         
     }

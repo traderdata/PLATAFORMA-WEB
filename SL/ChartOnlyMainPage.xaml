@@ -50,7 +50,7 @@
                 </Grid.ColumnDefinitions>                
             
                 <c1:C1ToolbarStrip Name="c1ToolbarSuperior" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Horizontal" Height="36" Grid.Column="0" Background="LightGray">
-                    <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarOpenGrafico" Visibility="Visible"  />
+                    <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/folder-open-icon.png" ToolTipService.ToolTip="Abrir Gráfico" Name="tbarOpenGrafico" Visibility="Visible" Click="tbarOpenGrafico_Click" />
                     <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/salvar.png" ToolTipService.ToolTip="Salvar Gráfico" Name="tbarSalvarGrafico"  Click="tbarSalvarGrafico_Click_1"/>
             <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/application_x_desktop.png" ToolTipService.ToolTip="Configurações" Name="tbarConfig" Click="tbarConfig_Click"  />
                 <TextBox Name="txtAtivo" Width="55" KeyDown="txtAtivo_KeyDown_1" Text="[ATIVO]" GotFocus="txtAtivo_GotFocus" />
@@ -178,9 +178,9 @@
             </c1:C1ToolbarToggleButton>
             <c1:C1Separator />            
             <c1:C1ToolbarButton LargeImageSource="/TerminalWeb;component/images/help-icon.png" ToolTipService.ToolTip="Manual" Name="tbarManual"  Width="24" Height="24" />
-
+            
         </c1:C1ToolbarStrip>
-                <Canvas Grid.Column="1" Background="LightGray" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="250" Margin="00,0,0,00">
+                <Canvas Grid.Column="1" Background="LightGray" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="250" Margin="00,0,0,00">                    
                     <TextBlock Name="txtAtivoVariacao"  Text="" FontWeight="Bold" FontSize="14" Foreground="Green" TextAlignment="Right" Width="250" Height="28" Margin="-10,0,0,0"/>
                 </Canvas>
             </Grid>

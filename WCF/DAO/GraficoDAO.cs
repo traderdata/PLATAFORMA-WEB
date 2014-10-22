@@ -73,6 +73,58 @@ namespace Traderdata.Server.App.TerminalWeb.DAO
         }
 
         /// <summary>
+        /// Metodo que retorna o gráfico de acordo com o ativo e a periodicidade
+        /// </summary>
+        /// <param name="ativo"></param>
+        /// <param name="periodicidade"></param>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public List<GraficoDTO> GetGraficoByUserId(int userId)
+        {
+            StringBuilder hql = new StringBuilder();
+            MySql.Data.MySqlClient.MySqlDataReader reader = null;
+
+            try
+            {
+                //Montando a query
+                hql.Append(" SELECT * FROM GRAFICO GR");
+                hql.Append(" LEFT JOIN LAYOUT L ON GR.GRAF_CD_GRAFICO = L.GRAF_CD_GRAFICO");
+                hql.Append(" LEFT JOIN INDICADOR I ON L.LAYO_CD_LAYOUT = I.LAYO_CD_LAYOUT");
+                hql.Append(" LEFT JOIN OBJETO_ESTUDO O ON L.LAYO_CD_LAYOUT = O.LAYO_CD_LAYOUT");
+                hql.Append(" LEFT JOIN PAINEL P ON L.LAYO_CD_LAYOUT = P.LAYO_CD_LAYOUT");
+                hql.Append(" WHERE  USUA_CD_USUARIO = ?usuario");
+                hql.Append(" ORDER BY GRAF_DT_CADASTRO DESC ");
+
+                //Executando a query
+                using (MySqlCommand command = new MySqlCommand(hql.ToString(), readConnection))
+                {
+                    //adicionando parametros
+                    command.Parameters.AddWithValue("?usuario", userId);
+                    
+
+                    //executando a query
+                    reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        return MapeiaGraficos(reader);
+                    }
+                    else
+                        return null;
+                }
+
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+            finally
+            {
+                reader.Close();
+            }
+        }
+
+        /// <summary>
         /// Metodo quye faz a conversao de array de objetos para 
         /// </summary>
         /// <param name="listaAux"></param>
@@ -103,6 +155,63 @@ namespace Traderdata.Server.App.TerminalWeb.DAO
                             graficoDTO.Ativo = reader.GetString("GRAF_NM_ATIVO");
                             graficoDTO.Id = reader.GetInt32("GRAF_CD_GRAFICO");
                             graficoDTO.Periodicidade = reader.GetInt32("GRAF_VL_PERIODICIDADE");
+                            switch (graficoDTO.Periodicidade)
+                            {
+                                case 1:
+                                    graficoDTO.PeriodicidadeStr = "1 Minuto";
+                                    break;
+                                case 2:
+                                    graficoDTO.PeriodicidadeStr = "2 Minutos";
+                                    break;
+                                case 3:
+                                    graficoDTO.PeriodicidadeStr = "3 Minutos";
+                                    break;
+                                case 4:
+                                    graficoDTO.PeriodicidadeStr = "4 Minutos";
+                                    break;
+                                case 5:
+                                    graficoDTO.PeriodicidadeStr = "5 Minutos";
+                                    break;
+                                case 6:
+                                    graficoDTO.PeriodicidadeStr = "6 Minutos";
+                                    break;
+                                case 7:
+                                    graficoDTO.PeriodicidadeStr = "7 Minutos";
+                                    break;
+                                case 8:
+                                    graficoDTO.PeriodicidadeStr = "8 Minutos";
+                                    break;
+                                case 9:
+                                    graficoDTO.PeriodicidadeStr = "9 Minutos";
+                                    break;
+                                case 10:
+                                    graficoDTO.PeriodicidadeStr = "10 Minutos";
+                                    break;
+                                case 15:
+                                    graficoDTO.PeriodicidadeStr = "15 Minutos";
+                                    break;
+                                case 30:
+                                    graficoDTO.PeriodicidadeStr = "30 Minutos";
+                                    break;
+                                case 45:
+                                    graficoDTO.PeriodicidadeStr = "45 Minutos";
+                                    break;
+                                case 60:
+                                    graficoDTO.PeriodicidadeStr = "1 Hora";
+                                    break;
+                                case 120:
+                                    graficoDTO.PeriodicidadeStr = "2 Horas";
+                                    break;
+                                case 1440:
+                                    graficoDTO.PeriodicidadeStr = "Diário";
+                                    break;
+                                case 10080:
+                                    graficoDTO.PeriodicidadeStr = "Semanal";
+                                    break;
+                                case 43200:
+                                    graficoDTO.PeriodicidadeStr = "Mensal";
+                                    break;
+                            }
                             graficoDTO.DataCadastro = reader.GetDateTime("GRAF_DT_CADASTRO");
                             graficoDTO.UsuarioId = reader.GetInt32("USUA_CD_USUARIO");
                             listaGrafico.Add(graficoDTO.Id, graficoDTO);

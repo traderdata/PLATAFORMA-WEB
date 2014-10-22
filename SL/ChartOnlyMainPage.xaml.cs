@@ -24,6 +24,7 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Core;
 using Traderdata.Client.TerminalWEB.Util;
+using System.Text;
 
 
 
@@ -48,6 +49,11 @@ namespace Traderdata.Client.TerminalWEB
         /// Timer que sera usado para fazer o carregamento incial
         /// </summary>
         private DispatcherTimer timerCarregamentoInicial = new DispatcherTimer();
+
+        /// <summary>
+        /// Timer que mantem pusuario vivo para o google analytics
+        /// </summary>
+        private DispatcherTimer timerPing = new DispatcherTimer();
 
         /// <summary>
         /// Lista de templares desse usuario
@@ -83,7 +89,7 @@ namespace Traderdata.Client.TerminalWEB
         /// Contrutor padrão
         /// </summary>
         public ChartOnlyMainPage(string login, string ativo)
-        {
+        { 
             InitializeComponent();
 
             //setando variaveis privadas
@@ -114,10 +120,6 @@ namespace Traderdata.Client.TerminalWEB
             }
                         
             #region Realtime
-
-            //eventos de Realtime BMF&BVSP
-            //RealTimeDAO.OnConnectErrorTick += RealTimeDAO_OnConnectErrorBVSP;
-            //RealTimeDAO.OnConnectSuccessTick += RealTimeDAO_OnConnectSuccessBVSP;
 
             //Reecbimento de tick
             RealTimeDAO.TickReceived += new RealTimeDAO.TickHandler(RealTimeDAO_TickReceived);
@@ -155,10 +157,6 @@ namespace Traderdata.Client.TerminalWEB
 
         }
 
-        
-
-        
-
 
         #endregion        
 
@@ -175,18 +173,63 @@ namespace Traderdata.Client.TerminalWEB
             timerPressButtons.Interval = new TimeSpan(0, 0, 0, 0, 200);
             timerPressButtons.Tick += new EventHandler(timerPressButtons_Tick);
             timerPressButtons.Start();
+
+            timerPing.Interval = new TimeSpan(0, 1, 0);
+            timerPing.Tick += new EventHandler(timerPing_Tick);
+            timerPing.Start();
             
             //setando o formulario como busy
             busyIndicator.BusyContent = "Autorizando...";
             busyIndicator.IsBusy = true;
 
             //Executando LoginOrInsert no login
-            terminalWebClient.LoginOrInsertUserCompleted += new EventHandler<TerminalWebSVC.LoginOrInsertUserCompletedEventArgs>(terminalWebClient_LoginOrInsertUserCompleted);
-            
-            terminalWebClient.LoginOrInsertUserAsync(this.login);
+            terminalWebClient.LoginOrInsertUserCompleted += new EventHandler<TerminalWebSVC.LoginOrInsertUserCompletedEventArgs>(terminalWebClient_LoginOrInsertUserCompleted);            
+
+            //checando se já tenho login
+            if (this.login.Contains("TRADERDATA"))
+            {
+                //login de conta demo, precisa pedir o email
+                C1PromptBox.Show("Informe o seu e-mail", "Acessar sistema gratuitamente", promptBoxAccess);
+            }
+            else
+            {
+                //login de corretora
+                terminalWebClient.LoginOrInsertUserAsync(this.login);
+            }
         }
 
-        
+        void timerPing_Tick(object sender, EventArgs e)
+        {
+            if (StaticData.GoogleAnalytics != "")
+            {
+                //track page
+                HtmlPage.Window.Invoke("ga", new string[] { "create", StaticData.GoogleAnalytics, "auto" });
+                HtmlPage.Window.Invoke("ga", new string[] { "send", "pageview" });
+            }
+        }
+
+        /// <summary>
+        /// Metodo invocado quando o cliente fecha o prompt box da C1
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="Result"></param>
+        private void promptBoxAccess(string message, MessageBoxResult Result)
+        {
+            if (Result == MessageBoxResult.OK)
+            {
+                if (GeneralUtil.IsValidEmail(message))
+                {
+                    //login de corretora
+                    terminalWebClient.LoginOrInsertUserAsync(message);
+                }
+                else
+                {
+                    MessageBox.Show("E-mail inválido. Por favor informe um email valido");
+                    C1PromptBox.Show("Informe o seu e-mail", "Acessar sistema gratuitamente", promptBoxAccess);
+                }
+            }
+        }
+
         #endregion
 
         #region Login
@@ -200,9 +243,12 @@ namespace Traderdata.Client.TerminalWEB
         {
             StaticData.User = e.Result;
             busyIndicator.IsBusy = false;
-            
-            //conectando nos servidores realtime
-            ConnectRTServers();
+
+            if (!StaticData.DelayedVersion)
+            {
+                //conectando nos servidores realtime
+                ConnectRTServers();
+            }
 
             //carregando os tempaltes
             terminalWebClient.GetTemplatesByUserAsync(StaticData.User.Id);
@@ -1416,6 +1462,18 @@ namespace Traderdata.Client.TerminalWEB
             
         }
 
+        private void tbarOpenGrafico_Click(object sender, RoutedEventArgs e)
+        {
+            AbrirGrafico graficosDialog = new AbrirGrafico();
+
+            graficosDialog.Closing += (sender1, e1) =>
+            {
+                
+            };
+            graficosDialog.Show();
+        }
+
+        
         
 
         

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DefaultTWeb2.aspx.cs" Inherits="WebStartup.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Grafico2.aspx.cs" Inherits="WebStartup.Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -152,7 +152,7 @@
 		  <param name="onError" value="onSilverlightError" />
           <param name="onLoad" value="pluginLoaded" />
           <param name="windowless" value="true" />
-          <param name="initParams" value="broker=<%=ConfigurationSettings.AppSettings["broker"]%>,usr=<%=Request["usr"] %>,token=<%=Request["token"]%>,symbol=<%=Request["symbol"]%>" />
+          <param name="initParams" value="broker=<%=ConfigurationSettings.AppSettings["broker"]%>,usr=<%=Request["usr"] %>,token=<%=Request["token"]%>,symbol=<%=Request["symbol"]%>,ga=<%=ConfigurationSettings.AppSettings["GA2"]%>" />
 		  <param name="background" value="white" />
 		  <param name="minRuntimeVersion" value="4.0.50826.0" />
 		  <param name="autoUpgrade" value="true" />

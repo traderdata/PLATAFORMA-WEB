@@ -120,8 +120,10 @@
                 <TextBlock Text="Min:" Name="lblMinimo" Foreground="Black" Margin="10,0,0,0" FontSize="9"/>
                 <TextBlock Text="Max:" Name="lblMaximo" Foreground="Black" Margin="10,0,0,0" FontSize="9"/>
                 <TextBlock Text="Ult:" Name="lblUltimo" Foreground="Black" Margin="10,0,0,0" FontSize="9" FontWeight="Bold"/>
+                <HyperlinkButton Content="Sinal com Delay" Name="txtSinal" Foreground="Red" Margin="10,0,0,0" FontSize="10" FontWeight="Bold" Click="txtSinal_Click" />
             </StackPanel>
-        </Canvas>
+        
+            </Canvas>
         <Border Background="Orange" Name="borderValorYPosicionado" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed" Height="15">            
             <TextBlock Name="txtValorYPosicionado" TextAlignment="Center" Text="44.44" Foreground="Black" FontSize="8" Margin="10,0,10,0" FontWeight="Bold" />
         </Border>

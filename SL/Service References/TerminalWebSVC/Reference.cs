@@ -1305,6 +1305,8 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         
         private int PeriodicidadeField;
         
+        private string PeriodicidadeStrField;
+        
         private int UsuarioIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -1373,6 +1375,19 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PeriodicidadeStr {
+            get {
+                return this.PeriodicidadeStrField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PeriodicidadeStrField, value) != true)) {
+                    this.PeriodicidadeStrField = value;
+                    this.RaisePropertyChanged("PeriodicidadeStr");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int UsuarioId {
             get {
                 return this.UsuarioIdField;
@@ -1428,6 +1443,11 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         System.IAsyncResult BeginSaveGrafico(Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO grafico, System.AsyncCallback callback, object asyncState);
         
         Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO EndSaveGrafico(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/GetGraficosByUserId", ReplyAction="http://tempuri.org/ITerminalWeb/GetGraficosByUserIdResponse")]
+        System.IAsyncResult BeginGetGraficosByUserId(int userId, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO> EndGetGraficosByUserId(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ITerminalWeb/GetObjetoFake", ReplyAction="http://tempuri.org/ITerminalWeb/GetObjetoFakeResponse")]
         System.IAsyncResult BeginGetObjetoFake(System.AsyncCallback callback, object asyncState);
@@ -1546,6 +1566,25 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetGraficosByUserIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetGraficosByUserIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class GetObjetoFakeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -1641,6 +1680,12 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         
         private System.Threading.SendOrPostCallback onSaveGraficoCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetGraficosByUserIdDelegate;
+        
+        private EndOperationDelegate onEndGetGraficosByUserIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetGraficosByUserIdCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetObjetoFakeDelegate;
         
         private EndOperationDelegate onEndGetObjetoFakeDelegate;
@@ -1723,6 +1768,8 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         public event System.EventHandler<GetGraficoCompletedEventArgs> GetGraficoCompleted;
         
         public event System.EventHandler<SaveGraficoCompletedEventArgs> SaveGraficoCompleted;
+        
+        public event System.EventHandler<GetGraficosByUserIdCompletedEventArgs> GetGraficosByUserIdCompleted;
         
         public event System.EventHandler<GetObjetoFakeCompletedEventArgs> GetObjetoFakeCompleted;
         
@@ -2014,6 +2061,52 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.BeginGetGraficosByUserId(int userId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetGraficosByUserId(userId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO> Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.EndGetGraficosByUserId(System.IAsyncResult result) {
+            return base.Channel.EndGetGraficosByUserId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetGraficosByUserId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int userId = ((int)(inValues[0]));
+            return ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).BeginGetGraficosByUserId(userId, callback, asyncState);
+        }
+        
+        private object[] OnEndGetGraficosByUserId(System.IAsyncResult result) {
+            System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO> retVal = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb)(this)).EndGetGraficosByUserId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetGraficosByUserIdCompleted(object state) {
+            if ((this.GetGraficosByUserIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetGraficosByUserIdCompleted(this, new GetGraficosByUserIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetGraficosByUserIdAsync(int userId) {
+            this.GetGraficosByUserIdAsync(userId, null);
+        }
+        
+        public void GetGraficosByUserIdAsync(int userId, object userState) {
+            if ((this.onBeginGetGraficosByUserIdDelegate == null)) {
+                this.onBeginGetGraficosByUserIdDelegate = new BeginOperationDelegate(this.OnBeginGetGraficosByUserId);
+            }
+            if ((this.onEndGetGraficosByUserIdDelegate == null)) {
+                this.onEndGetGraficosByUserIdDelegate = new EndOperationDelegate(this.OnEndGetGraficosByUserId);
+            }
+            if ((this.onGetGraficosByUserIdCompletedDelegate == null)) {
+                this.onGetGraficosByUserIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetGraficosByUserIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetGraficosByUserIdDelegate, new object[] {
+                        userId}, this.onEndGetGraficosByUserIdDelegate, this.onGetGraficosByUserIdCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult Traderdata.Client.TerminalWEB.TerminalWebSVC.ITerminalWeb.BeginGetObjetoFake(System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginGetObjetoFake(callback, asyncState);
         }
@@ -2297,6 +2390,19 @@ namespace Traderdata.Client.TerminalWEB.TerminalWebSVC {
             public Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO EndSaveGrafico(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO _result = ((Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO)(base.EndInvoke("SaveGrafico", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginGetGraficosByUserId(int userId, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = userId;
+                System.IAsyncResult _result = base.BeginInvoke("GetGraficosByUserId", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO> EndGetGraficosByUserId(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO> _result = ((System.Collections.Generic.List<Traderdata.Client.TerminalWEB.TerminalWebSVC.GraficoDTO>)(base.EndInvoke("GetGraficosByUserId", _args, result)));
                 return _result;
             }
             

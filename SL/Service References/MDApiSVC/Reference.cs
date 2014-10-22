@@ -26,29 +26,6 @@ namespace Traderdata.Client.TerminalWEB.MDApiSVC {
         ShortString = 1,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CotacaoDTO.BasePeriodicity", Namespace="http://schemas.datacontract.org/2004/07/Traderdata.Server.Core.DTO")]
-    public enum CotacaoDTOBasePeriodicity : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        DailyEOD = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        DailyRT = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Minute = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        MinuteWithAfterMarket = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Second = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        IntradayEODMixed = 5,
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MDApiSVC.IMarketDataWCF")]
     public interface IMarketDataWCF {
@@ -95,7 +72,7 @@ namespace Traderdata.Client.TerminalWEB.MDApiSVC {
         System.Collections.Generic.List<string> EndGetAtivosByIndice(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMarketDataWCF/GetCotacao", ReplyAction="http://tempuri.org/IMarketDataWCF/GetCotacaoResponse")]
-        System.IAsyncResult BeginGetCotacao(string ativo, Traderdata.Client.TerminalWEB.MDApiSVC.CotacaoDTOBasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetCotacao(string ativo, Traderdata.Server.Core.DTO.CotacaoDTO.BasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndGetCotacao(System.IAsyncResult result);
         
@@ -875,7 +852,7 @@ namespace Traderdata.Client.TerminalWEB.MDApiSVC {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Traderdata.Client.TerminalWEB.MDApiSVC.IMarketDataWCF.BeginGetCotacao(string ativo, Traderdata.Client.TerminalWEB.MDApiSVC.CotacaoDTOBasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket, System.AsyncCallback callback, object asyncState) {
+        System.IAsyncResult Traderdata.Client.TerminalWEB.MDApiSVC.IMarketDataWCF.BeginGetCotacao(string ativo, Traderdata.Server.Core.DTO.CotacaoDTO.BasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginGetCotacao(ativo, basePeriodicity, compression, de, ate, delay, maxBarras, nominal, afterMarket, callback, asyncState);
         }
         
@@ -886,7 +863,7 @@ namespace Traderdata.Client.TerminalWEB.MDApiSVC {
         
         private System.IAsyncResult OnBeginGetCotacao(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string ativo = ((string)(inValues[0]));
-            Traderdata.Client.TerminalWEB.MDApiSVC.CotacaoDTOBasePeriodicity basePeriodicity = ((Traderdata.Client.TerminalWEB.MDApiSVC.CotacaoDTOBasePeriodicity)(inValues[1]));
+            Traderdata.Server.Core.DTO.CotacaoDTO.BasePeriodicity basePeriodicity = ((Traderdata.Server.Core.DTO.CotacaoDTO.BasePeriodicity)(inValues[1]));
             int compression = ((int)(inValues[2]));
             System.Nullable<System.DateTime> de = ((System.Nullable<System.DateTime>)(inValues[3]));
             System.Nullable<System.DateTime> ate = ((System.Nullable<System.DateTime>)(inValues[4]));
@@ -910,11 +887,11 @@ namespace Traderdata.Client.TerminalWEB.MDApiSVC {
             }
         }
         
-        public void GetCotacaoAsync(string ativo, Traderdata.Client.TerminalWEB.MDApiSVC.CotacaoDTOBasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket) {
+        public void GetCotacaoAsync(string ativo, Traderdata.Server.Core.DTO.CotacaoDTO.BasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket) {
             this.GetCotacaoAsync(ativo, basePeriodicity, compression, de, ate, delay, maxBarras, nominal, afterMarket, null);
         }
         
-        public void GetCotacaoAsync(string ativo, Traderdata.Client.TerminalWEB.MDApiSVC.CotacaoDTOBasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket, object userState) {
+        public void GetCotacaoAsync(string ativo, Traderdata.Server.Core.DTO.CotacaoDTO.BasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket, object userState) {
             if ((this.onBeginGetCotacaoDelegate == null)) {
                 this.onBeginGetCotacaoDelegate = new BeginOperationDelegate(this.OnBeginGetCotacao);
             }
@@ -1267,7 +1244,7 @@ namespace Traderdata.Client.TerminalWEB.MDApiSVC {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetCotacao(string ativo, Traderdata.Client.TerminalWEB.MDApiSVC.CotacaoDTOBasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginGetCotacao(string ativo, Traderdata.Server.Core.DTO.CotacaoDTO.BasePeriodicity basePeriodicity, int compression, System.Nullable<System.DateTime> de, System.Nullable<System.DateTime> ate, System.Nullable<bool> delay, System.Nullable<int> maxBarras, bool nominal, bool afterMarket, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[9];
                 _args[0] = ativo;
                 _args[1] = basePeriodicity;

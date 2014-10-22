@@ -44,6 +44,9 @@ namespace Traderdata.Server.App.TerminalWeb
         [OperationContract]
         GraficoDTO SaveGrafico(GraficoDTO grafico);
 
+        [OperationContract]
+        List<GraficoDTO> GetGraficosByUserId(int userId);
+
         #endregion
 
         #region Fake

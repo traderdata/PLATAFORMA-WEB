@@ -351,7 +351,7 @@ namespace Traderdata.Client.TerminalWEB.DAO
                 
                 if (!StaticData.cacheCotacaoDiario.ContainsKey(ativo))
                 {
-                    mdWebClient.GetCotacaoAsync(ativo, MDApiSVC.CotacaoDTOBasePeriodicity.DailyEOD, 1, null, null, StaticData.DelayedVersion, null, false, false, args);
+                    mdWebClient.GetCotacaoAsync(ativo, CotacaoDTO.BasePeriodicity.DailyEOD, 1, null, null, StaticData.DelayedVersion, null, false, false, args);
                 }
                 else
                 {
@@ -382,7 +382,7 @@ namespace Traderdata.Client.TerminalWEB.DAO
 
                 if (!StaticData.cacheCotacaoIntraday.ContainsKey(ativo))
                 {
-                    mdWebClient.GetCotacaoAsync(ativo, MDApiSVC.CotacaoDTOBasePeriodicity.Minute, 1, null, null, StaticData.DelayedVersion, 10000, false, false, args);                
+                    mdWebClient.GetCotacaoAsync(ativo,CotacaoDTO.BasePeriodicity.Minute, 1, null, null, StaticData.DelayedVersion, 10000, false, false, args);                
                 }
                 else
                 {

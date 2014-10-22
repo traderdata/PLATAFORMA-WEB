@@ -168,6 +168,27 @@ namespace Traderdata.Server.App.TerminalWeb
             }
         }
 
+        /// <summary>
+        /// Metodo que retorna a lista de gráficos que o usuario possui
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public List<GraficoDTO> GetGraficosByUserId(int userId)
+        {
+            try
+            {
+                using (GraficoBM graficoBM = new GraficoBM(true, true))
+                {
+                    return graficoBM.GetGraficoByUserId(userId);
+                }
+            }
+            catch (Exception exc)
+            {
+                LogServicoBM.LogaEvento(serviceGroup, serviceName, "SaveGrafico", exc.StackTrace + " || " + exc.ToString(), EventLogEntryType.Error);
+                throw exc;
+            }
+        }
+
         #endregion
         
         
