@@ -1995,6 +1995,8 @@ namespace Traderdata.Client.TerminalWEB
                         }
                     }
                 }
+                
+
                 _stockChartX.Update();
             }
             catch (Exception exc)
@@ -2004,11 +2006,28 @@ namespace Traderdata.Client.TerminalWEB
         }
 
         /// <summary>
+        /// Metodo que seta o tipo de preço
+        /// </summary>
+        /// <param name="tipoPreco"></param>
+        public void SetTipoPreco(PriceStyleEnum tipoPreco)
+        {
+            _stockChartX.PriceStyle = tipoPreco;
+        }
+
+        /// <summary>
         /// Metodo que retorna o tipo de barra
         /// </summary>
         public SeriesTypeEnum GetTipoBarra()
         {
             return _stockChartX.PanelsCollection.ToList<ChartPanel>()[0].SeriesCollection.ToList<Series>()[0].SeriesType;
+        }
+
+        /// <summary>
+        /// Metodo que retorna o tipo de barra
+        /// </summary>
+        public PriceStyleEnum GetTipoPreco()
+        {
+            return _stockChartX.PriceStyle;
         }
 
         #endregion

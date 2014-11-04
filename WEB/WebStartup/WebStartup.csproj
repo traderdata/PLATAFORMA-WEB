@@ -61,6 +61,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ChoicePage.aspx" />
     <Content Include="Default2.aspx" />
     <Content Include="DefaultSave.aspx" />
     <Content Include="Grafico2.aspx" />
@@ -76,6 +77,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChoicePage.aspx.cs">
+      <DependentUpon>ChoicePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChoicePage.aspx.designer.cs">
+      <DependentUpon>ChoicePage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default2.aspx.cs">
       <DependentUpon>Default2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

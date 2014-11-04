@@ -1,0 +1,17 @@
+﻿<controls:ChildWindow x:Class="Traderdata.Client.TerminalWEB.Dialogs.EscolhaNovaJanelaxJanelaAtual"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           Width="414" Height="142" 
+           Title="Novo Gráfico" HasCloseButton="False" UseLayoutRounding="True">
+    <Grid x:Name="LayoutRoot" Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Button x:Name="OKButton" Content="OK" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,6,0" Grid.Row="1" />
+        <RadioButton Content="Deseja abrir gráfico em nova janela" Height="16" HorizontalAlignment="Left" Margin="12,12,0,0" Name="radioButton1" VerticalAlignment="Top" IsChecked="True" Checked="radioButton1_Checked" />
+        <!--<RadioButton Content="Deseja abrir gráfico em janela corrente (mantendo indicadores)" Height="16" HorizontalAlignment="Left" IsChecked="False" Margin="12,34,0,0" Name="radioButton2" VerticalAlignment="Top" Checked="radioButton2_Checked" />-->
+        <RadioButton Content="Deseja abrir gráfico em janela corrente" Height="16" HorizontalAlignment="Left" IsChecked="False" Margin="12,34,0,0" Name="radioButton3" VerticalAlignment="Top" Checked="radioButton3_Checked" />
+    </Grid>
+</controls:ChildWindow>

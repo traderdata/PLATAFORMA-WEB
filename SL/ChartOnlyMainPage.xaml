@@ -78,6 +78,11 @@
                     <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/delete-icon.png"/>                   
                 </StackPanel>
             </c1:C1ToolbarButton>
+            <c1:C1ToolbarButton ToolTipService.ToolTip="Rastreador de Indicadores" HorizontalAlignment="Right" Height="24" Name="tbarRastrearIndicadores" Click="tbarRastrearIndicadores_Click">
+                <StackPanel Orientation="Horizontal" >
+                    <Image Style="{StaticResource tbIcon}" Source="/TerminalWeb;component/images/idea-icon.png"/>
+                </StackPanel>
+            </c1:C1ToolbarButton>
 
 
                     <c1:C1Separator/>
@@ -169,6 +174,7 @@
             <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/candle-icon.png" ToolTipService.ToolTip="Candle"   Width="24" Height="24" Name="tbarCandle"  GroupName="TipoBarra" Click="tbarCandle_Click"/>
             <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/chart-icon.png" ToolTipService.ToolTip="Barra" Width="24" Height="24"  Name="tbarBarra" GroupName="TipoBarra" Click="tbarBarra_Click"/>
             <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/chart-line-icon.png" ToolTipService.ToolTip="Linha" Width="24" Height="24"  Name="tbarLinha" GroupName="TipoBarra" Click="tbarLinha_Click"/>
+            <c1:C1ToolbarToggleButton LargeImageSource="/TerminalWeb;component/images/candle-icon.png" ToolTipService.ToolTip="HeikinAshi" Width="24" Height="24"  Name="tbarHeikinAshi" GroupName="TipoBarra" Click="tbarHeikinAshi_Click"/>
             <c1:C1Separator />
             <c1:C1ToolbarToggleButton ToolTipService.ToolTip="Escala Normal" Width="24" Height="24"  Name="tbarEscalaNormal" GroupName="TipoEscala" Click="tbarEscalaNormal_Click">
                 <Image Style="{StaticResource tbIcon2Toolbar}" Source="/TerminalWeb;component/images/nm.png"/>

@@ -90,6 +90,7 @@ namespace Traderdata.Server.App.TerminalWeb.DAO
                         templateDTO.UsuarioId = reader.GetInt32("USUA_CD_USUARIO");
                         templateDTO.Id = reader.GetInt32("TEMP_CD_TEMPLATE");
                         templateDTO.Nome = reader.GetString("TEMP_NM_TEMPLATE");
+                        templateDTO.Layout = new LayoutDTO();
 
                         //adicionando a lista
                         listaTemplates.Add(reader.GetInt32("TEMP_CD_TEMPLATE"), templateDTO);
@@ -130,6 +131,8 @@ namespace Traderdata.Server.App.TerminalWeb.DAO
                             layot.CorGrid = reader.GetString("LAYO_NM_COR_GRID");
                             layot.CorEscala = reader.GetString("LAYO_NM_COR_ESCALA");
                             layot.UsarCoresAltaBaixaVolume = reader.GetBoolean("LAYO_IN_USAR_COR_VOLUME");
+                            layot.Indicadores = new List<IndicadorDTO>();
+                            layot.Objetos = new List<ObjetoEstudoDTO>();
 
                             //adicionando a lista
                             listalayout.Add(reader.GetInt32("LAYO_CD_LAYOUT"), layot);

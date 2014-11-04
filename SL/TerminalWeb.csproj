@@ -146,6 +146,9 @@
     <Compile Include="Dialogs\ConfiguracaoGeral.xaml.cs">
       <DependentUpon>ConfiguracaoGeral.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\EscolhaNovaJanelaxJanelaAtual.xaml.cs">
+      <DependentUpon>EscolhaNovaJanelaxJanelaAtual.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\HorizontalLineEdit.xaml.cs">
       <DependentUpon>HorizontalLineEdit.xaml</DependentUpon>
     </Compile>
@@ -160,6 +163,9 @@
     </Compile>
     <Compile Include="Dialogs\InfoPanel.xaml.cs">
       <DependentUpon>InfoPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\IntegracaoScanner.xaml.cs">
+      <DependentUpon>IntegracaoScanner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\NumericUpDownUC.xaml.cs">
       <DependentUpon>NumericUpDownUC.xaml</DependentUpon>
@@ -237,6 +243,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\EscolhaNovaJanelaxJanelaAtual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\HorizontalLineEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -254,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\InfoPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\IntegracaoScanner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -379,6 +393,7 @@
     </None>
     <Resource Include="images\application_x_desktop.png" />
     <None Include="Properties\InBrowserSettings.xml" />
+    <Resource Include="images\idea-icon.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>

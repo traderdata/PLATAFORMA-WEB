@@ -254,7 +254,7 @@ namespace Traderdata.Client.TerminalWEB
             terminalWebClient.GetTemplatesByUserAsync(StaticData.User.Id);
 
             //abrindo gráficosolicitado
-            NovoGrafico(ativoSelecionado);
+            NovoGrafico(ativoSelecionado, false);
         }
         
         /// <summary>
@@ -421,13 +421,17 @@ namespace Traderdata.Client.TerminalWEB
         /// Metodo que abre um procura por um gráfico salvo
         /// </summary>
         /// <param name="ativo"></param>
-        public void NovoGrafico(string ativo)
+        public void NovoGrafico(string ativo, bool mantemIndicadores)
         {
             busyIndicator.BusyContent = "Abrindo gráfico...";
             busyIndicator.IsBusy = true;
             List<object> args = new List<object>();
             args.Add(ativo);
             args.Add(GeneralUtil.GetIntPeriodicidade(Periodicidade.Diario));
+            if (mantemIndicadores)
+                args.Add(chart.GetLayoutDTOFromStockchart());
+            else
+                args.Add(null);
             terminalWebClient.GetGraficoAsync(ativo, StaticData.User.Id, GeneralUtil.GetIntPeriodicidade(Periodicidade.Diario), args);            
         }
 
@@ -444,7 +448,10 @@ namespace Traderdata.Client.TerminalWEB
             RealTimeDAO.StartTickSubscription(ativo);
             
             if (e.Result == null)           
-                chart = new Grafico(ativo, GeneralUtil.LayoutFake(), GeneralUtil.GetPeriodicidadeFromInt(periodicidade));            
+                if (args[2] == null)
+                    chart = new Grafico(ativo, GeneralUtil.LayoutFake(), GeneralUtil.GetPeriodicidadeFromInt(periodicidade));            
+                else
+                    chart = new Grafico(ativo, (TerminalWebSVC.LayoutDTO)args[2], GeneralUtil.GetPeriodicidadeFromInt(periodicidade));            
             else
                 chart = new Grafico(ativo, e.Result.Layout, GeneralUtil.GetPeriodicidadeFromInt(e.Result.Periodicidade));
 
@@ -756,6 +763,18 @@ namespace Traderdata.Client.TerminalWEB
         private void tbarCandle_Click(object sender, RoutedEventArgs e)
         {
             chart.SetTipoBarra(SeriesTypeEnum.stCandleChart);
+            chart.SetTipoPreco(PriceStyleEnum.psStandard);
+        }
+
+        /// <summary>
+        /// Evento disparado ao se clicar sobre o botao HekinAshi
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbarHeikinAshi_Click(object sender, RoutedEventArgs e)
+        {
+            chart.SetTipoBarra(SeriesTypeEnum.stCandleChart);
+            chart.SetTipoPreco(PriceStyleEnum.psHeikinAshi);
         }
 
         /// <summary>
@@ -766,6 +785,7 @@ namespace Traderdata.Client.TerminalWEB
         private void tbarBarra_Click(object sender, RoutedEventArgs e)
         {
             chart.SetTipoBarra(SeriesTypeEnum.stStockBarChart);
+            chart.SetTipoPreco(PriceStyleEnum.psStandard);
         }
 
         /// <summary>
@@ -776,6 +796,7 @@ namespace Traderdata.Client.TerminalWEB
         private void tbarLinha_Click(object sender, RoutedEventArgs e)
         {
             chart.SetTipoBarra(SeriesTypeEnum.stLineChart);
+            chart.SetTipoPreco(PriceStyleEnum.psStandard);
         }
 
         /// <summary>
@@ -787,19 +808,31 @@ namespace Traderdata.Client.TerminalWEB
             switch (chart.GetTipoBarra())
             {
                 case SeriesTypeEnum.stCandleChart:
-                    tbarCandle.IsChecked = true;
+                    if (chart.GetTipoPreco() == PriceStyleEnum.psStandard)
+                    {
+                        tbarCandle.IsChecked = true;
+                        tbarHeikinAshi.IsChecked = false;
+                    }
+                    else
+                    {
+                        tbarCandle.IsChecked = false;
+                        tbarHeikinAshi.IsChecked = true;
+                    }
                     tbarLinha.IsChecked = false;
                     tbarBarra.IsChecked = false;
+                    
                     break;
                 case SeriesTypeEnum.stLineChart:
                     tbarCandle.IsChecked = false;
                     tbarLinha.IsChecked = true;
                     tbarBarra.IsChecked = false;
+                    tbarHeikinAshi.IsChecked = false;
                     break;
                 case SeriesTypeEnum.stStockBarChart:
                     tbarCandle.IsChecked = false;
                     tbarLinha.IsChecked = false;
                     tbarBarra.IsChecked = true;
+                    tbarHeikinAshi.IsChecked = false;
                     break;
             }
 
@@ -1326,7 +1359,28 @@ namespace Traderdata.Client.TerminalWEB
         {
             if (e.Key == Key.Enter)
             {
-                NovoGrafico(txtAtivo.Text);
+                //disparar modal de escolhe entre grafico local ou nova janela
+                EscolhaNovaJanelaxJanelaAtual modalEscolha = new EscolhaNovaJanelaxJanelaAtual();
+
+                modalEscolha.Closing += (sender1, e1) =>
+                {
+                    switch (modalEscolha.TipoJanela)
+                    {
+                        case "N":
+                            HtmlPage.Window.Navigate(new Uri("./Grafico2.aspx?ativo=" + txtAtivo.Text + "&token=" + StaticData.Token + "&usr=" + StaticData.User.Login, UriKind.RelativeOrAbsolute), "_new");            
+                            break;
+                        case "JC":
+                            NovoGrafico(txtAtivo.Text, false);
+                            break;
+                        case "JCMI":
+                            NovoGrafico(txtAtivo.Text, true);
+                            break;
+                    }
+
+                    
+                };
+                modalEscolha.Show();
+                                
                 return;
             }
             e.Handled = MakeUpperCase((TextBox)sender, e);
@@ -1472,6 +1526,15 @@ namespace Traderdata.Client.TerminalWEB
             };
             graficosDialog.Show();
         }
+
+        private void tbarRastrearIndicadores_Click(object sender, RoutedEventArgs e)
+        {
+            C1.Silverlight.C1Window window = new C1Window();
+            window.Content = new IntegracaoScanner();
+            window.Show();
+        }
+
+        
 
         
         

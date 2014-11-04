@@ -103,6 +103,10 @@ namespace Traderdata.Client.TerminalWEB
                 StaticData.GoogleAnalytics = e.InitParams["ga"];
             }
 
+
+            //abrindo fixo o login
+            //login = "WALPIRES#000014522-3";
+
             //abrindo o main page
             this.RootVisual = new ChartOnlyMainPage(login, symbol);
             

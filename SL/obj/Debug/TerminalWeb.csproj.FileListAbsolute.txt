@@ -185,3 +185,5 @@ C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.pdb
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\XapCacheFile.xml
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\TerminalWeb.csprojResolveAssemblyReference.cache
 C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\ConfiguracaoGeral.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\IntegracaoScanner.g.i.cs
+C:\Backup\GITHUB\PLATAFORMA-WEB\SL\obj\Debug\Dialogs\EscolhaNovaJanelaxJanelaAtual.g.i.cs

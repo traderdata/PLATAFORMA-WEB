@@ -45,7 +45,7 @@ namespace Traderdata.Client.TerminalWEB.Dialogs
         {
             foreach (TerminalWebSVC.GraficoDTO chart in gridGraficos.SelectedItems)
             {
-                HtmlPage.Window.Navigate(new Uri("./DefaultTweb2.aspx?ativo=" + chart.Ativo + "&token=" + StaticData.Token + "&usr=" + StaticData.User.Login, UriKind.RelativeOrAbsolute), "_new");            
+                HtmlPage.Window.Navigate(new Uri("./Grafico2.aspx?ativo=" + chart.Ativo + "&token=" + StaticData.Token + "&usr=" + StaticData.User.Login, UriKind.RelativeOrAbsolute), "_new");            
             }
 
 

@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Traderdata.Client.TerminalWEB.Dialogs.IntegracaoScanner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="347" d:DesignWidth="462" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+    
+    <Grid x:Name="LayoutRoot" Background="White">
+        <sdk:DataGrid AutoGenerateColumns="False" Height="323" HorizontalAlignment="Left" Margin="12,12,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="438" RowHeight="40">
+            <sdk:DataGrid.Columns>
+                <sdk:DataGridTextColumn CanUserReorder="False" CanUserResize="False" CanUserSort="False" Header="Leitura Automática de Indicadores" Width="*" />
+            </sdk:DataGrid.Columns>
+        </sdk:DataGrid>
+    </Grid>
+</UserControl>
